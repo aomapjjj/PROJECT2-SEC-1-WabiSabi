@@ -19,7 +19,7 @@
 
 ## Application Features
 
-1. **Feature 1: **
+1. 
 
 ---
 
