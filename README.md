@@ -1,4 +1,5 @@
 # PROJECT2-SEC-1-WabiSabi
+
 <h1 align="center">?</h1>
 
 ## Member
@@ -34,4 +35,5 @@
 ---
 
 ## References or Inspiration
+
 
