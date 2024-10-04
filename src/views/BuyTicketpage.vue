@@ -37,7 +37,7 @@ const updateCouter = (newCouter) => {
       {{ itembyId?.location }}
     </template>
     <template #subtotal>
-      {{ (itembyId?.price * couter).toFixed(2) }}
+      {{ (itembyId?.price * couter).toFixed(2) == 0 ? 'Free' : (itembyId?.price * couter).toFixed(2) }}
     </template>
     <template #tax>
       {{ parseFloat((itembyId?.price * couter * (7 / 100)).toFixed(2)) }}
