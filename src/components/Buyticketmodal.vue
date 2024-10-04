@@ -1,24 +1,28 @@
 <script setup>
-import { ref , watch} from "vue"
+import { ref , watch , defineEmits} from "vue"
 
 import { useRouter } from "vue-router"
 
 const router = useRouter()
-const couter = ref(0)
 
+const emit = defineEmits(['update:couter']);
+const couter = ref(1);
 
+const increment = () => {
+  couter.value++;
+  emit('update:couter', couter.value);
+};
+
+const decrement = () => {
+  if (couter.value > 1) {
+    couter.value--;
+    emit('update:couter', couter.value);
+  }
+};
 
 const backtoHompage = () => {
-  router.push({ name: "homepage" })
+    router.push({name:"homepage"})
 }
-
-watch(couter, (newX) => {
-//   console.log(newX)
-
-
-})
-
-
 
 
 </script>
@@ -34,19 +38,7 @@ watch(couter, (newX) => {
           << Back
         </span>
       </div>
-      <div class="mb-2">
-        <h1 class="text-3xl md:text-5xl font-bold text-gray-600">Checkout.</h1>
-      </div>
-      <div class="mb-5 text-gray-400">
-        <a href="#" class="focus:outline-none hover:underline text-gray-500"
-          >Home</a
-        >
-        /
-        <a href="#" class="focus:outline-none hover:underline text-gray-500"
-          >Cart</a
-        >
-        / <span class="text-gray-600">Checkout</span>
-      </div>
+      
     </div>
     <div
       class="w-full bg-white border-t border-b border-gray-200 px-5 py-10 text-gray-800"
@@ -55,78 +47,55 @@ watch(couter, (newX) => {
         <div class="-mx-3 md:flex items-start">
           <div class="px-3 md:w-7/12 lg:pr-10">
             <div
-              class="w-full mx-auto text-gray-800 font-light mb-6 border-b border-gray-200 pb-6"
-            >
-              <div class="w-full flex items-center">
-                <div
-                  class="overflow-hidden w-28 h-38 rounded-lg bg-gray-50 border border-gray-200 mr-8"
-                >
-                  <img src="/img/con1.png" alt="" />
-                </div>
-                <div class="flex-grow pl-3">
-                  <h6 class="font-semibold uppercase text-gray-600">
-                   <slot name="title"></slot>
-                  </h6>
-                  <h1 class=" text-gray-600 text-md">
-                   <slot name="location"></slot>
-                  </h1>
+      class="w-full mx-auto text-gray-800 font-light mb-6 border-b border-gray-200 pb-6"
+    >
+      <div class="w-full flex items-start">
+        <div
+          class="overflow-hidden w-52 h-62 rounded-lg bg-gray-50 border border-gray-200 mr-8"
+        >
+          <img src="/img/con1.png" alt="" />
+        </div>
 
-                  <div class="custom-number-input h-10 w-32">
-                    <div
-                      class="flex flex-row h-10 w-full rounded-lg relative bg-transparent mt-4"
-                    >
-                      <button @click="couter > 0  ? couter-- : 0"
-                        class="bg-gray-300 text-gray-600 hover:text-gray-700 hover:bg-gray-400 h-full w-20 rounded-l cursor-pointer outline-none"
-                      >
-                        <span class="m-auto text-2xl font-thin">-</span>
-                      </button>
-                      <input
-                        type="text"
-                        disabled
-                        class="outline-none focus:outline-none text-center w-full bg-gray-300 font-semibold text-md hover:text-black focus:text-black md:text-basecursor-default flex items-center text-gray-700"
-                        name="custom-input-number"
-                        value="0"
-                        v-model="couter"
-                      />
-                      <button @click=" couter++ "
-                        class="bg-gray-300 text-gray-600 hover:text-gray-700 hover:bg-gray-400 h-full w-20 rounded-r cursor-pointer"
-                      >
-                        <span class="m-auto text-2xl font-thin">+</span>
-                      </button>
-                    </div>
-                  </div>
+        <div class="flex-grow pl-3">
+          <!-- เปลี่ยนจาก flex items-center เป็น flex flex-col -->
+          <div class="flex flex-col">
+            <h6 class="font-bold uppercase text-gray-600 text-3xl">
+              <slot name="title"></slot>
+            </h6>
+            <h1 class="text-gray-600 text-md mb-24 mt-4">
+              <slot name="location"></slot>
+            </h1>
+          </div>
 
+          <div>
+   
+    <div class="custom-number-input h-10 w-32 ">
+      <div class="flex flex-row h-10 w-full rounded-lg relative bg-transparent">
+        <button @click="decrement"
+          class="bg-gray-300 text-gray-400 hover:text-gray-700 hover:bg-gray-400 h-full w-20 rounded-l cursor-pointer outline-none"
+        >
+          <span class="m-auto text-2xl font-thin">-</span>
+        </button>
+        <input
+          type="text"
+          disabled
+          class="outline-none focus:outline-none text-center w-full bg-gray-300 font-semibold text-md hover:text-black focus:text-black md:text-basecursor-default flex items-center text-gray-700"
+          v-model="couter"
+        />
+        <button @click="increment"
+          class="bg-gray-300 text-gray-400 hover:text-gray-700 hover:bg-gray-400 h-full w-20 rounded-r cursor-pointer"
+        >
+          <span class="m-auto text-2xl font-thin">+</span>
+        </button>
+      </div>
+    </div>
+  </div>
+        </div>
 
-                </div>
-                <div>
-                  <span class="font-semibold text-gray-600 text-xl">  <slot name="price"></slot></span
-                  >
-                </div>
-              </div>
-            </div>
-            <div class="mb-6 pb-6 border-b border-gray-200">
-              <div class="-mx-2 flex items-end justify-end">
-                <div class="flex-grow px-2 lg:max-w-xs">
-                  <label class="text-gray-600 font-semibold text-sm mb-2 ml-1"
-                    >Discount code</label
-                  >
-                  <div>
-                    <input
-                      class="w-full px-3 py-2 border border-gray-200 rounded-md focus:outline-none focus:border-indigo-500 transition-colors"
-                      placeholder="XXXXXX"
-                      type="text"
-                    />
-                  </div>
-                </div>
-                <div class="px-2">
-                  <button
-                    class="block w-full max-w-xs mx-auto border border-transparent bg-gray-400 hover:bg-gray-500 focus:bg-gray-500 text-white rounded-md px-5 py-2 font-semibold"
-                  >
-                    APPLY
-                  </button>
-                </div>
-              </div>
-            </div>
+        
+      </div>
+    </div>
+            
             <div class="mb-6 pb-6 border-b border-gray-200 text-gray-800">
               <div class="w-full flex mb-3 items-center">
                 <div class="flex-grow">
@@ -153,7 +122,7 @@ watch(couter, (newX) => {
                   <span class="text-gray-600">Total</span>
                 </div>
                 <div class="pl-3">
-                  <span class="font-semibold text-gray-400 text-sm">THB</span>
+                  <span class="font-semibold text-gray-400 text-sm mr-2">THB</span>
                   <span class="font-semibold"><slot name="total"></slot></span>
                 </div>
               </div>
@@ -168,7 +137,7 @@ watch(couter, (newX) => {
                   <span class="text-gray-600 font-semibold">Contact</span>
                 </div>
                 <div class="flex-grow pl-3">
-                  <span>Scott Windon</span>
+                 <slot name="fullname"></slot>
                 </div>
               </div>
               <div class="w-full flex items-center">
@@ -178,7 +147,7 @@ watch(couter, (newX) => {
                   >
                 </div>
                 <div class="flex-grow pl-3">
-                  <span>123 George Street, Sydney, NSW 2000 Australia</span>
+                  <span><slot name="address"></slot></span>
                 </div>
               </div>
             </div>
@@ -190,7 +159,7 @@ watch(couter, (newX) => {
                   <label for="type1" class="flex items-center cursor-pointer">
                     <input
                       type="radio"
-                      class="form-radio h-5 w-5 text-indigo-500"
+                      class="form-radio h-5 w-5 text-indigo-500  "
                       name="type"
                       id="type1"
                       checked
@@ -209,7 +178,7 @@ watch(couter, (newX) => {
                     <div>
                       <input
                         class="w-full px-3 py-2 mb-1 border border-gray-200 rounded-md focus:outline-none focus:border-indigo-500 transition-colors"
-                        placeholder="John Smith"
+                        placeholder="John Doe"
                         type="text"
                       />
                     </div>
@@ -292,7 +261,7 @@ watch(couter, (newX) => {
                     id="type2"
                   />
                   <img
-                    src="https://upload.wikimedia.org/wikipedia/commons/b/b5/PayPal.svg"
+                    src="/img/PromptPay.png"
                     width="80"
                     class="ml-3"
                   />
@@ -310,35 +279,10 @@ watch(couter, (newX) => {
         </div>
       </div>
     </div>
-    <div class="p-5">
-      <div class="text-center text-gray-400 text-sm">
-        <a
-          href="https://www.buymeacoffee.com/scottwindon"
-          target="_blank"
-          class="focus:outline-none underline text-gray-400"
-          ><i class="mdi mdi-beer-outline"></i>Buy me a beer</a
-        >
-        and help support open-resource
-      </div>
-    </div>
+    
   </div>
 
-  <!-- BUY ME A BEER AND HELP SUPPORT OPEN-SOURCE RESOURCES -->
-  <div class="flex items-end justify-end fixed bottom-0 right-0 mb-4 mr-4 z-10">
-    <div>
-      <a
-        title="Buy me a beer"
-        href="https://www.buymeacoffee.com/scottwindon"
-        target="_blank"
-        class="block w-16 h-16 rounded-full transition-all shadow hover:shadow-lg transform hover:scale-110 hover:rotate-12"
-      >
-        <img
-          class="object-cover object-center w-full h-full rounded-full"
-          src="https://i.pinimg.com/originals/60/fd/e8/60fde811b6be57094e0abc69d9c2622a.jpg"
-        />
-      </a>
-    </div>
-  </div>
+  
 </template>
 
 <style scoped></style>
