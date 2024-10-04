@@ -1,9 +1,11 @@
 <script setup>
 import ContentHomepage from '../components/ContentHomepage.vue'
+import Navbar from '../components/Navbar.vue'
 </script>
 
 <template>
-  <div>
+  <Navbar />
+  <div class="bgBlue h-screen">
     <!-- content -->
     <ContentHomepage>
       <template #typeOfTicket> concert </template>
@@ -17,4 +19,8 @@ import ContentHomepage from '../components/ContentHomepage.vue'
   </div>
 </template>
 
-<style scoped></style>
+<style scoped>
+.bgBlue {
+  background-color: #1c73ff;
+}
+</style>

@@ -2,7 +2,7 @@
 
 <template>
   <div
-    class="bgBlue min-w-screen h-screen animated fadeIn faster fixed left-0 top-0 flex justify-center items-center inset-0 z-50 outline-none focus:outline-none bg-no-repeat bg-center bg-cover"
+    class="min-w-screen h-screen animated fadeIn faster fixed left-0 top-0 flex justify-center items-center inset-0 z-50 outline-none focus:outline-none bg-no-repeat bg-center bg-cover"
   >
     <div
       class="relative min-h-screen flex flex-col items-center justify-center"
@@ -42,9 +42,6 @@
                       </svg>
                     </button>
                   </div>
-                  <h2 class="flex-auto text-lg font-medium">
-                    <slot name="nameOfconcert"></slot>
-                  </h2>
                 </div>
                 <p class="mt-3"></p>
                 <div class="flex py-3 text-sm text-gray-500">
