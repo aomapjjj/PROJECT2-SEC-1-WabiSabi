@@ -1,4 +1,16 @@
-<script setup></script>
+<script setup>
+import { ref } from "vue"
+import { useRouter, useRoute } from "vue-router"
+
+const router = useRouter()
+const changColor = ref(false)
+const toBuyTicketpage = () => {
+  router.push({ name: "buyticket" })
+}
+
+
+
+</script>
 
 <template>
   <div
@@ -25,28 +37,42 @@
                   <div class="w-full flex-none text-xs textBlue font-medium">
                     <slot name="typeOfTicket"></slot>
                   </div>
-                  <div class="flex-auto flex space-x-3">
-                    <button class="group">
-                      <svg
-                        class="w-5 h-5"
+                  <div class="flex-auto flex space-x-3 -ml-4 mb-1">
+                    <button class="group" @click="changColor = !changColor">
+                      <svg 
+                        v-if="!changColor"
+                        class="w-4 h-4 group-hover:fill-[#ff0000]"
                         xmlns="http://www.w3.org/2000/svg"
                         viewBox="0 0 24 24"
+                        fill="#ff000040"
+                      
                       >
                         <path
-                          fill="#ff0000"
-                          fill-opacity=".25"
                           stroke="#ff0000"
-                          class="transition-colors duration-300 ease-in-out group-hover:fill-[#ff3434]"
+                          class="transition-colors duration-300 ease-in-out"
+                          d="m4.45 13.908l6.953 6.531c.24.225.36.338.5.366a.5.5 0 0 0 .193 0c.142-.028.261-.14.5-.366l6.953-6.53a5.203 5.203 0 0 0 .549-6.983l-.31-.399c-1.968-2.536-5.918-2.111-7.301.787a.54.54 0 0 1-.974 0C10.13 4.416 6.18 3.99 4.212 6.527l-.31.4a5.203 5.203 0 0 0 .549 6.981Z"
+                        />
+                      </svg>
+                      <svg v-else
+                        class="w-4 h-4 "
+                        xmlns="http://www.w3.org/2000/svg"
+                        viewBox="0 0 24 24"
+                        fill="#ff0000"
+                      
+                      >
+                        <path
+                          stroke="#ff0000"
                           d="m4.45 13.908l6.953 6.531c.24.225.36.338.5.366a.5.5 0 0 0 .193 0c.142-.028.261-.14.5-.366l6.953-6.53a5.203 5.203 0 0 0 .549-6.983l-.31-.399c-1.968-2.536-5.918-2.111-7.301.787a.54.54 0 0 1-.974 0C10.13 4.416 6.18 3.99 4.212 6.527l-.31.4a5.203 5.203 0 0 0 .549 6.981Z"
                         />
                       </svg>
                     </button>
                   </div>
+                </div>
+                <p class="mt-3">
                   <h2 class="flex-auto text-lg font-medium">
                     <slot name="nameOfconcert"></slot>
                   </h2>
-                </div>
-                <p class="mt-3"></p>
+                </p>
                 <div class="flex py-3 text-sm text-gray-500">
                   <div class="flex flex-col items-start">
                     <!-- Date -->
@@ -145,6 +171,7 @@
                 <div class="flex p-2 border-t border-gray-200"></div>
                 <div class="flex space-x-3 text-sm font-medium">
                   <button
+                    @click="toBuyTicketpage"
                     class="md:mb-0 bgRed px-5 py-2 shadow-sm tracking-wider text-white rounded-full hover:bg-gray-800"
                     type="button"
                   >

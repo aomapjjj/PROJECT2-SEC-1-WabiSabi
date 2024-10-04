@@ -7,7 +7,7 @@ import ContentHomepage from '../components/ContentHomepage.vue'
     <!-- content -->
     <ContentHomepage>
       <template #typeOfTicket> concert </template>
-      <template #nameOfConcert>
+      <template #nameOfconcert>
         Common People Presents Oasis tribute Inter
       </template>
       <template #date> 4 Oct 24 </template>
