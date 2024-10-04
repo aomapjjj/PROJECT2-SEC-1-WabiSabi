@@ -19,31 +19,39 @@ onMounted(async () => {
 }) 
 
 
+const couter = ref(1);
+
+const updateCouter = (newCouter) => {
+  couter.value = newCouter;
+};
+
+
 </script>
 
 <template>
-  <Buyticketmodal>
-     <template #title>
+   <Buyticketmodal @update:couter="updateCouter">
+    <template #title>
       {{ itembyId?.title }}
-     </template>
-     <template #location>
+    </template>
+    <template #location>
       {{ itembyId?.location }}
-     </template>
-     <template #price>
-      {{ itembyId?.price }}
-     </template>
-     <template #subtotal>
-      
-     </template>
-     <template #tax>
-
-     </template>
-     <template #total>
-
-     </template>
-     
-
-    </Buyticketmodal>
+    </template>
+    <template #subtotal>
+      {{ (itembyId?.price * couter).toFixed(2) }}
+    </template>
+    <template #tax>
+      {{ parseFloat((itembyId?.price * couter * (7 / 100)).toFixed(2)) }}
+    </template>
+    <template #total>
+      {{ (itembyId?.price * couter + parseFloat((itembyId?.price * couter * (7 / 100)).toFixed(2))).toFixed(2) }}
+    </template>
+    <template #fullname>
+    
+    </template>
+    <template #address>
+    
+    </template>
+  </Buyticketmodal>
 
 </template>
 <style scoped>
