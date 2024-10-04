@@ -1,7 +1,7 @@
 <script setup>
 import Buyticketmodal from '@/components/Buyticketmodal.vue';
 import { ref ,  onMounted } from 'vue';
-
+import Navbar from '@/components/Navbar.vue';
 import { getItemById } from '../../libs/fetchUtils'
 
 const baseUrlconcert = `${import.meta.env.VITE_APP_URL_CON}`
@@ -10,7 +10,7 @@ const itembyId = ref()
 
 onMounted(async () => {
   try{
-    const item  = await getItemById(baseUrlconcert,1)
+    const item  = await getItemById(baseUrlconcert,2)
   itembyId.value = item
     console.log( itembyId.value )
   }catch(error){
@@ -30,6 +30,7 @@ const updateCouter = (newCouter) => {
 </script>
 
 <template>
+  <!-- <Navbar /> -->
    <Buyticketmodal @update:couter="updateCouter">
     <template #title>
       {{ itembyId?.title }}
@@ -38,10 +39,10 @@ const updateCouter = (newCouter) => {
       {{ itembyId?.location }}
     </template>
     <template #subtotal>
-      {{ (itembyId?.price * couter).toFixed(2) }}
+      {{ (itembyId?.price * couter).toFixed(2) == 0 ? 'Free' : (itembyId?.price * couter).toFixed(2)}}
     </template>
     <template #tax>
-      {{ parseFloat((itembyId?.price * couter * (7 / 100)).toFixed(2)) }}
+      {{ parseFloat((itembyId?.price * couter * (7 / 100)).toFixed(2))  }}
     </template>
     <template #total>
       {{ (itembyId?.price * couter + parseFloat((itembyId?.price * couter * (7 / 100)).toFixed(2))).toFixed(2) }}

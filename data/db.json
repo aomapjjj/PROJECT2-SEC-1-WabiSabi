@@ -3,6 +3,8 @@
     {
       "id": 1,
       "title": "Swing into the Groove",
+      "description": "Get ready to swing and groove to the infectious rhythms of this unforgettable jazz concert! Featuring world-renowned jazz musicians, this evening promises a captivating blend of traditional jazz and contemporary improvisations. Prepare to be swept away by the soulful melodies and intricate harmonies that will leave you wanting more.",
+      "type": "Jazz",
       "date": [
         {
           "day": 14,
@@ -12,11 +14,14 @@
       ],
       "time": "6:00 PM - 10:00 PM",
       "location": "Lumpini Park, Bangkok",
-      "price": 300
+      "price": 0,
+      "remaining_tickets": 1000
     },
     {
       "id": 2,
       "title": "Starlight Pulse Festival",
+      "description": "Immerse yourself in a vibrant world of music and light at the Starlight Pulse Festival! Experience an electrifying fusion of pop, electronic dance music, and alternative rock as renowned artists take the stage. Prepare to be mesmerized by stunning visuals, captivating performances, and an energetic atmosphere that will ignite your senses.",
+      "type": "Pop, Electronic Dance Music, Alternative Rock",
       "date": [
         {
           "day": 10,
@@ -26,11 +31,14 @@
       ],
       "time": "5:00 PM - 9:00 PM",
       "location": "IMPACT Arena, Muang Thong Thani",
-      "price": 300
+      "price": 300,
+      "remaining_tickets": 500
     },
     {
       "id": 3,
       "title": "Skyline Soundwave",
+      "description": "Enjoy a breathtaking panoramic view of the Chiangmai skyline while indulging in a captivating musical journey at the Skyline Soundwave! This concert showcases a diverse lineup of indie pop, folk, and alternative rock artists, creating a unique and intimate atmosphere. Experience the magic of music under the stars, accompanied by stunning visuals and a vibrant energy.",
+      "type": "Indie Pop, Folk, Alternative Rock",
       "date": [
         {
           "day": 20,
@@ -40,11 +48,14 @@
       ],
       "time": "6:00 PM - 10:00 PM",
       "location": "Central Plaza Chiangmai Airport",
-      "price": 0
+      "price": 0,
+      "remaining_tickets": 750
     },
     {
       "id": 4,
       "title": "Beyond the Frequency",
+      "description": "Prepare to embark on a sonic adventure as Beyond the Frequency pushes the boundaries of electronic music! This electrifying concert features a diverse lineup of DJs and producers who will guide you through a captivating journey of experimental soundscapes, pulsating beats, and immersive visuals. Get ready to lose yourself in a world of pure sonic bliss.",
+      "type": "Electronic Music",
       "date": [
         {
           "day": 31,
@@ -54,11 +65,14 @@
       ],
       "time": "8:00 PM - 12:00 AM",
       "location": "Thammasat University Auditorium, Bangkok",
-      "price": 0
+      "price": 0,
+      "remaining_tickets": 200
     },
     {
       "id": 5,
       "title": "Sounds of Joy",
+      "description": "Experience a harmonious blend of pop, R&B, and soul music at the Sounds of Joy concert! Featuring a talented ensemble of singers and musicians, this evening promises a captivating showcase of heartfelt melodies, powerful vocals, and infectious rhythms. Get ready to be moved by the uplifting music and inspiring performances that will leave you feeling joyful and rejuvenated.",
+      "type": "Pop, R&B, Soul",
       "date": [
         {
           "day": 10,
@@ -68,11 +82,14 @@
       ],
       "time": "5:30 PM - 9:30 PM",
       "location": "Queen Sirikit National Convention Center, Bangkok",
-      "price": 300
+      "price": 300,
+      "remaining_tickets": 800
     },
     {
       "id": 6,
       "title": "Live Rock Music Festival",
+      "description": "Get ready to rock out at the Live Rock Music Festival! Featuring a lineup of legendary rock bands and rising stars, this festival promises an unforgettable experience filled with powerful riffs, electrifying solos, and energetic performances. Prepare to unleash your inner rock star as you sing along to your favorite anthems and immerse yourself in the exhilarating atmosphere.",
+      "type": "Rock",
       "date": [
         {
           "day": 5,
@@ -82,11 +99,14 @@
       ],
       "time": "4:00 PM - 8:00 PM",
       "location": "Siam Center, Bangkok",
-      "price": 200
+      "price": 200,
+      "remaining_tickets": 600
     },
     {
       "id": 7,
       "title": "Colors of Music",
+      "description": "Experience a kaleidoscope of musical styles at the Colors of Music concert! This vibrant event features a diverse lineup of artists showcasing everything from classical music to contemporary world music. Prepare to be transported to different cultures and eras through enchanting melodies, intricate harmonies, and mesmerizing performances.",
+      "type": "Classical Music, World Music",
       "date": [
         {
           "day": 10,
@@ -96,11 +116,14 @@
       ],
       "time": "5:30 PM - 9:30 PM",
       "location": "Queen Sirikit National Convention Center, Bangkok",
-      "price": 300
+      "price": 300,
+      "remaining_tickets": 400
     },
     {
       "id": 8,
       "title": "Artistic Echoes",
+      "description": "Immerse yourself in a world of art and music at the Artistic Echoes concert! This captivating event combines a showcase of renowned artists with a musical performance that reflects the themes and inspirations behind their works. Enjoy a unique and immersive experience that celebrates the interconnectedness of art and music.",
+      "type": "Classical Music, Contemporary Music",
       "date": [
         {
           "day": 15,
@@ -115,11 +138,14 @@
       ],
       "time": "7:00 PM - 10:00 PM",
       "location": "Bangkok Art and Culture Center",
-      "price": 400
+      "price": 400,
+      "remaining_tickets": 350
     },
     {
       "id": 9,
       "title": "Galactic Beats",
+      "description": "Prepare for an intergalactic journey through sound at the Galactic Beats concert! This electrifying event features a lineup of DJs and producers who will transport you to otherworldly realms with their pulsating beats, hypnotic melodies, and immersive visuals. Experience the fusion of electronic music, psychedelic art, and cosmic energy, creating a truly unforgettable experience.",
+      "type": "Electronic Music",
       "date": [
         {
           "day": 24,
@@ -129,11 +155,14 @@
       ],
       "time": "8:00 PM - 00:00 PM",
       "location": "Union Mall Hall, Bangkok",
-      "price": 300
+      "price": 300,
+      "remaining_tickets": 100
     },
     {
       "id": 10,
       "title": "Rock Revolution",
+      "description": "Get ready to experience a rock and roll revolution at the Rock Revolution concert! Featuring a lineup of iconic rock bands and emerging artists, this event promises an explosive night filled with powerful riffs, soaring vocals, and electrifying energy. Prepare to unleash your inner rock fan as you sing along to your favorite anthems and celebrate the enduring power of rock music.",
+      "type": "Rock",
       "date": [
         {
           "day": 25,
@@ -143,7 +172,178 @@
       ],
       "time": "6:00 PM - 10:00 PM",
       "location": "Impact Arena, Muang Thong Thani",
-      "price": 500
+      "price": 500,
+      "remaining_tickets": 900
+    },
+    {
+      "id": 11,
+      "title": "Cosmic Soundwave",
+      "description": null,
+      "type": null,
+      "date": [
+        {
+          "day": 12,
+          "month": "November",
+          "year": 2024
+        }
+      ],
+      "time": "7:00 PM - Midnight",
+      "location": "Central World Plaza, Bangkok",
+      "price": 500,
+      "remaining_tickets": null
+    },
+    {
+      "id": 12,
+      "title": "Echoes of Infinity",
+      "description": null,
+      "type": null,
+      "date": [
+        {
+          "day": 20,
+          "month": "October",
+          "year": 2024
+        }
+      ],
+      "time": "6:00 PM - 11:00 PM",
+      "location": "BITEC Bangna, Bangkok",
+      "price": 600,
+      "remaining_tickets": null
+    },
+    {
+      "id": 13,
+      "title": "Stardust Serenade",
+      "description": null,
+      "type": null,
+      "date": [
+        {
+          "day": 5,
+          "month": "December",
+          "year": 2024
+        }
+      ],
+      "time": "8:00 PM - Midnight",
+      "location": "Siam Paragon Hall, Bangkok",
+      "price": 700,
+      "remaining_tickets": null
+    },
+    {
+      "id": 14,
+      "title": "The Pulsar Vibes",
+      "description": null,
+      "type": null,
+      "date": [
+        {
+          "day": 18,
+          "month": "January",
+          "year": 2025
+        }
+      ],
+      "time": "7:00 PM - 11:30 PM",
+      "location": "Indoor Stadium Huamark, Bangkok",
+      "price": 800,
+      "remaining_tickets": null
+    },
+    {
+      "id": 15,
+      "title": "Aurora Melodies",
+      "description": null,
+      "type": null,
+      "date": [
+        {
+          "day": 24,
+          "month": "February",
+          "year": 2025
+        }
+      ],
+      "time": "5:00 PM - 9:00 PM",
+      "location": "Thammasat University Auditorium, Bangkok",
+      "price": 300,
+      "remaining_tickets": null
+    },
+    {
+      "id": 16,
+      "title": "Celestial Groove",
+      "description": null,
+      "type": null,
+      "date": [
+        {
+          "day": 10,
+          "month": "March",
+          "year": 2025
+        }
+      ],
+      "time": "6:30 PM - 11:00 PM",
+      "location": "Central Plaza Chiangmai Airport, Chiang Mai",
+      "price": 400,
+      "remaining_tickets": null
+    },
+    {
+      "id": 17,
+      "title": "Galaxy Frequencies",
+      "description": null,
+      "type": null,
+      "date": [
+        {
+          "day": 1,
+          "month": "April",
+          "year": 2025
+        }
+      ],
+      "time": "7:30 PM - Midnight",
+      "location": "Union Mall Hall, Bangkok",
+      "price": 450,
+      "remaining_tickets": null
+    },
+    {
+      "id": 18,
+      "title": "Nebula Nights",
+      "description": null,
+      "type": null,
+      "date": [
+        {
+          "day": 15,
+          "month": "May",
+          "year": 2025
+        }
+      ],
+      "time": "6:00 PM - 10:30 PM",
+      "location": "Lumpini Park, Bangkok",
+      "price": 200,
+      "remaining_tickets": null
+    },
+    {
+      "id": 19,
+      "title": "Sonic Supernova",
+      "description": null,
+      "type": null,
+      "date": [
+        {
+          "day": 20,
+          "month": "June",
+          "year": 2025
+        }
+      ],
+      "time": "7:00 PM - 11:00 PM",
+      "location": "Central Festival Hatyai, Hatyai",
+      "price": 350,
+      "remaining_tickets": null
+    },
+    {
+      "id": 20,
+      "title": "Orbit of Rhythms",
+      "description": null,
+      "type": null,
+      "date": [
+        {
+          "day": 8,
+          "month": "August",
+          "year": 2025
+        }
+      ],
+      "time": "5:30 PM - 9:30 PM",
+      "location": "Supachalasai National Stadium, Bangkok",
+      "price": 600,
+      "remaining_tickets": null
     }
   ]
 }
