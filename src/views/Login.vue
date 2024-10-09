@@ -1,56 +1,75 @@
 <script setup></script>
 
 <template>
-  <div
-    class="flex h-screen w-full items-center justify-center bg-gray-900 bg-cover bg-no-repeat"
-  >
-    <div
-      class="rounded-xl bg-red-700 bg-opacity-50 px-16 py-10 shadow-lg backdrop-blur-md max-sm:px-8"
-    >
-      <div class="text-white">
-        <div class="mb-8 flex flex-col items-center">
-          <img src="/img/logo.png " class="w-56" />
-          <h1 class="mb-2 text-2xl text-gray-300">Ticket Tomatoes</h1>
-          <span class="text-gray-300">Enter Your Account</span>
-        </div>
-        <div class="flex justify-center items-center">
-          <form action="#">
-            <div class="mb-4 items-center text-lg">
-              <input
-                class="bg-black rounded-3xl border-none bg-opacity-50 px-6 py-2 text-center text-white"
-                type="email"
-                name="name"
-                placeholder="Email"
-              />
-            </div>
+  <!-- component -->
+<header class="max-w-6xl mx-auto py-8 px-5 flex justify-between lg:px-8">
+  <img
+                    src="/img/logo.png"
+                    width="220"
+                    class="ml-3"
+                  />
 
-            <div class="mb-4 text-lg">
-              <input
-                class="bg-black rounded-3xl border-none bg-opacity-50 px-6 py-2 text-center text-white"
-                type="password"
-                name="password"
-                placeholder="*********"
-              />
-            </div>
+  <nav class="">
+    <ul class="flex pt-1.5 text-md lg:pt-0 lg:text-lg">
+      <RouterLink to="/homepage">
+      <li class="lg:px-4">
+        <a href="/" class="p-3 text-green-400 font-semibold">Home</a>
+      </li>
+    </RouterLink>
+      <li class="lg:px-4">
+        <a href="/" class="p-3 text-green-400 font-semibold">Login</a>
+      </li>
+      
+    </ul>
+  </nav>
+</header>
+<main class="max-w-6xl mx-auto pt-10 pb-36 px-8">
+  
+  <div class="max-w-md mx-auto mb-14 text-center">
+    <h1 class="text-4xl font-semibold mb-6 lg:text-5xl"><span class="text-green-400">Get Your</span> Tickets<span class="text-yellow-300"> Now</span></h1>
+    <p class="text-xl text-gray-500 font-medium">Don't miss out on the biggest events.<br> Grab your concert tickets today!</p>
+</div>
 
-            <div class="mt-8 flex justify-center text-lg text-black">
-              <RouterLink to="/Home">
-                <button
-                  type="submit"
-                  class="rounded-3xl bg-opacity-50 px-10 py-2 bg-red-600 text-white shadow-xl backdrop-blur-md transition-colors duration-300 hover:bg-red-500"
-                >
-                  Login
-                </button>
-              </RouterLink>
-            </div>
-          </form>
-        </div>
-        <h1 class="ml-10 mt-3 text-l text-white">
-          If you don't have account click here to <span class="text-green-400">  Sign Up !</span>
-        </h1>
+  
+<div class="flex flex-col justify-between items-center lg:flex-row lg:items-start">
+    
+    <!-- First Poster -->
+    <div class="w-full flex-1 mt-8 p-8 order-2 bg-white shadow-xl rounded-3xl sm:w-96 lg:w-full lg:order-1 ">
+      <div class="mb-7 pb-7 flex items-center border-b border-gray-300">
+        <img src="/img/con1.png"  alt="Concert Poster 1" class="rounded-3xl w-full h-full" />
       </div>
+      <a href="/" class="flex justify-center items-center bg-pink-500 rounded-xl py-5 px-4 text-center text-white text-xl">
+        Buy Ticket
+        <img src="https://res.cloudinary.com/williamsondesign/arrow-right.svg" class="ml-2" />
+      </a>
     </div>
+
+    <!-- Second Poster -->
+    <div class="w-full flex-1 p-8 order-1 shadow-xl rounded-3xl bg-gray-900 text-gray-400 sm:w-96 lg:w-full lg:order-2 lg:mt-0">
+      <div class="mb-8 pb-8 flex items-center border-b border-gray-600">
+        <img src="/img/con3.png"  alt="Concert Poster 2" class="rounded-3xl w-full h-full" />
+      </div>
+      <a href="/" class="flex justify-center items-center bg-pink-500 rounded-xl py-6 px-4 text-center text-white text-2xl">
+        Buy Ticket
+        <img src="https://res.cloudinary.com/williamsondesign/arrow-right.svg" class="ml-2" />
+      </a>
+    </div>
+
+    <!-- Third Poster -->
+    <div class="w-full flex-1 mt-8 p-8 order-3 bg-white shadow-xl rounded-3xl sm:w-96 lg:w-full lg:order-3 ">
+      <div class="mb-7 pb-7 flex items-center border-b border-gray-300">
+        <img src="/img/con2.png"  alt="Concert Poster 3" class="rounded-3xl w-full h-full" />
+      </div>
+      <a href="/" class="flex justify-center items-center bg-pink-500 rounded-xl py-5 px-4 text-center text-white text-xl">
+        Buy Ticket
+        <img src="https://res.cloudinary.com/williamsondesign/arrow-right.svg" class="ml-2" />
+      </a>
+    </div>
+
   </div>
+
+  
+</main>
 </template>
 
 <style scoped></style>
