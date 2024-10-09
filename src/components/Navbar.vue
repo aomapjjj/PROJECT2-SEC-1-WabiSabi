@@ -170,6 +170,9 @@
           class="text-cyan-500 bg-yellow-400 hover:bg-cyan-500 hover:text-yellow-400 inline-flex items-center rounded-full py-2 px-3 text-sm font-medium"
           >Members</a
         >
+        <RouterLink to="/edit-profile">
+          <button class="text-cyan-500 bg-yellow-400 hover:bg-cyan-500 hover:text-yellow-400 inline-flex items-center rounded-full py-2 px-3 text-sm font-medium" >Edit Profile</button>
+        </RouterLink>
       </nav>
     </div>
 
