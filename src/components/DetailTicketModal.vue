@@ -1,11 +1,25 @@
 <script setup>
-import { ref } from 'vue'
+import { ref , watch} from 'vue'
 import { useRouter, useRoute } from "vue-router"
 
+const route = useRoute()
 const router = useRouter()
-const toBuyTicketpage = () => {
-  router.push({ name: "buyticket" })
+
+const ticketItemId = ref('')
+
+watch(
+  () => route.params.ticketId,
+  (newId) => {
+    ticketItemId.value = newId
+  },
+  { immediate: true }
+)
+
+
+const toBuyTicketpage = (id) => {
+  router.push({ name: "buyticket" , params:{ buyticketId : id }})
 }
+
 
 // สถานะของจำนวนบัตรที่เหลือ
 const ticketsLeft = ref(2)
@@ -33,13 +47,9 @@ const checkTickets = () => {
       <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex flex-col md:flex-row -mx-4">
           <div class="md:flex-1 px-4">
-            <div class="h-[460px] rounded-lg bg-gray-300 dark:bg-gray-700 mb-4">
-              <img
-                class="w-full h-full object-cover"
-                src="https://cdn.pixabay.com/photo/2020/05/22/17/53/mockup-5206355_960_720.jpg"
-                alt="Product Image"
-              />
-            </div>
+            
+             <slot name="imgOfTicket"></slot>
+
 
             <!-- Sold Out overlay -->
             <div
@@ -62,7 +72,7 @@ const checkTickets = () => {
                   <p class="text-2xl font-bold"><slot name="price"></slot></p>
                 </div>
                 <button
-                  @click="toBuyTicketpage"
+                  @click="toBuyTicketpage(ticketItemId)"
                   class="bgRed text-white font-bold py-2 px-6 rounded-full hover:bg-gray-400"
                   :disabled="ticketsLeft === 0"
                 >
