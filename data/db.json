@@ -345,5 +345,19 @@
       "price": 600,
       "remaining_tickets": null
     }
+  ],
+  "users": [
+    {
+      "id": "1",
+      "username": "admin",
+      "password": "12345",
+      "firstname": "Wabi",
+      "lastname": "Sabi",
+      "sex": "Male",
+      "address": "Bangkok, Thailand",
+      "telephone": "+66811234567",
+      "email": "admin@dev.com",
+      "favorite": []
+    }
   ]
 }

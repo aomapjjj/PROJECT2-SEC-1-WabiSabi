@@ -3,6 +3,7 @@ import EditProfile from '@/components/EditProfile.vue';
 import Navbar from '@/components/Navbar.vue';
 
 
+
 </script>
  
 <template>
