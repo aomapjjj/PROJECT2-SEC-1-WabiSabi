@@ -1,16 +1,31 @@
 <script setup>
 import Buyticketmodal from '@/components/Buyticketmodal.vue';
-import { ref ,  onMounted } from 'vue';
+import { ref ,  onMounted , watch } from 'vue';
 
 import { getItemById } from '../../libs/fetchUtils'
+import { useRouter, useRoute } from "vue-router"
+
+const route = useRoute()
+const router = useRouter()
+
 
 const baseUrlconcert = `${import.meta.env.VITE_APP_URL_CON}`
 const itembyId = ref()
 
 
+const buyticketItemId = ref('')
+
+watch(
+  () => route.params.buyticketId,
+  (newId) => {
+    buyticketItemId.value = newId
+  },
+  { immediate: true }
+)
+
 onMounted(async () => {
   try{
-    const item  = await getItemById(baseUrlconcert,1)
+    const item  = await getItemById(baseUrlconcert,buyticketItemId.value)
   itembyId.value = item
     console.log( itembyId.value )
   }catch(error){
@@ -30,6 +45,9 @@ const updateCouter = (newCouter) => {
 
 <template>
    <Buyticketmodal @update:couter="updateCouter">
+    <template #imgOfTicket>
+    <img :src="itembyId?.img" alt="">
+    </template>
     <template #title>
       {{ itembyId?.title }}
     </template>

@@ -10,13 +10,14 @@ const allItems = ref()
 
 onMounted(async () => {
   try {
-    const items = await getItems(baseUrlconcert, 1)
+    const items = await getItems(baseUrlconcert)
     allItems.value = items
     console.log(allItems.value)
   } catch (error) {
     console.log('error na')
   }
 })
+
 </script>
 
 <template>
@@ -31,7 +32,10 @@ onMounted(async () => {
 
           <div class="grid mt-8 gap-8 grid-cols-1 md:grid-cols-3 xl:grid-cols-3">
 
-            <ContentHomepage v-for="(item, index) in allItems" :key="index">
+            <ContentHomepage v-for="(item, index) in allItems" :key="index" :ticketItemId="item.id">
+              <template #imgOfTicket>
+                <img :src=" item?.img" alt="imgConcerts"  class="h-full object-scale-down lg:object-cover lg:h-48 transition-transform duration-700 ease-in-out hover:scale-110">
+              </template>
               <template #typeOfTicket>{{ item?.type }}</template>
               <template #nameOfConcert>{{ item?.title }}</template>
               <template #date>
