@@ -20,12 +20,12 @@ const router = createRouter({
       component: Homepage
     },
     {
-      path: '/detailticket',
+      path: '/detailticket/:ticketId',
       name: 'detailticket',
       component: DetailTicket
     },
     {
-      path: '/buyticket',
+      path: '/buyticket/:buyticketId',
       name: 'buyticket',
       component: BuyTicketpage
     },
