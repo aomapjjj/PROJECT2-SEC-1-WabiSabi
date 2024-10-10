@@ -356,6 +356,7 @@
       "sex": "Male",
       "address": "Bangkok, Thailand",
       "telephone": "+66811234567",
+      "email": "admin@dev.com",
       "favorite": []
     }
   ]
