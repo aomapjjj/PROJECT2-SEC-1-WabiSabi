@@ -4,6 +4,7 @@ import { getItemById, getItems } from '../../libs/fetchUtils'
 import ContentHomepage from '../components/ContentHomepage.vue'
 import Navbar from '../components/Navbar.vue'
 import Footer from '@/components/Footer.vue'
+import ContentHomepageTwo from '@/components/SlidePicture.vue'
 
 const baseUrlconcert = `${import.meta.env.VITE_APP_URL_CON}`
 const allItems = ref()
@@ -17,24 +18,34 @@ onMounted(async () => {
     console.log('error na')
   }
 })
-
 </script>
 
 <template>
   <Navbar />
   <div class="bgBlue min-h-screen flex flex-col justify-between">
+    <ContentHomepageTwo />
     <!-- content -->
     <div class="flex-grow">
       <div
         class="animated fadeIn faster left-0 top-0 flex justify-center items-center inset-0 outline-none focus:outline-none bg-no-repeat bg-center bg-cover"
       >
-        <div class="relative min-h-screen flex flex-col items-center justify-center">
-
-          <div class="grid mt-8 gap-8 grid-cols-1 md:grid-cols-3 xl:grid-cols-3">
-
-            <ContentHomepage v-for="(item, index) in allItems" :key="index" :ticketItemId="item.id">
+        <div
+          class="relative min-h-screen flex flex-col items-center justify-center"
+        >
+          <div
+            class="grid mt-8 gap-8 grid-cols-1 md:grid-cols-3 xl:grid-cols-3"
+          >
+            <ContentHomepage
+              v-for="(item, index) in allItems"
+              :key="index"
+              :ticketItemId="item.id"
+            >
               <template #imgOfTicket>
-                <img :src=" item?.img" alt="imgConcerts"  class="h-full object-scale-down lg:object-cover lg:h-48 transition-transform duration-700 ease-in-out hover:scale-110">
+                <img
+                  :src="item?.img"
+                  alt="imgConcerts"
+                  class="h-full object-scale-down lg:object-cover lg:h-48 transition-transform duration-700 ease-in-out hover:scale-110"
+                />
               </template>
               <template #typeOfTicket>{{ item?.type }}</template>
               <template #nameOfConcert>{{ item?.title }}</template>
