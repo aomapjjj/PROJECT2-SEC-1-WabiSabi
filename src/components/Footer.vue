@@ -73,7 +73,7 @@
       </div>
 
       <div class="border-t border-white mt-8 pt-4 text-center text-sm">
-        <p>&copy; 2022 The Wasabi Ticket. All rights reserved. | v2.0.227</p>
+        <p>&copy; 2024 The Wasabi Ticket. All rights reserved.</p>
       </div>
     </div>
   </div>

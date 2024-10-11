@@ -4,8 +4,15 @@ import { useRouter, useRoute } from 'vue-router'
 
 const router = useRouter()
 const changColor = ref(false)
-const toDetailTicketpage = () => {
-  router.push({ name: 'detailticket' })
+
+const props = defineProps({
+   ticketItemId : String
+})
+
+
+const toDetailticket = (id) => {
+  console.log(id)
+    router.push({ name: 'detailticket', params: { ticketId : id } })
 }
 </script>
 
@@ -14,11 +21,7 @@ const toDetailTicketpage = () => {
     <div @click="toDetailTicketpage" class="bg-white shadow-md rounded-3xl p-4">
       <div class="flex-none lg:flex">
         <div class="h-full w-full lg:h-48 lg:w-48 lg:mb-0 overflow-hidden">
-          <img
-            src="https://images.unsplash.com/photo-1622180203374-9524a54b734d?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&amp;ixlib=rb-1.2.1&amp;auto=format&amp;fit=crop&amp;w=1950&amp;q=80"
-            alt="Just a flower"
-            class="w-full object-scale-down lg:object-cover lg:h-48 rounded-2xl transition-transform duration-700 ease-in-out hover:scale-110"
-          />
+          <slot name="imgOfTicket"></slot>
         </div>
         <div class="flex-auto ml-3 justify-evenly">
           <div class="flex justify-between items-center">
@@ -157,7 +160,7 @@ const toDetailTicketpage = () => {
           </div>
           <div class="flex p-2 border-t border-gray-200"></div>
           <div class="flex space-x-3 text-sm font-medium">
-            <button
+            <button @click="toDetailticket(props.ticketItemId)"
               class="md:mb-0 bgRed px-5 py-2 shadow-sm tracking-wider text-white rounded-full hover:bg-gray-800"
               type="button"
             >
