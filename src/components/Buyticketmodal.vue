@@ -21,7 +21,7 @@ const decrement = () => {
 };
 
 const backtoHompage = () => {
-    router.push({name:"homepage"})
+    router.go(-1)
 }
 
 
@@ -53,7 +53,7 @@ const backtoHompage = () => {
         <div
           class="overflow-hidden w-52 h-62 rounded-lg bg-gray-50 border border-gray-200 mr-8"
         >
-          <img src="/img/con1.png" alt="" />
+         <slot name="imgOfTicket"></slot>
         </div>
 
         <div class="flex-grow pl-3">

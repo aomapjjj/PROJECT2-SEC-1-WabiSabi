@@ -1,22 +1,36 @@
 <script setup>
 import Buyticketmodal from '@/components/Buyticketmodal.vue';
-import { ref ,  onMounted } from 'vue';
-import Navbar from '@/components/Navbar.vue';
+import { ref ,  onMounted , watch } from 'vue';
+
 import { getItemById } from '../../libs/fetchUtils'
+import { useRouter, useRoute } from "vue-router"
+
+const route = useRoute()
+const router = useRouter()
+
 
 const baseUrlconcert = `${import.meta.env.VITE_APP_URL_CON}`
 const itembyId = ref()
 
 
+const buyticketItemId = ref('')
+
+watch(
+  () => route.params.buyticketId,
+  (newId) => {
+    buyticketItemId.value = newId
+  },
+  { immediate: true }
+)
+
 onMounted(async () => {
   try{
-    const item  = await getItemById(baseUrlconcert,2)
+    const item  = await getItemById(baseUrlconcert,buyticketItemId.value)
   itembyId.value = item
     console.log( itembyId.value )
   }catch(error){
     console.log('error na')
   }
- 
 }) 
 
 
@@ -30,8 +44,10 @@ const updateCouter = (newCouter) => {
 </script>
 
 <template>
-  <!-- <Navbar /> -->
    <Buyticketmodal @update:couter="updateCouter">
+    <template #imgOfTicket>
+    <img :src="itembyId?.img" alt="">
+    </template>
     <template #title>
       {{ itembyId?.title }}
     </template>
@@ -39,10 +55,10 @@ const updateCouter = (newCouter) => {
       {{ itembyId?.location }}
     </template>
     <template #subtotal>
-      {{ (itembyId?.price * couter).toFixed(2) == 0 ? 'Free' : (itembyId?.price * couter).toFixed(2)}}
+      {{ (itembyId?.price * couter).toFixed(2) == 0 ? 'Free' : (itembyId?.price * couter).toFixed(2) }}
     </template>
     <template #tax>
-      {{ parseFloat((itembyId?.price * couter * (7 / 100)).toFixed(2))  }}
+      {{ parseFloat((itembyId?.price * couter * (7 / 100)).toFixed(2)) }}
     </template>
     <template #total>
       {{ (itembyId?.price * couter + parseFloat((itembyId?.price * couter * (7 / 100)).toFixed(2))).toFixed(2) }}

@@ -1,156 +1,146 @@
 <script setup>
-import { ref } from "vue"
-import { useRouter, useRoute } from "vue-router"
+import { ref } from 'vue'
+import { useRouter, useRoute } from 'vue-router'
 
 const router = useRouter()
 const changColor = ref(false)
-const toBuyTicketpage = () => {
-  router.push({ name: "buyticket" })
+
+const props = defineProps({
+   ticketItemId : String
+})
+
+
+const toDetailticket = (id) => {
+  console.log(id)
+    router.push({ name: 'detailticket', params: { ticketId : id } })
 }
-
-
-
 </script>
 
 <template>
-  <div
-    class="min-w-screen h-screen animated fadeIn faster fixed left-0 top-0 flex justify-center items-center inset-0 z-50 outline-none focus:outline-none bg-no-repeat bg-center bg-cover"
-  >
-    <div
-      class="relative min-h-screen flex flex-col items-center justify-center"
-    >
-      <div class="grid mt-8 gap-8 grid-cols-1 md:grid-cols-2 xl:grid-cols-2">
-        <div class="flex flex-col">
-          <div class="bg-white shadow-md rounded-3xl p-4">
-            <div class="flex-none lg:flex">
-              <div
-                class="h-full w-full lg:h-48 lg:w-48 lg:mb-0 overflow-hidden"
-              >
-                <img
-                  src="https://images.unsplash.com/photo-1622180203374-9524a54b734d?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&amp;ixlib=rb-1.2.1&amp;auto=format&amp;fit=crop&amp;w=1950&amp;q=80"
-                  alt="Just a flower"
-                  class="w-full object-scale-down lg:object-cover lg:h-48 rounded-2xl transition-transform duration-700 ease-in-out hover:scale-110"
-                />
+  <div class="flex flex-col">
+    <div @click="toDetailTicketpage" class="bg-white shadow-md rounded-3xl p-4">
+      <div class="flex-none lg:flex">
+        <div class="h-full w-full lg:h-48 lg:w-48 lg:mb-0 overflow-hidden">
+          <slot name="imgOfTicket"></slot>
+        </div>
+        <div class="flex-auto ml-3 justify-evenly">
+          <div class="flex justify-between items-center">
+            <div class="w-full flex-none text-xs textBlue font-medium">
+              <slot name="typeOfTicket"></slot>
+            </div>
+            <div class="flex-auto flex space-x-3 -ml-4 mb-1">
+              <button class="group" @click="changColor = !changColor">
+                <svg
+                  v-if="!changColor"
+                  class="w-4 h-4 group-hover:fill-[#ff0000]"
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 24 24"
+                  fill="#ff000040"
+                >
+                  <path
+                    stroke="#ff0000"
+                    class="transition-colors duration-300 ease-in-out"
+                    d="m4.45 13.908l6.953 6.531c.24.225.36.338.5.366a.5.5 0 0 0 .193 0c.142-.028.261-.14.5-.366l6.953-6.53a5.203 5.203 0 0 0 .549-6.983l-.31-.399c-1.968-2.536-5.918-2.111-7.301.787a.54.54 0 0 1-.974 0C10.13 4.416 6.18 3.99 4.212 6.527l-.31.4a5.203 5.203 0 0 0 .549 6.981Z"
+                  />
+                </svg>
+                <svg
+                  v-else
+                  class="w-4 h-4"
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 24 24"
+                  fill="#ff0000"
+                >
+                  <path
+                    stroke="#ff0000"
+                    d="m4.45 13.908l6.953 6.531c.24.225.36.338.5.366a.5.5 0 0 0 .193 0c.142-.028.261-.14.5-.366l6.953-6.53a5.203 5.203 0 0 0 .549-6.983l-.31-.399c-1.968-2.536-5.918-2.111-7.301.787a.54.54 0 0 1-.974 0C10.13 4.416 6.18 3.99 4.212 6.527l-.31.4a5.203 5.203 0 0 0 .549 6.981Z"
+                  />
+                </svg>
+              </button>
+            </div>
+          </div>
+          <div class="mt-3">
+            <h2 class="flex-auto text-lg font-medium">
+              <slot name="nameOfConcert"></slot>
+            </h2>
+          </div>
+          <div class="flex py-3 text-sm text-gray-500">
+            <div class="flex flex-col items-start">
+              <!-- Date -->
+              <div class="flex flex-row items-center text-xs mb-2">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  class="h-5 w-5 mr-2 text-gray-400"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"
+                  ></path>
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"
+                  ></path>
+                </svg>
+                <slot name="date"></slot>
               </div>
-              <div class="flex-auto ml-3 justify-evenly">
-                <div class="flex justify-between items-center">
-                  <div class="w-full flex-none text-xs textBlue font-medium">
-                    <slot name="typeOfTicket"></slot>
-                  </div>
-                  <div class="flex-auto flex space-x-3 -ml-4 mb-1">
-                    <button class="group" @click="changColor = !changColor">
-                      <svg 
-                        v-if="!changColor"
-                        class="w-4 h-4 group-hover:fill-[#ff0000]"
-                        xmlns="http://www.w3.org/2000/svg"
-                        viewBox="0 0 24 24"
-                        fill="#ff000040"
-                      
-                      >
-                        <path
-                          stroke="#ff0000"
-                          class="transition-colors duration-300 ease-in-out"
-                          d="m4.45 13.908l6.953 6.531c.24.225.36.338.5.366a.5.5 0 0 0 .193 0c.142-.028.261-.14.5-.366l6.953-6.53a5.203 5.203 0 0 0 .549-6.983l-.31-.399c-1.968-2.536-5.918-2.111-7.301.787a.54.54 0 0 1-.974 0C10.13 4.416 6.18 3.99 4.212 6.527l-.31.4a5.203 5.203 0 0 0 .549 6.981Z"
-                        />
-                      </svg>
-                      <svg v-else
-                        class="w-4 h-4 "
-                        xmlns="http://www.w3.org/2000/svg"
-                        viewBox="0 0 24 24"
-                        fill="#ff0000"
-                      
-                      >
-                        <path
-                          stroke="#ff0000"
-                          d="m4.45 13.908l6.953 6.531c.24.225.36.338.5.366a.5.5 0 0 0 .193 0c.142-.028.261-.14.5-.366l6.953-6.53a5.203 5.203 0 0 0 .549-6.983l-.31-.399c-1.968-2.536-5.918-2.111-7.301.787a.54.54 0 0 1-.974 0C10.13 4.416 6.18 3.99 4.212 6.527l-.31.4a5.203 5.203 0 0 0 .549 6.981Z"
-                        />
-                      </svg>
-                    </button>
-                  </div>
-                </div>
-                <div class="mt-3">
-                  <h2 class="flex-auto text-lg font-medium">
-                    <slot name="nameOfconcert"></slot>
-                  </h2>
-                </div>
-                <div class="flex py-3 text-sm text-gray-500">
-                  <div class="flex flex-col items-start">
-                    <!-- Date -->
-                    <div class="flex flex-row items-center text-xs mb-2">
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        class="h-5 w-5 mr-2 text-gray-400"
-                        fill="none"
-                        viewBox="0 0 24 24"
-                        stroke="currentColor"
-                      >
-                        <path
-                          stroke-linecap="round"
-                          stroke-linejoin="round"
-                          stroke-width="2"
-                          d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"
-                        ></path>
-                        <path
-                          stroke-linecap="round"
-                          stroke-linejoin="round"
-                          stroke-width="2"
-                          d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"
-                        ></path>
-                      </svg>
-                      <slot name="date"></slot>
-                    </div>
 
-                    <!-- Time -->
-                    <div class="flex flex-row items-center text-xs mb-2">
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        class="h-5 w-5 mr-2 text-gray-400"
-                        fill="none"
-                        viewBox="0 0 24 24"
-                        stroke="currentColor"
-                      >
-                        <path
-                          stroke-linecap="round"
-                          stroke-linejoin="round"
-                          stroke-width="2"
-                          d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"
-                        ></path>
-                        <path
-                          stroke-linecap="round"
-                          stroke-linejoin="round"
-                          stroke-width="2"
-                          d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"
-                        ></path>
-                      </svg>
-                      <slot name="time"></slot>
-                    </div>
-                    <!-- Location -->
-                    <div class="flex flex-row items-center text-xs mb-2">
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        class="h-5 w-5 mr-2 text-gray-400"
-                        fill="none"
-                        viewBox="0 0 24 24"
-                        stroke="currentColor"
-                      >
-                        <path
-                          stroke-linecap="round"
-                          stroke-linejoin="round"
-                          stroke-width="2"
-                          d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"
-                        ></path>
-                        <path
-                          stroke-linecap="round"
-                          stroke-linejoin="round"
-                          stroke-width="2"
-                          d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"
-                        ></path>
-                      </svg>
-                      <slot name="location"></slot>
-                    </div>
-                  </div>
+              <!-- Time -->
+              <div class="flex flex-row items-center text-xs mb-2">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  class="h-5 w-5 mr-2 text-gray-400"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"
+                  ></path>
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"
+                  ></path>
+                </svg>
+                <slot name="time"></slot>
+              </div>
+              <!-- Location -->
+              <div class="flex flex-row items-center text-xs mb-2">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  class="h-5 w-5 mr-2 text-gray-400"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"
+                  ></path>
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"
+                  ></path>
+                </svg>
+                <slot name="location"></slot>
+              </div>
+            </div>
 
-                  <!-- <div class="flex-1 inline-flex items-center">
+            <!-- <div class="flex-1 inline-flex items-center">
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
                       class="h-5 w-5 mr-2 text-gray-400"
@@ -167,19 +157,15 @@ const toBuyTicketpage = () => {
                     </svg>
                     <p class="">05-25-2021</p>
                   </div> -->
-                </div>
-                <div class="flex p-2 border-t border-gray-200"></div>
-                <div class="flex space-x-3 text-sm font-medium">
-                  <button
-                    @click="toBuyTicketpage"
-                    class="md:mb-0 bgRed px-5 py-2 shadow-sm tracking-wider text-white rounded-full hover:bg-gray-800"
-                    type="button"
-                  >
-                    Buy now
-                  </button>
-                </div>
-              </div>
-            </div>
+          </div>
+          <div class="flex p-2 border-t border-gray-200"></div>
+          <div class="flex space-x-3 text-sm font-medium">
+            <button @click="toDetailticket(props.ticketItemId)"
+              class="md:mb-0 bgRed px-5 py-2 shadow-sm tracking-wider text-white rounded-full hover:bg-gray-800"
+              type="button"
+            >
+              Buy now
+            </button>
           </div>
         </div>
       </div>
