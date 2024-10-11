@@ -6,13 +6,12 @@ const router = useRouter()
 const changColor = ref(false)
 
 const props = defineProps({
-   ticketItemId : String
+  ticketItemId: String
 })
-
 
 const toDetailticket = (id) => {
   console.log(id)
-    router.push({ name: 'detailticket', params: { ticketId : id } })
+  router.push({ name: 'detailticket', params: { ticketId: id } })
 }
 </script>
 
@@ -160,7 +159,8 @@ const toDetailticket = (id) => {
           </div>
           <div class="flex p-2 border-t border-gray-200"></div>
           <div class="flex space-x-3 text-sm font-medium">
-            <button @click="toDetailticket(props.ticketItemId)"
+            <button
+              @click="toDetailticket(props.ticketItemId)"
               class="md:mb-0 bgRed px-5 py-2 shadow-sm tracking-wider text-white rounded-full hover:bg-gray-800"
               type="button"
             >
