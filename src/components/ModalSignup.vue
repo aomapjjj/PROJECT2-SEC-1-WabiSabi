@@ -1,23 +1,98 @@
 <script setup>
-import { ref, defineProps, defineEmits } from 'vue';
+import { ref, defineProps, defineEmits } from 'vue'
+import { addItem } from '../../libs/fetchUtils'
+import { useRouter } from 'vue-router'
 
 const props = defineProps({
-  isVisible: Boolean,  // รับค่า boolean เพื่อตรวจสอบว่า modal ควรแสดงหรือไม่
-});
+  isVisible: Boolean
+})
 
-const emit = defineEmits(['close']);  // กำหนด event เมื่อโมดัลถูกปิด
+const isSignUp = ref(true)
+const emit = defineEmits(['close'])
+const router = useRouter() // ใช้ router เพื่อการนำทาง
 
 const closeModal = () => {
-  emit('close');  // ส่ง event กลับไปที่ parent component (login.vue)
-};
+  emit('close')
+}
 
-// สร้าง state เพื่อจัดการกับแท็บที่แสดง
-const isSignUp = ref(true);  // ใช้เพื่อควบคุมว่าจะแสดง Sign Up หรือ Login
+// ใช้เฉพาะ email และ password
+const email = ref('')
+const password = ref('')
+const username = ref('') // New username ref
+const firstname = ref('') // New first name ref
+const lastname = ref('') // New last name ref
+const signupMessage = ref('')
+const loginMessage = ref('')
+const usersUrl = `${import.meta.env.VITE_APP_URL_USER}`
+
+// state สำหรับเปิด/ปิดการมองเห็นรหัสผ่าน
+const showPassword = ref(false)
+
+
+// ฟังก์ชัน signup
+const handleSignUp = async () => {
+  const newUser = {
+    email: email.value,
+    password: password.value,
+    username: username.value, // Add username to the new user object
+    firstname: firstname.value, // Add first name
+    lastname: lastname.value // Add last name
+  }
+
+  try {
+    const response = await addItem(usersUrl, newUser)
+    if (typeof response === 'object') {
+      signupMessage.value = 'Sign up successful!'
+      console.log('ABC')
+      closeModal() // ปิด modal หลังจากสมัครสำเร็จ
+      router.push('/homepage') // นำทางไปยังหน้า Homepage
+    } else {
+      signupMessage.value = response.message // แสดงข้อความ error ถ้าสมัครไม่สำเร็จ
+    }
+  } catch (error) {
+    signupMessage.value = 'An error occurred during sign up'
+    console.error(error)
+  }
+}
+
+
+// ฟังก์ชัน login
+const handleLogin = async () => {
+  const userCredentials = {
+    email: email.value,
+    password: password.value
+  }
+
+  try {
+    const response = await fetch(usersUrl) // ดึงข้อมูลผู้ใช้จากไฟล์ JSON
+    const users = await response.json() // แปลงเป็น JSON
+
+    // ตรวจสอบข้อมูลผู้ใช้
+    const user = users.find(
+      (user) =>
+        user.email === userCredentials.email &&
+        user.password === userCredentials.password
+    )
+    if (user) {
+      router.push('/homepage') // เปลี่ยนไปยังหน้า Homepage
+      closeModal() // ปิด modal หลังจากล็อกอินสำเร็จ
+    } else {
+      loginMessage.value = 'Invalid email or password'
+    }
+  } catch (error) {
+    loginMessage.value = 'An error occurred during login'
+    console.error(error)
+  }
+}
+
 
 </script>
 
 <template>
-  <div v-if="isVisible" class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
+  <div
+    v-if="isVisible"
+    class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50"
+  >
     <div class="bg-white w-full max-w-md rounded-lg shadow-lg">
       <div class="p-6">
         <!-- Logo -->
@@ -27,63 +102,211 @@ const isSignUp = ref(true);  // ใช้เพื่อควบคุมว่
 
         <!-- Tabs -->
         <div class="flex justify-between mt-6 mb-4">
-          <button 
-            @click="isSignUp.value = false" 
-            :class="{ 'font-bold text-indigo-500 border-b-2 border-indigo-500': !isSignUp.value }" 
-            class="flex-1 text-center py-2">
+          <button
+            @click="isSignUp = false"
+            :class="{
+              'font-bold text-green-400 border-b-2 border-green-400': !isSignUp
+            }"
+            class="flex-1 text-center py-2"
+          >
             Login
           </button>
-          <button 
-            @click="isSignUp.value = true" 
-            :class="{ 'font-bold text-indigo-500 border-b-2 border-indigo-500': isSignUp.value }" 
-            class="flex-1 text-center py-2">
+          <button
+            @click="isSignUp = true"
+            :class="{
+              'font-bold text-green-400 border-b-2 border-green-400': isSignUp
+            }"
+            class="flex-1 text-center py-2"
+          >
             Sign Up
           </button>
         </div>
 
         <!-- Form Content -->
-        <div v-if="isSignUp.value">
-          <h1 class="text-2xl xl:text-3xl font-extrabold mt-6 text-center">Sign Up</h1>
-          <div class="flex flex-col items-center mt-8">
-            <button class="w-full max-w-xs font-bold shadow-sm rounded-lg py-3 bg-indigo-100 text-gray-800 flex items-center justify-center transition-all duration-300 ease-in-out hover:shadow focus:shadow-outline">
-              <div class="bg-white p-2 rounded-full">
-                <svg class="w-4" viewBox="0 0 533.5 544.3">
-                  <!-- Google SVG Paths -->
-                </svg>
-              </div>
-              <span class="ml-4">Sign Up with Google</span>
-            </button>
-          </div>
-
-          <div class="my-12 border-b text-center">
-            <div class="leading-none px-2 inline-block text-sm text-gray-600 font-medium bg-white transform translate-y-1/2">
-              Or sign up with e-mail
-            </div>
-          </div>
+        <div v-if="isSignUp">
+          <h1
+            class="text-2xl text-blue-600 xl:text-3xl font-extrabold m-6 text-center"
+          >
+            Sign Up
+          </h1>
+          <p class="text-xs text-blue-600 font-medium m-6 text-center">
+            Join the Wasabi Ticket family and never miss your favorite concerts!
+          </p>
 
           <div class="mx-auto max-w-xs">
-            <input type="email" placeholder="Email" class="w-full px-8 py-4 rounded-lg font-medium bg-gray-100 border border-gray-200 text-sm focus:outline-none focus:border-gray-400" />
-            <input type="password" placeholder="Password" class="w-full px-8 py-4 mt-5 rounded-lg font-medium bg-gray-100 border border-gray-200 text-sm focus:outline-none focus:border-gray-400" />
-            <button class="mt-5 bg-indigo-500 text-gray-100 w-full py-4 rounded-lg hover:bg-indigo-700 flex items-center justify-center transition-all duration-300 ease-in-out">
+            <input
+              v-model="username"
+              type="text"
+              placeholder="Username" 
+              class="mt-5 w-full px-8 py-4 rounded-lg font-medium bg-gray-100 border border-gray-200 text-sm focus:outline-none focus:border-gray-400"
+            />
+            <input
+              v-model="firstname"
+              type="text"
+              placeholder="First Name" 
+              class="mt-5 w-full px-8 py-4 rounded-lg font-medium bg-gray-100 border border-gray-200 text-sm focus:outline-none focus:border-gray-400"
+            />
+            <input
+              v-model="lastname"
+              type="text"
+              placeholder="Last Name" 
+              class="mt-5 w-full px-8 py-4 rounded-lg font-medium bg-gray-100 border border-gray-200 text-sm focus:outline-none focus:border-gray-400"
+            />
+            <input
+              v-model="email"
+              type="email"
+              placeholder="Email"
+              class="mt-5 w-full px-8 py-4 rounded-lg font-medium bg-gray-100 border border-gray-200 text-sm focus:outline-none focus:border-gray-400"
+            />
+
+            <!-- ช่องกรอกรหัสผ่านที่มีปุ่มแสดงรหัส -->
+            <div class="relative mt-5">
+              <input
+                :type="showPassword ? 'text' : 'password'"
+                v-model="password"
+                placeholder="Password"
+                class="w-full px-8 py-4 rounded-lg font-medium bg-gray-100 border border-gray-200 text-sm focus:outline-none focus:border-gray-400"
+              />
+              <button
+                type="button"
+                @click="showPassword = !showPassword"
+                class="absolute inset-y-0 right-0 pr-3 flex items-center text-sm leading-5"
+              >
+                <svg
+                  v-if="showPassword"
+                  class="w-6 h-6 text-gray-800 dark:text-white"
+                  aria-hidden="true"
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="24"
+                  height="24"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    stroke="currentColor"
+                    stroke-width="2"
+                    d="M21 12c0 1.2-4.03 6-9 6s-9-4.8-9-6c0-1.2 4.03-6 9-6s9 4.8 9 6Z"
+                  />
+                  <path
+                    stroke="currentColor"
+                    stroke-width="2"
+                    d="M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z"
+                  />
+                </svg>
+                <svg
+                  v-else
+                  class="w-6 h-6 text-gray-800 dark:text-white"
+                  aria-hidden="true"
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="24"
+                  height="24"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    stroke="currentColor"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M3.933 13.909A4.357 4.357 0 0 1 3 12c0-1 4-6 9-6m7.6 3.8A5.068 5.068 0 0 1 21 12c0 1-3 6-9 6-.314 0-.62-.014-.918-.04M5 19 19 5m-4 7a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z"
+                  />
+                </svg>
+              </button>
+            </div>
+
+            <button
+              @click="handleSignUp"
+              class="mt-5 bg-yellow-300 text-gray-100 w-full py-4 rounded-lg hover:bg-green-400 flex items-center justify-center transition-all duration-300 ease-in-out"
+            >
               <span class="ml-3">Sign Up</span>
             </button>
           </div>
         </div>
 
         <div v-else>
-          <h1 class="text-2xl xl:text-3xl font-extrabold m-6 text-center">Login</h1>
+          <h1
+            class="text-blue-600 text-2xl xl:text-3xl font-extrabold m-6 text-center"
+          >
+            Login
+          </h1>
+          <p class="text-xs text-blue-600 font-medium m-6 text-center">
+            Welcome back! Log in to unlock exclusive concert experiences.
+          </p>
           <div class="mx-auto max-w-xs">
-            <input type="email" placeholder="Email" class="w-full px-8 py-4 rounded-lg font-medium bg-gray-100 border border-gray-200 text-sm focus:outline-none focus:border-gray-400" />
-            <input type="password" placeholder="Password" class="w-full px-8 py-4 mt-5 rounded-lg font-medium bg-gray-100 border border-gray-200 text-sm focus:outline-none focus:border-gray-400" />
-            <button class="mt-5 bg-indigo-500 text-gray-100 w-full py-4 rounded-lg hover:bg-indigo-700 flex items-center justify-center transition-all duration-300 ease-in-out">
+            <input
+              v-model="email"
+              type="email"
+              placeholder="Email"
+              class="w-full px-8 py-4 rounded-lg font-medium bg-gray-100 border border-gray-200 text-sm focus:outline-none focus:border-gray-400"
+            />
+            <div class="relative mt-5">
+              <input
+                :type="showPassword ? 'text' : 'password'"
+                v-model="password"
+                placeholder="Password"
+                class="w-full px-8 py-4 rounded-lg font-medium bg-gray-100 border border-gray-200 text-sm focus:outline-none focus:border-gray-400"
+              />
+              <button
+                type="button"
+                @click="showPassword = !showPassword"
+                class="absolute inset-y-0 right-0 flex items-center px-3 text-gray-800 dark:text-white"
+              >
+                <svg
+                  v-if="showPassword"
+                  class="w-6 h-6"
+                  aria-hidden="true"
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    stroke="currentColor"
+                    stroke-width="2"
+                    d="M21 12c0 1.2-4.03 6-9 6s-9-4.8-9-6c0-1.2 4.03-6 9-6s9 4.8 9 6Z"
+                  />
+                  <path
+                    stroke="currentColor"
+                    stroke-width="2"
+                    d="M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z"
+                  />
+                </svg>
+                <svg
+                  v-else
+                  class="w-6 h-6"
+                  aria-hidden="true"
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    stroke="currentColor"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M3.933 13.909A4.357 4.357 0 0 1 3 12c0-1 4-6 9-6m7.6 3.8A5.068 5.068 0 0 1 21 12c0 1-3 6-9 6-.314 0-.62-.014-.918-.04M5 19 19 5m-4 7a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z"
+                  />
+                </svg>
+              </button>
+            </div>
+
+            <button
+              @click="handleLogin"
+              class="mt-5 bg-yellow-300 text-gray-100 w-full py-4 rounded-lg hover:bg-green-400 flex items-center justify-center transition-all duration-300 ease-in-out"
+            >
               <span class="ml-3">Login</span>
             </button>
+
+            <p v-if="loginMessage" class="mt-2 text-red-500 text-center">
+              {{ loginMessage }}
+            </p>
           </div>
         </div>
       </div>
       <!-- Close Button -->
       <div class="text-right p-4">
-        <button @click="closeModal" class="text-gray-500 hover:text-gray-700">Close</button>
+        <button @click="closeModal" class="text-gray-500 hover:text-gray-700">
+          Close
+        </button>
       </div>
     </div>
   </div>
