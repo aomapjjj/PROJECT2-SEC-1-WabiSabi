@@ -19,6 +19,8 @@ watch(
   { immediate: true }
 )
 
+console.log(ticketItemId)
+
 
 onMounted(async () => {
   try{

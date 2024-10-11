@@ -1,7 +1,7 @@
 {
   "concerts": [
     {
-      "id": 1,
+      "id": "1",
       "img":"/concertPoster/1.png",
       "title": "Swing into the Groove",
       "description": "Get ready to swing and groove to the infectious rhythms of this unforgettable jazz concert! Featuring world-renowned jazz musicians, this evening promises a captivating blend of traditional jazz and contemporary improvisations. Prepare to be swept away by the soulful melodies and intricate harmonies that will leave you wanting more.",
@@ -19,7 +19,7 @@
       "remaining_tickets": 1000
     },
     {
-      "id": 2,
+      "id": "2",
       "img":"/concertPoster/2.png",
       "title": "Starlight Pulse Festival",
       "description": "Immerse yourself in a vibrant world of music and light at the Starlight Pulse Festival! Experience an electrifying fusion of pop, electronic dance music, and alternative rock as renowned artists take the stage. Prepare to be mesmerized by stunning visuals, captivating performances, and an energetic atmosphere that will ignite your senses.",
@@ -37,7 +37,7 @@
       "remaining_tickets": 500
     },
     {
-      "id": 3,
+      "id": "3",
       "img":"/concertPoster/3.png",
       "title": "Skyline Soundwave",
       "description": "Enjoy a breathtaking panoramic view of the Chiangmai skyline while indulging in a captivating musical journey at the Skyline Soundwave! This concert showcases a diverse lineup of indie pop, folk, and alternative rock artists, creating a unique and intimate atmosphere. Experience the magic of music under the stars, accompanied by stunning visuals and a vibrant energy.",
@@ -55,7 +55,7 @@
       "remaining_tickets": 750
     },
     {
-      "id": 4,
+      "id": "4",
       "img":"/concertPoster/4.png",
       "title": "Beyond the Frequency",
       "description": "Prepare to embark on a sonic adventure as Beyond the Frequency pushes the boundaries of electronic music! This electrifying concert features a diverse lineup of DJs and producers who will guide you through a captivating journey of experimental soundscapes, pulsating beats, and immersive visuals. Get ready to lose yourself in a world of pure sonic bliss.",
@@ -73,7 +73,7 @@
       "remaining_tickets": 200
     },
     {
-      "id": 5,
+      "id": "5",
       "img":"/concertPoster/5.png",
       "title": "Sounds of Joy",
       "description": "Experience a harmonious blend of pop, R&B, and soul music at the Sounds of Joy concert! Featuring a talented ensemble of singers and musicians, this evening promises a captivating showcase of heartfelt melodies, powerful vocals, and infectious rhythms. Get ready to be moved by the uplifting music and inspiring performances that will leave you feeling joyful and rejuvenated.",
@@ -91,7 +91,7 @@
       "remaining_tickets": 800
     },
     {
-      "id": 6,
+      "id": "6",
       "img":"/concertPoster/6.png",
       "title": "Live Rock Music Festival",
       "description": "Get ready to rock out at the Live Rock Music Festival! Featuring a lineup of legendary rock bands and rising stars, this festival promises an unforgettable experience filled with powerful riffs, electrifying solos, and energetic performances. Prepare to unleash your inner rock star as you sing along to your favorite anthems and immerse yourself in the exhilarating atmosphere.",
@@ -109,7 +109,7 @@
       "remaining_tickets": 600
     },
     {
-      "id": 7,
+      "id": "7",
       "img":"/concertPoster/7.png",
       "title": "Colors of Music",
       "description": "Experience a kaleidoscope of musical styles at the Colors of Music concert! This vibrant event features a diverse lineup of artists showcasing everything from classical music to contemporary world music. Prepare to be transported to different cultures and eras through enchanting melodies, intricate harmonies, and mesmerizing performances.",
@@ -127,7 +127,7 @@
       "remaining_tickets": 400
     },
     {
-      "id": 8,
+      "id": "8",
       "img":"/concertPoster/8.png",
       "title": "Artistic Echoes",
       "description": "Immerse yourself in a world of art and music at the Artistic Echoes concert! This captivating event combines a showcase of renowned artists with a musical performance that reflects the themes and inspirations behind their works. Enjoy a unique and immersive experience that celebrates the interconnectedness of art and music.",
@@ -150,7 +150,7 @@
       "remaining_tickets": 350
     },
     {
-      "id": 9,
+      "id": "9",
       "img":"/concertPoster/9.png",
       "title": "Galactic Beats",
       "description": "Prepare for an intergalactic journey through sound at the Galactic Beats concert! This electrifying event features a lineup of DJs and producers who will transport you to otherworldly realms with their pulsating beats, hypnotic melodies, and immersive visuals. Experience the fusion of electronic music, psychedelic art, and cosmic energy, creating a truly unforgettable experience.",
@@ -168,7 +168,7 @@
       "remaining_tickets": 100
     },
     {
-      "id": 10,
+      "id": "10",
       "img":"/concertPoster/10.png",
       "title": "Rock Revolution",
       "description": "Get ready to experience a rock and roll revolution at the Rock Revolution concert! Featuring a lineup of iconic rock bands and emerging artists, this event promises an explosive night filled with powerful riffs, soaring vocals, and electrifying energy. Prepare to unleash your inner rock fan as you sing along to your favorite anthems and celebrate the enduring power of rock music.",
@@ -186,7 +186,7 @@
       "remaining_tickets": 900
     },
     {
-      "id": 11,
+      "id": "11",
       "img":"/concertPoster/11.png",
       "title": "Cosmic Soundwave",
       "description": null,
@@ -204,7 +204,7 @@
       "remaining_tickets": null
     },
     {
-      "id": 12,
+      "id": "12",
       "img":"/concertPoster/12.png",
       "title": "Echoes of Infinity",
       "description": null,
@@ -222,7 +222,7 @@
       "remaining_tickets": null
     },
     {
-      "id": 13,
+      "id": "13",
       "img":"/concertPoster/13.png",
       "title": "Stardust Serenade",
       "description": null,
@@ -240,7 +240,7 @@
       "remaining_tickets": null
     },
     {
-      "id": 14,
+      "id": "14",
       "img":"/concertPoster/14.png",
       "title": "The Pulsar Vibes",
       "description": null,
@@ -258,7 +258,7 @@
       "remaining_tickets": null
     },
     {
-      "id": 15,
+      "id": "15",
       "img":"/concertPoster/15.png",
       "title": "Aurora Melodies",
       "description": null,
@@ -276,7 +276,7 @@
       "remaining_tickets": null
     },
     {
-      "id": 16,
+      "id": "16",
       "img":"/concertPoster/16.png",
       "title": "Celestial Groove",
       "description": null,
@@ -294,7 +294,7 @@
       "remaining_tickets": null
     },
     {
-      "id": 17,
+      "id": "17",
       "img":"/concertPoster/17.png",
       "title": "Galaxy Frequencies",
       "description": null,
@@ -312,7 +312,7 @@
       "remaining_tickets": null
     },
     {
-      "id": 18,
+      "id": "18",
       "img":"/concertPoster/18.png",
       "title": "Nebula Nights",
       "description": null,
@@ -330,7 +330,7 @@
       "remaining_tickets": null
     },
     {
-      "id": 19,
+      "id": "19",
       "img":"/concertPoster/19.png",
       "title": "Sonic Supernova",
       "description": null,
@@ -348,7 +348,7 @@
       "remaining_tickets": null
     },
     {
-      "id": 20,
+      "id": "20",
       "img":"/concertPoster/20.png",
       "title": "Orbit of Rhythms",
       "description": null,
