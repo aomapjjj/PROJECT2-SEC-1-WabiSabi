@@ -1,9 +1,8 @@
 <script setup>
-import { useUsers } from '@/stores/userStore'
+import { useUsers } from "@/stores/userStore"
 
 const userStore = useUsers()
-const userName = userStore.getUser().username
-
+const userName = userStore.getUser()?.userName
 </script>
 
 <template>
@@ -69,7 +68,7 @@ const userName = userStore.getUser().username
           </button>
         </div>
         <div class="hidden lg:relative lg:z-10 lg:ml-4 lg:flex lg:items-center">
-        <h1>Hello, {{ userName }}</h1>
+          <h1>Hello, {{ userName === undefined ? "Guest" : userName }}</h1>
           <!-- Profile dropdown -->
           <div class="relative ml-4 flex-shrink-0">
             <div>
@@ -82,7 +81,17 @@ const userName = userStore.getUser().username
               >
                 <span class="absolute -inset-1.5"></span>
                 <span class="sr-only">Open user menu</span>
-                <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="#8f8f8f" d="M12 19.2c-2.5 0-4.71-1.28-6-3.2c.03-2 4-3.1 6-3.1s5.97 1.1 6 3.1a7.23 7.23 0 0 1-6 3.2M12 5a3 3 0 0 1 3 3a3 3 0 0 1-3 3a3 3 0 0 1-3-3a3 3 0 0 1 3-3m0-3A10 10 0 0 0 2 12a10 10 0 0 0 10 10a10 10 0 0 0 10-10c0-5.53-4.5-10-10-10"/></svg>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="32"
+                  height="32"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    fill="#8f8f8f"
+                    d="M12 19.2c-2.5 0-4.71-1.28-6-3.2c.03-2 4-3.1 6-3.1s5.97 1.1 6 3.1a7.23 7.23 0 0 1-6 3.2M12 5a3 3 0 0 1 3 3a3 3 0 0 1-3 3a3 3 0 0 1-3-3a3 3 0 0 1 3-3m0-3A10 10 0 0 0 2 12a10 10 0 0 0 10 10a10 10 0 0 0 10-10c0-5.53-4.5-10-10-10"
+                  />
+                </svg>
               </button>
             </div>
 
@@ -103,8 +112,8 @@ const userName = userStore.getUser().username
               aria-labelledby="user-menu-button"
               tabindex="-1"
             > -->
-              <!-- Active: "bg-gray-100", Not Active: "" -->
-              <!-- <a
+            <!-- Active: "bg-gray-100", Not Active: "" -->
+            <!-- <a
                 href="#"
                 class="block px-4 py-2 text-sm text-yellow-600"
                 role="menuitem"
@@ -141,10 +150,10 @@ const userName = userStore.getUser().username
           ></a
         > -->
         <RouterLink to="/homepage">
-        <span
-          class="text-cyan-500 bg-yellow-400 hover:bg-cyan-500 hover:text-yellow-400 inline-flex items-center rounded-full py-2 px-3 text-sm font-medium"
-          >Home</span
-        >
+          <span
+            class="text-cyan-500 bg-yellow-400 hover:bg-cyan-500 hover:text-yellow-400 inline-flex items-center rounded-full py-2 px-3 text-sm font-medium"
+            >Home</span
+          >
         </RouterLink>
         <a
           href="#"
@@ -152,7 +161,11 @@ const userName = userStore.getUser().username
           >Members</a
         >
         <RouterLink to="/edit-profile">
-          <button class="text-cyan-500 bg-yellow-400 hover:bg-cyan-500 hover:text-yellow-400 inline-flex items-center rounded-full py-2 px-3 text-sm font-medium" >Edit Profile</button>
+          <button
+            class="text-cyan-500 bg-yellow-400 hover:bg-cyan-500 hover:text-yellow-400 inline-flex items-center rounded-full py-2 px-3 text-sm font-medium"
+          >
+            Edit Profile
+          </button>
         </RouterLink>
       </nav>
     </div>
