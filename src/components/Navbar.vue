@@ -1,4 +1,9 @@
-<script setup></script>
+<script setup>
+import { useUsers } from "@/stores/userStore"
+
+const userStore = useUsers()
+const userName = userStore.getUser()?.userName
+</script>
 
 <template>
   <header class="bg-white shadow-md">
@@ -63,28 +68,7 @@
           </button>
         </div>
         <div class="hidden lg:relative lg:z-10 lg:ml-4 lg:flex lg:items-center">
-          <button
-            type="button"
-            class="relative flex-shrink-0 rounded-full bg-gray-800 p-1 text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800"
-          >
-            <span class="absolute -inset-1.5"></span>
-            <span class="sr-only">View notifications</span>
-            <svg
-              class="h-6 w-6"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke-width="1.5"
-              stroke="currentColor"
-              aria-hidden="true"
-            >
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                d="M14.857 17.082a23.848 23.848 0 005.454-1.31A8.967 8.967 0 0118 9.75v-.7V9A6 6 0 006 9v.75a8.967 8.967 0 01-2.312 6.022c1.733.64 3.56 1.085 5.455 1.31m5.714 0a24.255 24.255 0 01-5.714 0m5.714 0a3 3 0 11-5.714 0"
-              />
-            </svg>
-          </button>
-
+          <h1>Hello, {{ userName === undefined ? "Guest" : userName }}</h1>
           <!-- Profile dropdown -->
           <div class="relative ml-4 flex-shrink-0">
             <div>
@@ -97,11 +81,17 @@
               >
                 <span class="absolute -inset-1.5"></span>
                 <span class="sr-only">Open user menu</span>
-                <img
-                  class="h-8 w-8 rounded-full"
-                  src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
-                  alt=""
-                />
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="32"
+                  height="32"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    fill="#8f8f8f"
+                    d="M12 19.2c-2.5 0-4.71-1.28-6-3.2c.03-2 4-3.1 6-3.1s5.97 1.1 6 3.1a7.23 7.23 0 0 1-6 3.2M12 5a3 3 0 0 1 3 3a3 3 0 0 1-3 3a3 3 0 0 1-3-3a3 3 0 0 1 3-3m0-3A10 10 0 0 0 2 12a10 10 0 0 0 10 10a10 10 0 0 0 10-10c0-5.53-4.5-10-10-10"
+                  />
+                </svg>
               </button>
             </div>
 
@@ -122,8 +112,8 @@
               aria-labelledby="user-menu-button"
               tabindex="-1"
             > -->
-              <!-- Active: "bg-gray-100", Not Active: "" -->
-              <!-- <a
+            <!-- Active: "bg-gray-100", Not Active: "" -->
+            <!-- <a
                 href="#"
                 class="block px-4 py-2 text-sm text-yellow-600"
                 role="menuitem"
@@ -160,10 +150,10 @@
           ></a
         > -->
         <RouterLink to="/homepage">
-        <span
-          class="text-cyan-500 bg-yellow-400 hover:bg-cyan-500 hover:text-yellow-400 inline-flex items-center rounded-full py-2 px-3 text-sm font-medium"
-          >Home</span
-        >
+          <span
+            class="text-cyan-500 bg-yellow-400 hover:bg-cyan-500 hover:text-yellow-400 inline-flex items-center rounded-full py-2 px-3 text-sm font-medium"
+            >Home</span
+          >
         </RouterLink>
         <a
           href="#"
@@ -171,7 +161,11 @@
           >Members</a
         >
         <RouterLink to="/edit-profile">
-          <button class="text-cyan-500 bg-yellow-400 hover:bg-cyan-500 hover:text-yellow-400 inline-flex items-center rounded-full py-2 px-3 text-sm font-medium" >Edit Profile</button>
+          <button
+            class="text-cyan-500 bg-yellow-400 hover:bg-cyan-500 hover:text-yellow-400 inline-flex items-center rounded-full py-2 px-3 text-sm font-medium"
+          >
+            Edit Profile
+          </button>
         </RouterLink>
       </nav>
     </div>

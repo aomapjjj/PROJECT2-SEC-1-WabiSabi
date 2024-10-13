@@ -1,7 +1,10 @@
 <script setup>
 import { ref, defineProps, defineEmits } from 'vue'
-import { addItem } from '../../libs/fetchUtils'
+import { addItem , getItems } from '../../libs/fetchUtils'
 import { useRouter } from 'vue-router'
+import { useUsers } from '@/stores/userStore'
+
+const userStore = useUsers()
 
 const props = defineProps({
   isVisible: Boolean
@@ -15,39 +18,40 @@ const closeModal = () => {
   emit('close')
 }
 
-// ใช้เฉพาะ email และ password
+
 const email = ref('')
 const password = ref('')
-const username = ref('') // New username ref
-const firstname = ref('') // New first name ref
-const lastname = ref('') // New last name ref
+const username = ref('') 
+const firstname = ref('') 
+const lastname = ref('') 
 const signupMessage = ref('')
 const loginMessage = ref('')
 const usersUrl = `${import.meta.env.VITE_APP_URL_USER}`
 
-// state สำหรับเปิด/ปิดการมองเห็นรหัสผ่าน
+
 const showPassword = ref(false)
 
 
-// ฟังก์ชัน signup
+
 const handleSignUp = async () => {
   const newUser = {
     email: email.value,
     password: password.value,
-    username: username.value, // Add username to the new user object
-    firstname: firstname.value, // Add first name
-    lastname: lastname.value // Add last name
+    username: username.value,
+    firstname: firstname.value, 
+    lastname: lastname.value 
   }
 
   try {
     const response = await addItem(usersUrl, newUser)
     if (typeof response === 'object') {
+      userStore.setUser(response)
+      console.log(userStore.getUser())
       signupMessage.value = 'Sign up successful!'
-      console.log('ABC')
-      closeModal() // ปิด modal หลังจากสมัครสำเร็จ
-      router.push('/homepage') // นำทางไปยังหน้า Homepage
+      closeModal()
+      router.push('/homepage') 
     } else {
-      signupMessage.value = response.message // แสดงข้อความ error ถ้าสมัครไม่สำเร็จ
+      signupMessage.value = response.message 
     }
   } catch (error) {
     signupMessage.value = 'An error occurred during sign up'
@@ -64,18 +68,17 @@ const handleLogin = async () => {
   }
 
   try {
-    const response = await fetch(usersUrl) // ดึงข้อมูลผู้ใช้จากไฟล์ JSON
-    const users = await response.json() // แปลงเป็น JSON
-
-    // ตรวจสอบข้อมูลผู้ใช้
+    const users = await getItems(usersUrl)
     const user = users.find(
       (user) =>
         user.email === userCredentials.email &&
         user.password === userCredentials.password
     )
     if (user) {
-      router.push('/homepage') // เปลี่ยนไปยังหน้า Homepage
-      closeModal() // ปิด modal หลังจากล็อกอินสำเร็จ
+      userStore.setUser(user)
+      console.log(userStore.getUser())
+      router.push('/homepage') 
+      closeModal() 
     } else {
       loginMessage.value = 'Invalid email or password'
     }
