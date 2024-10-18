@@ -1,32 +1,39 @@
 <script setup>
-import { ref } from "vue";
-import { useUsers } from "@/stores/userStore"
+import { ref, watch } from "vue";
+import { useUsers } from "@/stores/userStore";
+import SaveModal from "./SaveModal.vue";
+import { editItem } from "../../libs/fetchUtils";
+import { useRouter, useRoute } from "vue-router"
 
-const userStore = useUsers()
-const userInfo = userStore.getUser()
-// import { getItemById } from '../../libs/fetchUtils';
+const route = useRoute()
+const router = useRouter()
 
-// const baseUrlUser = `${import.meta.env.VITE_APP_URL_USER}`
-// const userById = ref()
+const userStore = useUsers();
+const userInfo = userStore.getUser();
+const oldUserDetail = ref({ ...userInfo });
+const openSaveModal = ref(false);
+const isChanged = ref(false);
+const newUserDetail = ref({
+  ...userInfo
+});
+console.log(newUserDetail.value)
+watch(newUserDetail.value, (newVal) => {
+  isChanged.value =
+    JSON.stringify(newVal) !== JSON.stringify(oldUserDetail.value);
+});
 
-// const getUserById = async (id) => {
-//     try {
-//         const user = await getItemById(baseUrlUser, id)
-//         userById.value = user
-//         console.log(userById.value)
-//     } catch {
-//         console.log("ID Not Found")
-//     }
-// }
-
-const profileFirstname = ref("firstname");
-const profileLastname = ref("lastname");
-const profileEmail = ref("pas.ddd@gmail.com");
-const profileTelephone = ref("011 111 1111");
-const profileSex = ref("Female");
-const profileAddress = ref("Bangkok");
-
-const openSaveModal = ref(false)
+const saveUserEdited = async () => {
+  const editedUserDetail = await editItem(
+    `${import.meta.env.VITE_APP_URL_USER}`,
+    oldUserDetail.value.id,
+    newUserDetail.value
+  );
+  userStore.saveEditedUser(editedUserDetail.editedItem);
+  openSaveModal.value = false;
+  if (editedUserDetail.status === 200) {
+    router.push("/homepage")
+  }
+};
 </script>
 
 <template>
@@ -37,28 +44,9 @@ const openSaveModal = ref(false)
           <div class="col-span-4 sm:col-span-3">
             <div class="bg-white shadow rounded-lg p-6">
               <div class="flex flex-col items-center">
-                <h1 class="text-xl font-bold">Guest</h1>
-                <p class="text-gray-700">Tel: {{ profileTelephone }}</p>
-                <div class="mt-6 flex flex-wrap gap-4 justify-center">
-                  <a
-                    href="#"
-                    class="bg-gray-300 hover:bg-gray-400 text-gray-700 py-2 px-4 rounded"
-                    >Fav.</a
-                  >
-                </div>
+                
               </div>
               <hr class="my-6 border-t border-gray-300" />
-              <div class="flex flex-col">
-                <span
-                  class="text-gray-700 uppercase font-bold tracking-wider mb-2"
-                  >Music Types</span
-                >
-                <ul>
-                  <li class="mb-2">Jazz</li>
-                  <li class="mb-2">Rock</li>
-                  <li class="mb-2">Classic</li>
-                </ul>
-              </div>
             </div>
           </div>
           <div class="col-span-4 sm:col-span-9">
@@ -72,7 +60,7 @@ const openSaveModal = ref(false)
                   type="text"
                   id="firstname"
                   class="w-full p-2 rounded-md border border-blue-500 bg-white focus:ring-2 focus:ring-blue-500"
-                  v-model="userInfo.firstname"
+                  v-model="newUserDetail.firstname"
                 />
 
                 <label for="lastname" class="block mb-2 mt-2 font-semibold"
@@ -82,7 +70,7 @@ const openSaveModal = ref(false)
                   type="text"
                   id="lastname"
                   class="w-full p-2 rounded-md border border-blue-500 bg-white focus:ring-2 focus:ring-blue-500"
-                  v-model="userInfo.lastname"
+                  v-model="newUserDetail.lastname"
                 />
 
                 <label for="sex" class="block mb-2 mt-2 font-semibold">
@@ -91,7 +79,8 @@ const openSaveModal = ref(false)
                 <select
                   id="sex"
                   class="w-2/6 p-2 rounded-md border border-blue-500 bg-white focus:ring-2 focus:ring-blue-500"
-                  v-model="userInfo.sex"
+                  v-model="newUserDetail.sex"
+                  placeholder="Fill Your Detail For Buy Ticket"
                 >
                   <option value="" disabled>Select an option</option>
                   <!-- Optional placeholder option -->
@@ -106,9 +95,10 @@ const openSaveModal = ref(false)
                 <textarea
                   id="address"
                   class="w-full p-2 rounded-md border border-blue-500 bg-white focus:ring-2 focus:ring-blue-500"
-                  v-model="userInfo.address"
+                  v-model="newUserDetail.address"
                   rows="4"
                   style="resize: none"
+                  placeholder="Fill Your Detail For Buy Ticket"
                 ></textarea>
 
                 <label for="tel" class="block mb-2 mt-2 font-semibold"
@@ -118,7 +108,8 @@ const openSaveModal = ref(false)
                   type="tel"
                   id="tel"
                   class="w-full p-2 rounded-md border border-blue-500 bg-white focus:ring-2 focus:ring-blue-500"
-                  v-model="userInfo.telephone"
+                  v-model="newUserDetail.telephone"
+                  placeholder="Fill Your Detail For Buy Ticket"
                 />
 
                 <label for="email" class="block mb-2 mt-2 font-semibold"
@@ -128,43 +119,28 @@ const openSaveModal = ref(false)
                   type="email"
                   id="email"
                   class="w-full p-2 rounded-md border border-blue-500 bg-white focus:ring-2 focus:ring-blue-500"
-                  v-model="userInfo.email"
+                  v-model="newUserDetail.email"
                 />
 
-                <button class="mt-10 text-cyan-500 bg-yellow-400 hover:bg-cyan-500 hover:text-yellow-400 inline-flex items-center rounded-full py-2 px-3 text-sm font-medium" @click="openSaveModal = true">Submit</button>
-
-                <!-- modal component [waiting] -->
-                <div
-                  v-if="openSaveModal"
-                  class="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center"
+                <button
+                  class="mt-10 text-cyan-500 bg-yellow-400 hover:bg-cyan-500 hover:text-yellow-400 inline-flex items-center rounded-full py-2 px-3 text-sm font-medium"
+                  :class="{
+                    'cursor-not-allowed bg-gray-500 text-gray-300 opacity-50 hover:bg-gray-500 hover:text-gray-300':
+                      !isChanged,
+                  }"
+                  :disabled="!isChanged"
+                  @click="openSaveModal = true"
                 >
-                  <div
-                    class="bg-white p-6 rounded shadow-md w-full max-w-md relative"
-                  >
-                    <button
-                      @click="openSaveModal = false"
-                      class="absolute top-2 right-2 text-gray-500 hover:text-gray-700"
-                    >
-                      &times;
-                    </button>
-                    <h3 class="text-xl font-semibold mb-4">WASIBI PROFILE</h3>
-                    <p class="mb-4">
-                      Are you sure to change your Profile?
-                    </p>
-                    <button
-                      @click="saveChanges"
-                      class="text-cyan-500 bg-yellow-400 hover:bg-green-500 hover:text-yellow-400 inline-flex items-center rounded-full py-2 px-3 text-sm font-medium"
-                    >
-                      Save
-                    </button>
-                    <button
-                      @click="openSaveModal = false"
-                      class="ml-2 text-white bg-red-400 hover:bg-white hover:text-black inline-flex items-center rounded-full py-2 px-3 text-sm font-medium"
-                    >
-                      Cancle
-                    </button>
-                  </div>
-                </div>
+                  Submit
+                </button>
+
+                <Teleport to="body">
+                  <SaveModal
+                    :saveModal="openSaveModal"
+                    @save="saveUserEdited"
+                    @cancel="openSaveModal = false"
+                  ></SaveModal>
+                </Teleport>
               </div>
             </div>
           </div>
