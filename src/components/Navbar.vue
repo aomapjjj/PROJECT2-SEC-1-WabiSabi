@@ -1,18 +1,14 @@
 <script setup>
-import { useUsers } from "@/stores/userStore"
+import { useUsers } from '@/stores/userStore'
 import { useRouter } from 'vue-router'
 const userStore = useUsers()
 const userName = userStore.getUser()?.username
 const router = useRouter()
-console.log(userStore.getUser())
 
-
-const logoutClick = () =>{
-  localStorage.removeItem("user")
+const logoutClick = () => {
+  localStorage.removeItem('user')
   router.push('/')
 }
-
-
 </script>
 
 <template>
@@ -37,11 +33,6 @@ const logoutClick = () =>{
           >
             <span class="absolute -inset-0.5"></span>
             <span class="sr-only">Open menu</span>
-            <!--
-            Icon when menu is closed.
-
-            Menu open: "hidden", Menu closed: "block"
-          -->
             <svg
               class="block h-6 w-6"
               fill="none"
@@ -56,11 +47,6 @@ const logoutClick = () =>{
                 d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"
               />
             </svg>
-            <!--
-            Icon when menu is open.
-
-            Menu open: "block", Menu closed: "hidden"
-          -->
             <svg
               class="hidden h-6 w-6"
               fill="none"
@@ -78,7 +64,7 @@ const logoutClick = () =>{
           </button>
         </div>
         <div class="hidden lg:relative lg:z-10 lg:ml-4 lg:flex lg:items-center">
-          <h1>Hello, {{ userName === undefined ? 'Guest' :  userName  }}</h1>
+          <h1>Hello, {{ userName === undefined ? 'Guest' : userName }}</h1>
           <!-- Profile dropdown -->
           <div class="relative ml-4 flex-shrink-0">
             <div>
@@ -104,90 +90,74 @@ const logoutClick = () =>{
                 </svg>
               </button>
             </div>
+          </div>
 
-            <!--
-            Dropdown menu, show/hide based on menu state.
-
-            Entering: "transition ease-out duration-100"
-              From: "transform opacity-0 scale-95"
-              To: "transform opacity-100 scale-100"
-            Leaving: "transition ease-in duration-75"
-              From: "transform opacity-100 scale-100"
-              To: "transform opacity-0 scale-95"
-          -->
-            <!-- <div
-              class="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none"
+          <div
+            class="rounded-md shadow-lg bg-white border border-gray-200 dark:bg-[#20293A] dark:border-slate-700"
+          >
+            <div
+              class="py-1 text-gray-700 dark:text-gray-400 text-sm"
               role="menu"
               aria-orientation="vertical"
-              aria-labelledby="user-menu-button"
-              tabindex="-1"
-            > -->
-            <!-- Active: "bg-gray-100", Not Active: "" -->
-            <!-- <a
+              aria-labelledby="options-menu"
+            >
+              <span
                 href="#"
-                class="block px-4 py-2 text-sm text-yellow-600"
+                class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-[#161d2a]"
                 role="menuitem"
-                tabindex="-1"
-                id="user-menu-item-0"
-                >Your Profile</a
+                >Option 1</span
               >
-              <a
+              <span
                 href="#"
-                class="block px-4 py-2 text-sm text-yellow-600"
+                class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-[#161d2a]"
                 role="menuitem"
-                tabindex="-1"
-                id="user-menu-item-1"
-                >Settings</a
+                >Option 2</span
               >
-              <a
+              <span
                 href="#"
-                class="block px-4 py-2 text-sm text-yellow-600"
+                class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-[#161d2a]"
                 role="menuitem"
-                tabindex="-1"
-                id="user-menu-item-2"
-                >Sign out</a
+                >Option 3</span
               >
-            </div> -->
+            </div>
           </div>
         </div>
       </div>
-      <nav class="hidden lg:flex lg:space-x-8 lg:py-2 " aria-label="Global">
-        <!-- Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white" -->
-        <!-- <a
-          href="#"
-          class="bg-gray-900 text-white inline-flex items-center rounded-md py-2 px-3 text-sm font-medium"
-          aria-current="page"
-          ></a
-        > -->
-        <router-link  to="/homepage">
+    </div>
+    <!-- <nav class="hidden lg:flex lg:space-x-8 lg:py-2" aria-label="Global">
+        <router-link to="/homepage">
           <span
             class="text-cyan-500 bg-yellow-400 hover:bg-cyan-500 hover:text-yellow-400 inline-flex items-center rounded-full py-2 px-3 text-sm font-medium"
             >Home</span
           >
-        </router-link >
-        <a
-          href="#"
-          class="text-cyan-500 bg-yellow-400 hover:bg-cyan-500 hover:text-yellow-400 inline-flex items-center rounded-full py-2 px-3 text-sm font-medium"
-          >Members</a
-        >
-        <router-link to="/edit-profile">
+        </router-link> -->
+    <!-- <router-link to="/edit-profile">
           <button
             class="text-cyan-500 bg-yellow-400 hover:bg-cyan-500 hover:text-yellow-400 inline-flex items-center rounded-full py-2 px-3 text-sm font-medium"
           >
             Edit Profile
           </button>
-        </router-link>
-       
-          <button @click="logoutClick()"> 
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="#8f8f8f" d="m17 7l-1.41 1.41L18.17 11H8v2h10.17l-2.58 2.58L17 17l5-5M4 5h8V3H4c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h8v-2H4z"/></svg>
-          </button>
-      </nav>
-    </div>
+        </router-link> -->
+
+    <!-- <button @click="logoutClick()">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+          >
+            <path
+              fill="#8f8f8f"
+              d="m17 7l-1.41 1.41L18.17 11H8v2h10.17l-2.58 2.58L17 17l5-5M4 5h8V3H4c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h8v-2H4z"
+            />
+          </svg>
+        </button> -->
+    <!-- </nav>
+    </div> -->
 
     <!-- Mobile menu, show/hide based on menu state. -->
-    <nav class="lg:hidden" aria-label="Global" id="mobile-menu">
+    <!-- <nav class="lg:hidden" aria-label="Global" id="mobile-menu">
       <div class="space-y-1 px-2 pb-3 pt-2">
-        <!-- Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white" -->
         <a
           href="#"
           class="bg-gray-900 text-white block rounded-md py-2 px-3 text-base font-medium"
@@ -263,7 +233,7 @@ const logoutClick = () =>{
           >
         </div>
       </div>
-    </nav>
+    </nav> -->
   </header>
 </template>
 
