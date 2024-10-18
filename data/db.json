@@ -369,23 +369,21 @@
   "users": [
     {
       "id": "1",
-      "username": "admin",
-      "password": "12345",
-      "firstname": "Wabi",
-      "lastname": "Sabi",
-      "sex": "Male",
+      "firstname": "Parnuwat",
+      "lastname": "Wongkrajang",
+      "sex": "Female",
       "address": "Bangkok, Thailand",
-      "telephone": "+66811234567",
-      "email": "admin@dev.com",
-      "favorite": []
+      "telephone": "+668123456",
+      "email": "parnuwat@dev.com"
     },
     {
       "id": "86b3",
-      "email": "admin",
-      "password": "admin",
-      "username": "admin",
       "firstname": "admin",
-      "lastname": "admin"
+      "lastname": "admin",
+      "sex": "Male",
+      "address": "Bangkok",
+      "telephone": "123 456 7891",
+      "email": "admin@dev.comsad"
     },
     {
       "id": "4a7e",
@@ -442,6 +440,30 @@
       "username": "pear",
       "firstname": "pear",
       "lastname": "pear"
+    },
+    {
+      "id": "1fa4",
+      "firstname": "Parnuwat",
+      "lastname": "Wongkrajang",
+      "telephone": "1231231231",
+      "email": "parnuwat.wong@gmail.com"
+    },
+    {
+      "id": "7741",
+      "firstname": "1234",
+      "lastname": "1234",
+      "sex": "Other",
+      "email": "1234"
+    },
+    {
+      "id": "54fb",
+      "firstname": "Ohmnams",
+      "lastname": "OHmaygoh",
+      "username": "ParnuwatJudHai",
+      "sex": "Other",
+      "address": "HTML",
+      "telephone": "1234",
+      "email": "admin@dev.com"
     }
   ]
 }
