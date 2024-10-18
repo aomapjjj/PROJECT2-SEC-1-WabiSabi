@@ -15,18 +15,23 @@
 
 ### [moodmoon](https://github.com/moodmoon) 65130500056 นางสาวแพรไหม วรรณศิริ (%)
   - delete user 
-  - component หน้า homepage , detailTicket
+  - component หน้า Homepage , Detail Ticket
 
 ### [OParnu](https://github.com/OParnu) 65130500060 นายภานุวัฒน์ วงษ์กระจ่าง (%)
  - edit profile user
  - component หน้า profile user
  
-
 ---
 
 ## Application Features
 
-1. 
+1. Create New User Account
+2. Concert Details Page
+3. Search Concerts
+4. History Tickets
+5. Edit User Account
+6. Delete User Account
+7. Favorite Page
 
 ---
 

@@ -1,6 +1,9 @@
 <script setup>
 import { ref } from "vue";
+import { useUsers } from "@/stores/userStore"
 
+const userStore = useUsers()
+const userInfo = userStore.getUser()
 // import { getItemById } from '../../libs/fetchUtils';
 
 // const baseUrlUser = `${import.meta.env.VITE_APP_URL_USER}`
@@ -69,7 +72,7 @@ const openSaveModal = ref(false)
                   type="text"
                   id="firstname"
                   class="w-full p-2 rounded-md border border-blue-500 bg-white focus:ring-2 focus:ring-blue-500"
-                  v-model="profileFirstname"
+                  v-model="userInfo.firstname"
                 />
 
                 <label for="lastname" class="block mb-2 mt-2 font-semibold"
@@ -79,7 +82,7 @@ const openSaveModal = ref(false)
                   type="text"
                   id="lastname"
                   class="w-full p-2 rounded-md border border-blue-500 bg-white focus:ring-2 focus:ring-blue-500"
-                  v-model="profileLastname"
+                  v-model="userInfo.lastname"
                 />
 
                 <label for="sex" class="block mb-2 mt-2 font-semibold">
@@ -88,7 +91,7 @@ const openSaveModal = ref(false)
                 <select
                   id="sex"
                   class="w-2/6 p-2 rounded-md border border-blue-500 bg-white focus:ring-2 focus:ring-blue-500"
-                  v-model="profileSex"
+                  v-model="userInfo.sex"
                 >
                   <option value="" disabled>Select an option</option>
                   <!-- Optional placeholder option -->
@@ -103,7 +106,7 @@ const openSaveModal = ref(false)
                 <textarea
                   id="address"
                   class="w-full p-2 rounded-md border border-blue-500 bg-white focus:ring-2 focus:ring-blue-500"
-                  v-model="profileAddress"
+                  v-model="userInfo.address"
                   rows="4"
                   style="resize: none"
                 ></textarea>
@@ -115,7 +118,7 @@ const openSaveModal = ref(false)
                   type="tel"
                   id="tel"
                   class="w-full p-2 rounded-md border border-blue-500 bg-white focus:ring-2 focus:ring-blue-500"
-                  v-model="profileTelephone"
+                  v-model="userInfo.telephone"
                 />
 
                 <label for="email" class="block mb-2 mt-2 font-semibold"
@@ -125,7 +128,7 @@ const openSaveModal = ref(false)
                   type="email"
                   id="email"
                   class="w-full p-2 rounded-md border border-blue-500 bg-white focus:ring-2 focus:ring-blue-500"
-                  v-model="profileEmail"
+                  v-model="userInfo.email"
                 />
 
                 <button class="mt-10 text-cyan-500 bg-yellow-400 hover:bg-cyan-500 hover:text-yellow-400 inline-flex items-center rounded-full py-2 px-3 text-sm font-medium" @click="openSaveModal = true">Submit</button>
