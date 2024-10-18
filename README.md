@@ -1,6 +1,6 @@
 # PROJECT2-SEC-1-WabiSabi
 
-<h1 align="center">?</h1>
+<h1 align="center">Wasabi Ticket</h1>
 
 ## Member
 
