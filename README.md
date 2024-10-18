@@ -25,12 +25,12 @@
 
 ## Application Features
 
-1. Create a New User Account
-2. Concert Details Page
-3. Search Concerts
-4. History Tickets
-5. Edit User Account
-6. Delete User Account
+1. Create a New User Account ✅
+2. Concert Details Page 🟡
+3. Search Concerts 🟡
+4. History Tickets 🟡
+5. Edit User Account ✅
+6. Delete User Account ✅
 
 ---
 
