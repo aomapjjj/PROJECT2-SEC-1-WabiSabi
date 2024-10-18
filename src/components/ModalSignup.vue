@@ -1,5 +1,5 @@
 <script setup>
-import { ref, defineProps, defineEmits } from 'vue'
+import { ref } from 'vue'
 import { addItem , getItems } from '../../libs/fetchUtils'
 import { useRouter } from 'vue-router'
 import { useUsers } from '@/stores/userStore'
