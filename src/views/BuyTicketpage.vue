@@ -1,18 +1,15 @@
 <script setup>
 import Buyticketmodal from "@/components/Buyticketmodal.vue"
 import { ref, onMounted, watch } from "vue"
-
 import { getItemById } from "../../libs/fetchUtils"
 import { useRouter, useRoute } from "vue-router"
 import { useUsers } from "@/stores/userStore"
-import ModalToPay from "@/components/ModalToPay.vue"
 
 const userStore = useUsers()
 const userInfo = userStore.getUser()
 const route = useRoute()
 const router = useRouter()
 
-console.log("userInfo", userInfo)
 
 const baseUrlconcert = `${import.meta.env.VITE_APP_URL_CON}`
 const itembyId = ref()
@@ -31,7 +28,7 @@ onMounted(async () => {
   try {
     const item = await getItemById(baseUrlconcert, buyticketItemId.value)
     itembyId.value = item
-    console.log(itembyId.value)
+    
   } catch (error) {
     console.log("error na")
   }
@@ -81,8 +78,7 @@ const updateCouter = (newCouter) => {
         {{ userInfo.address === undefined ? "-" : userInfo.address }}
       </template>
     </Buyticketmodal>
-
-
+   
   </div>
 </template>
 <style scoped></style>
