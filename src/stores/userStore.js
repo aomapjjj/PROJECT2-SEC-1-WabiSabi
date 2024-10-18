@@ -17,10 +17,16 @@ const user = ref()
     }
     return user.value
   };
+  
+  const saveEditedUser = (editedUser) => {
+    user.value = {...editedUser}
+    setUser(user.value)
+  };
 
   return {
     setUser,
-    getUser
+    getUser,
+    saveEditedUser
   }
 })
 
