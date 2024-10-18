@@ -8,6 +8,7 @@ const currentSlide = ref(0)
 let slideInterval = null
 const imgInitems = ref()
 
+
 const startSlider = () => {
   slideInterval = setInterval(() => {
     currentSlide.value = (currentSlide.value + 1) % 2
@@ -25,6 +26,7 @@ const changeSlide = (slide) => {
 }
 
 onMounted(async () => {
+
   startSlider()
   const items = await getItems(baseUrlconcert)
   imgInitems.value = items
@@ -33,6 +35,7 @@ onMounted(async () => {
 onBeforeUnmount(() => {
   clearInterval(slideInterval)
 })
+
 </script>
 
 <template>

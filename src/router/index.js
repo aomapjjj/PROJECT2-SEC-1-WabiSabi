@@ -5,6 +5,7 @@ import Homepage from '../views/Homepage.vue'
 import DetailTicket from '@/views/DetailTicket.vue'
 import BuyTicketpage from '@/views/BuyTicketpage.vue'
 import Profile from '@/views/Profile.vue'
+import ModalToPay from '@/components/ModalToPay.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -30,9 +31,14 @@ const router = createRouter({
       component: BuyTicketpage
     },
     {
-      path: '/edit-profile',
-      name: 'edit-profile',
+      path: '/profile',
+      name: 'profile',
       component: Profile
+    },
+    {
+      path: '/pay',
+      name: 'pay',
+      component: ModalToPay
     },
   ]
 })

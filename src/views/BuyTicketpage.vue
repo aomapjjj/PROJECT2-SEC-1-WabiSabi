@@ -5,6 +5,7 @@ import { ref, onMounted, watch } from "vue"
 import { getItemById } from "../../libs/fetchUtils"
 import { useRouter, useRoute } from "vue-router"
 import { useUsers } from "@/stores/userStore"
+import ModalToPay from "@/components/ModalToPay.vue"
 
 const userStore = useUsers()
 const userInfo = userStore.getUser()
@@ -44,40 +45,44 @@ const updateCouter = (newCouter) => {
 </script>
 
 <template>
-  <Buyticketmodal @update:couter="updateCouter">
-    <template #imgOfTicket>
-      <img :src="itembyId?.img" alt="" />
-    </template>
-    <template #title>
-      {{ itembyId?.title }}
-    </template>
-    <template #location>
-      {{ itembyId?.location }}
-    </template>
-    <template #subtotal>
-      {{
-        (itembyId?.price * couter).toFixed(2) == 0
-          ? "Free"
-          : (itembyId?.price * couter).toFixed(2)
-      }}
-    </template>
-    <template #tax>
-      {{ parseFloat((itembyId?.price * couter * (7 / 100)).toFixed(2)) }}
-    </template>
-    <template #total>
-      {{
-        (
-          itembyId?.price * couter +
-          parseFloat((itembyId?.price * couter * (7 / 100)).toFixed(2))
-        ).toFixed(2)
-      }}
-    </template>
-    <template #fullname>
-      {{ userInfo.firstname + ' ' + userInfo.lastname  }}
-    </template>
-    <template #address> 
-      {{ userInfo.address === undefined ? '-' : userInfo.address }}
-    </template>
-  </Buyticketmodal>
+  <div>
+    <Buyticketmodal @update:couter="updateCouter">
+      <template #imgOfTicket>
+        <img :src="itembyId?.img" alt="" />
+      </template>
+      <template #title>
+        {{ itembyId?.title }}
+      </template>
+      <template #location>
+        {{ itembyId?.location }}
+      </template>
+      <template #subtotal>
+        {{
+          (itembyId?.price * couter).toFixed(2) == 0
+            ? "Free"
+            : (itembyId?.price * couter).toFixed(2)
+        }}
+      </template>
+      <template #tax>
+        {{ parseFloat((itembyId?.price * couter * (7 / 100)).toFixed(2)) }}
+      </template>
+      <template #total>
+        {{
+          (
+            itembyId?.price * couter +
+            parseFloat((itembyId?.price * couter * (7 / 100)).toFixed(2))
+          ).toFixed(2)
+        }}
+      </template>
+      <template #fullname>
+        {{ userInfo.firstname + " " + userInfo.lastname }}
+      </template>
+      <template #address>
+        {{ userInfo.address === undefined ? "-" : userInfo.address }}
+      </template>
+    </Buyticketmodal>
+
+
+  </div>
 </template>
 <style scoped></style>
