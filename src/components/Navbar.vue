@@ -1,8 +1,18 @@
 <script setup>
 import { useUsers } from "@/stores/userStore"
-
+import { useRouter } from 'vue-router'
 const userStore = useUsers()
-const userName = userStore.getUser()?.userName
+const userName = userStore.getUser()?.username
+const router = useRouter()
+console.log(userStore.getUser())
+
+
+const logoutClick = () =>{
+  localStorage.removeItem("user")
+  router.push('/')
+}
+
+
 </script>
 
 <template>
@@ -68,7 +78,7 @@ const userName = userStore.getUser()?.userName
           </button>
         </div>
         <div class="hidden lg:relative lg:z-10 lg:ml-4 lg:flex lg:items-center">
-          <h1>Hello, {{ userName === undefined ? "Guest" : userName }}</h1>
+          <h1>Hello, {{ userName === undefined ? 'Guest' :  userName  }}</h1>
           <!-- Profile dropdown -->
           <div class="relative ml-4 flex-shrink-0">
             <div>
@@ -141,7 +151,7 @@ const userName = userStore.getUser()?.userName
           </div>
         </div>
       </div>
-      <nav class="hidden lg:flex lg:space-x-8 lg:py-2" aria-label="Global">
+      <nav class="hidden lg:flex lg:space-x-8 lg:py-2 " aria-label="Global">
         <!-- Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white" -->
         <!-- <a
           href="#"
@@ -149,24 +159,28 @@ const userName = userStore.getUser()?.userName
           aria-current="page"
           ></a
         > -->
-        <RouterLink to="/homepage">
+        <router-link  to="/homepage">
           <span
             class="text-cyan-500 bg-yellow-400 hover:bg-cyan-500 hover:text-yellow-400 inline-flex items-center rounded-full py-2 px-3 text-sm font-medium"
             >Home</span
           >
-        </RouterLink>
+        </router-link >
         <a
           href="#"
           class="text-cyan-500 bg-yellow-400 hover:bg-cyan-500 hover:text-yellow-400 inline-flex items-center rounded-full py-2 px-3 text-sm font-medium"
           >Members</a
         >
-        <RouterLink to="/edit-profile">
+        <router-link to="/edit-profile">
           <button
             class="text-cyan-500 bg-yellow-400 hover:bg-cyan-500 hover:text-yellow-400 inline-flex items-center rounded-full py-2 px-3 text-sm font-medium"
           >
             Edit Profile
           </button>
-        </RouterLink>
+        </router-link>
+       
+          <button @click="logoutClick()"> 
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="#8f8f8f" d="m17 7l-1.41 1.41L18.17 11H8v2h10.17l-2.58 2.58L17 17l5-5M4 5h8V3H4c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h8v-2H4z"/></svg>
+          </button>
       </nav>
     </div>
 
