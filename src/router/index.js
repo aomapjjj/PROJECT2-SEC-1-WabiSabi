@@ -31,8 +31,8 @@ const router = createRouter({
       component: BuyTicketpage
     },
     {
-      path: '/edit-profile',
-      name: 'edit-profile',
+      path: '/profile',
+      name: 'profile',
       component: Profile
     },
     {
