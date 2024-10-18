@@ -2,7 +2,9 @@
 import { useUsers } from "@/stores/userStore"
 
 const userStore = useUsers()
-const userName = userStore.getUser()?.userName
+const userName = userStore.getUser()?.username
+
+console.log(userStore.getUser())
 </script>
 
 <template>
@@ -68,7 +70,7 @@ const userName = userStore.getUser()?.userName
           </button>
         </div>
         <div class="hidden lg:relative lg:z-10 lg:ml-4 lg:flex lg:items-center">
-          <h1>Hello, {{ userName }}</h1>
+          <h1>Hello, {{ userName === undefined ? 'Guest' :  userName  }}</h1>
           <!-- Profile dropdown -->
           <div class="relative ml-4 flex-shrink-0">
             <div>
