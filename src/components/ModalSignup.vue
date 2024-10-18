@@ -1,6 +1,6 @@
 <script setup>
 import { ref } from 'vue'
-import { addItem , getItems } from '../../libs/fetchUtils'
+import { addItem, getItems } from '../../libs/fetchUtils'
 import { useRouter } from 'vue-router'
 import { useUsers } from '@/stores/userStore'
 
@@ -18,47 +18,83 @@ const closeModal = () => {
   emit('close')
 }
 
-
 const email = ref('')
 const password = ref('')
-const username = ref('') 
-const firstname = ref('') 
-const lastname = ref('') 
+const username = ref('')
+const firstname = ref('')
+const lastname = ref('')
 const signupMessage = ref('')
 const loginMessage = ref('')
 const usersUrl = `${import.meta.env.VITE_APP_URL_USER}`
 
-
 const showPassword = ref(false)
 
-
-
 const handleSignUp = async () => {
+  // ตรวจสอบฟอร์มว่ากรอกครบทุกช่อง
+  if (
+    !email.value ||
+    !username.value ||
+    !password.value ||
+    !firstname.value ||
+    !lastname.value
+  ) {
+    signupMessage.value = 'All fields are required.'
+    return
+  }
+
+  // ตรวจสอบรูปแบบอีเมล
+  const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+  if (!emailPattern.test(email.value)) {
+    signupMessage.value = 'Invalid email format.'
+    return
+  }
+
+  // ตรวจสอบความยาว Password
+  if (password.value.length < 8) {
+    signupMessage.value = 'Password must be at least 8 characters.'
+    return
+  }
+
+  // ตรวจสอบ Username ห้ามซ้ำ
+  try {
+    const users = await getItems(usersUrl)
+    const isUsernameTaken = users.some(
+      (user) => user.username === username.value
+    )
+    if (isUsernameTaken) {
+      signupMessage.value = 'Username already taken.'
+      return
+    }
+  } catch (error) {
+    signupMessage.value = 'An error occurred while validating the username.'
+    console.error(error)
+    return
+  }
+
+  // ถ้าผ่านทุกการตรวจสอบ จะสร้างผู้ใช้ใหม่
   const newUser = {
     email: email.value,
     password: password.value,
     username: username.value,
-    firstname: firstname.value, 
-    lastname: lastname.value 
+    firstname: firstname.value,
+    lastname: lastname.value
   }
 
   try {
     const response = await addItem(usersUrl, newUser)
     if (typeof response === 'object') {
       userStore.setUser(response)
-      console.log(userStore.getUser())
       signupMessage.value = 'Sign up successful!'
       closeModal()
-      router.push('/homepage') 
+      router.push('/homepage')
     } else {
-      signupMessage.value = response.message 
+      signupMessage.value = response.message
     }
   } catch (error) {
-    signupMessage.value = 'An error occurred during sign up'
+    signupMessage.value = 'An error occurred during sign up.'
     console.error(error)
   }
 }
-
 
 // ฟังก์ชัน login
 const handleLogin = async () => {
@@ -77,8 +113,8 @@ const handleLogin = async () => {
     if (user) {
       userStore.setUser(user)
       console.log(userStore.getUser())
-      router.push('/homepage') 
-      closeModal() 
+      router.push('/homepage')
+      closeModal()
     } else {
       loginMessage.value = 'Invalid email or password'
     }
@@ -140,19 +176,19 @@ const handleLogin = async () => {
             <input
               v-model="username"
               type="text"
-              placeholder="Username" 
+              placeholder="Username"
               class="mt-5 w-full px-8 py-4 rounded-lg font-medium bg-gray-100 border border-gray-200 text-sm focus:outline-none focus:border-gray-400"
             />
             <input
               v-model="firstname"
               type="text"
-              placeholder="First Name" 
+              placeholder="First Name"
               class="mt-5 w-full px-8 py-4 rounded-lg font-medium bg-gray-100 border border-gray-200 text-sm focus:outline-none focus:border-gray-400"
             />
             <input
               v-model="lastname"
               type="text"
-              placeholder="Last Name" 
+              placeholder="Last Name"
               class="mt-5 w-full px-8 py-4 rounded-lg font-medium bg-gray-100 border border-gray-200 text-sm focus:outline-none focus:border-gray-400"
             />
             <input
@@ -162,7 +198,6 @@ const handleLogin = async () => {
               class="mt-5 w-full px-8 py-4 rounded-lg font-medium bg-gray-100 border border-gray-200 text-sm focus:outline-none focus:border-gray-400"
             />
 
-            <!-- ช่องกรอกรหัสผ่านที่มีปุ่มแสดงรหัส -->
             <div class="relative mt-5">
               <input
                 :type="showPassword ? 'text' : 'password'"
@@ -177,11 +212,9 @@ const handleLogin = async () => {
               >
                 <svg
                   v-if="showPassword"
-                  class="w-6 h-6 text-gray-800 dark:text-white"
+                  class="w-6 h-6 text-gray-800"
                   aria-hidden="true"
                   xmlns="http://www.w3.org/2000/svg"
-                  width="24"
-                  height="24"
                   fill="none"
                   viewBox="0 0 24 24"
                 >
@@ -198,11 +231,9 @@ const handleLogin = async () => {
                 </svg>
                 <svg
                   v-else
-                  class="w-6 h-6 text-gray-800 dark:text-white"
+                  class="w-6 h-6 text-gray-800"
                   aria-hidden="true"
                   xmlns="http://www.w3.org/2000/svg"
-                  width="24"
-                  height="24"
                   fill="none"
                   viewBox="0 0 24 24"
                 >
@@ -217,12 +248,18 @@ const handleLogin = async () => {
               </button>
             </div>
 
+            <!-- ปุ่ม Sign Up -->
             <button
               @click="handleSignUp"
               class="mt-5 bg-yellow-300 text-gray-100 w-full py-4 rounded-lg hover:bg-green-400 flex items-center justify-center transition-all duration-300 ease-in-out"
             >
               <span class="ml-3">Sign Up</span>
             </button>
+
+            <!-- ข้อความแจ้งเตือน -->
+            <div v-if="signupMessage" class="mt-2 text-red-500 text-center">
+              {{ signupMessage }}
+            </div>
           </div>
         </div>
 
