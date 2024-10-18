@@ -7,15 +7,15 @@ const useUsers = defineStore("users", () => {
 const user = ref()
   const setUser = (userItem) => {
     user.value = userItem
-    localStorage.setItem("user", JSON.stringify(user.value));
+    localStorage.setItem("user", JSON.stringify(user.value))
   };
 
   const getUser = () => {
     const storedUser = localStorage.getItem("user");
     if (storedUser) {
-      user.value = JSON.parse(storedUser);
+      user.value = JSON.parse(storedUser)
     }
-    return user.value;
+    return user.value
   };
 
   return {
@@ -24,8 +24,8 @@ const user = ref()
   }
 })
 
-export { useUsers };
+export { useUsers }
 
 if (import.meta.hot) {
-  import.meta.hot.accept(acceptHMRUpdate(useUsers, import.meta.hot));
+  import.meta.hot.accept(acceptHMRUpdate(useUsers, import.meta.hot))
 }

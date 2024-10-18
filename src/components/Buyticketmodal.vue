@@ -3,6 +3,7 @@ import { ref , watch } from "vue"
 
 import { useRouter } from "vue-router"
 
+
 const router = useRouter()
 
 const emit = defineEmits(['update:couter']);
@@ -132,21 +133,21 @@ const backtoHompage = () => {
             <div
               class="w-full mx-auto rounded-lg bg-white border border-gray-200 p-3 text-gray-800 font-light mb-6"
             >
-              <div class="w-full flex mb-3 items-center">
-                <div class="w-32">
-                  <span class="text-gray-600 font-semibold">Contact</span>
-                </div>
-                <div class="flex-grow pl-3">
-                 <slot name="fullname"></slot>
+              <div class="w-full flex mb-3 items-center ">
+               
+                  <span class="text-gray-600 font-semibold mr-2">Contact :</span>
+               
+                <div class="flex-grow ">
+                 <slot name="fullname" ></slot>
                 </div>
               </div>
               <div class="w-full flex items-center">
-                <div class="w-32">
-                  <span class="text-gray-600 font-semibold"
-                    >Billing Address</span
+               
+                  <span class="text-gray-600 font-semibold mr-2" 
+                    >Billing Address :</span
                   >
-                </div>
-                <div class="flex-grow pl-3">
+               
+                <div class="flex-grow ">
                   <span><slot name="address"></slot></span>
                 </div>
               </div>
