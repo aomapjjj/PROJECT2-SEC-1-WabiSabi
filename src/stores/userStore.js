@@ -3,6 +3,7 @@ import { ref } from 'vue'
 
 const useUsers = defineStore('users', () => {
   const user = ref()
+  const historiesUser = ref([])
   const setUser = (userItem) => {
     user.value = userItem
     localStorage.setItem('user', JSON.stringify(user.value))
@@ -26,11 +27,27 @@ const useUsers = defineStore('users', () => {
     localStorage.removeItem('user')
   }
 
+  const addNewHistory = (newProduct) => {
+    historiesUser.value.push({ ...newProduct })
+    localStorage.setItem('historiesUser', JSON.stringify(historiesUser.value)) 
+  }
+  
+ 
+  const getHistories = () => {
+    const storedHistory = localStorage.getItem('historiesUser')
+    if (storedHistory) {
+      historiesUser.value = JSON.parse(storedHistory) 
+    }
+    return historiesUser.value 
+  }
+
   return {
     setUser,
     getUser,
     saveEditedUser,
-    deleteUser
+    deleteUser,
+    addNewHistory,
+    getHistories
   }
 })
 

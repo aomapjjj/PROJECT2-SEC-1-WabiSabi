@@ -1,13 +1,13 @@
 <script setup>
-import { ref, watch } from 'vue'
-import { useUsers } from '@/stores/userStore'
-import SaveModal from './SaveModal.vue'
-import { editItem, deleteItemById } from '../../libs/fetchUtils'
-import { useRouter, useRoute } from 'vue-router'
-
+import { ref, watch } from "vue"
+import { useUsers } from "@/stores/userStore"
+import SaveModal from "./SaveModal.vue"
+import { editItem, deleteItemById } from "../../libs/fetchUtils"
+import { useRouter, useRoute } from "vue-router"
+import History from "./History.vue"
 const route = useRoute()
 const router = useRouter()
-
+const showContent = ref(true)
 const userStore = useUsers()
 const userInfo = userStore.getUser()
 const oldUserDetail = ref({ ...userInfo })
@@ -33,7 +33,7 @@ const saveUserEdited = async () => {
   userStore.saveEditedUser(editedUserDetail.editedItem)
   openSaveModal.value = false
   if (editedUserDetail.status === 200) {
-    router.push('/homepage')
+    router.push({name:'Profile'})
   }
 }
 
@@ -45,28 +45,72 @@ const deleteUserAccount = async (removeId) => {
     )
     if (deleteStatus === 200) {
       userStore.deleteUser()
-      router.push('/')
+      router.push("/")
     } else {
-      console.log('Failed to delete user: ', deleteStatus)
+      console.log("Failed to delete user: ", deleteStatus)
     }
   } catch (error) {
-    console.error('Error deleting user:', error)
+    console.error("Error deleting user:", error)
   }
 }
 </script>
 
 <template>
   <div>
-    <div class="bgBlue min-h-screen flex items-center overflow-hidden">
+    <div class="bgBlue min-h-screen flex">
       <div class="container mx-auto py-8">
         <div class="grid grid-cols-4 sm:grid-cols-12 gap-6 px-4">
           <div class="col-span-4 sm:col-span-3">
             <div class="bg-white shadow rounded-lg p-6">
+              <div
+                @click="showContent = true"
+                class="flex flex-row items-center gap-2"
+              >
+                <h1>Manage Profile</h1>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    fill="#454545"
+                    d="M12 4a4 4 0 0 1 4 4a4 4 0 0 1-4 4a4 4 0 0 1-4-4a4 4 0 0 1 4-4m0 10c4.42 0 8 1.79 8 4v2H4v-2c0-2.21 3.58-4 8-4"
+                  />
+                </svg>
+              </div>
               <div class="flex flex-col items-center"></div>
               <hr class="my-6 border-t border-gray-300" />
+              <div
+                @click="showContent = false"
+                class="flex flex-row items-center gap-2"
+              >
+                <h1>History</h1>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    fill="#454545"
+                    d="M13.5 8H12v5l4.28 2.54l.72-1.21l-3.5-2.08zM13 3a9 9 0 0 0-9 9H1l3.96 4.03L9 12H6a7 7 0 0 1 7-7a7 7 0 0 1 7 7a7 7 0 0 1-7 7c-1.93 0-3.68-.79-4.94-2.06l-1.42 1.42A8.9 8.9 0 0 0 13 21a9 9 0 0 0 9-9a9 9 0 0 0-9-9"
+                  />
+                </svg>
+              </div>
+              <hr class="my-6 border-t border-gray-300" />
+              <div class="flex flex-row items-center gap-2">
+                <button
+                  @click="openDeleteModal = true"
+                  class="text-white bgRed hover:bg-red-800 inline-flex items-center rounded-full py-2 px-3 text-sm font-medium"
+                >
+                  Delete Account
+                </button>
+              </div>
             </div>
           </div>
-          <div class="col-span-4 sm:col-span-9">
+
+          <div v-if="showContent === true" class="col-span-4 sm:col-span-9">
             <div class="bg-white shadow rounded-lg p-6">
               <h2 class="text-2xl font-bold mb-4">My Profile</h2>
               <div class="relative z-0 mb-6 w-full group">
@@ -142,7 +186,7 @@ const deleteUserAccount = async (removeId) => {
                 <div class="flex justify-between">
                   <!-- Save -->
                   <button
-                    class="mt-10 text-white bgGreen hover:bg-green-700 inline-flex items-center rounded-full py-2 px-3 text-sm font-medium"
+                    class="mt-10 text-white bgGreen hover:bg-green-700 inline-flex items-center rounded-full py-2 px-3 text-l font-medium"
                     :class="{
                       'cursor-not-allowed bg-gray-500 text-gray-300 opacity-50 hover:bg-gray-500':
                         !isChanged
@@ -153,13 +197,7 @@ const deleteUserAccount = async (removeId) => {
                     Save
                   </button>
 
-                  <!-- Delete -->
-                  <button
-                    @click="openDeleteModal = true"
-                    class="mt-10 text-white bgRed hover:bg-red-800 inline-flex items-center rounded-full py-2 px-3 text-sm font-medium"
-                  >
-                    Delete Account
-                  </button>
+                  
                 </div>
 
                 <Teleport to="body">
@@ -256,6 +294,10 @@ const deleteUserAccount = async (removeId) => {
                 </Teleport>
               </div>
             </div>
+          </div>
+
+          <div v-if="showContent === false" class="col-span-4 sm:col-span-9">
+                <History />
           </div>
         </div>
       </div>

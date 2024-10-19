@@ -77,11 +77,7 @@ const toggleDropdown = (open) => {
                     >Manage Profile</span
                   >
                 </router-link>
-                <span
-                  class="block px-4 py-2 pinkCustom hover:bg-gray-100 dark:hover:bg-[#161d2a]"
-                  role="menuitem"
-                  >History</span
-                >
+                
                 <span
                   @click="logoutClick()"
                   class="flex flex-row px-4 py-2 redCustom hover:bg-gray-100 dark:hover:bg-[#161d2a]"
