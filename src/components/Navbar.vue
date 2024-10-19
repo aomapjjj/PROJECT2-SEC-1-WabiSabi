@@ -1,14 +1,14 @@
 <script setup>
-import { ref } from "vue"
-import { useUsers } from "@/stores/userStore"
-import { useRouter } from "vue-router"
+import { ref } from 'vue'
+import { useUsers } from '@/stores/userStore'
+import { useRouter } from 'vue-router'
 const userStore = useUsers()
 const userName = userStore.getUser()?.username
 const router = useRouter()
 
 const logoutClick = () => {
-  localStorage.removeItem("user")
-  router.push("/")
+  localStorage.removeItem('user')
+  router.push('/')
 }
 
 const isDropdownOpen = ref(false)
@@ -26,12 +26,14 @@ const toggleDropdown = (open) => {
       <div class="relative flex h-16 justify-between">
         <div class="relative z-10 flex px-2 lg:px-0">
           <div class="flex flex-shrink-0 items-center">
-            <img class="h-8 w-auto" src="/img/logo.png" alt="Logo" />
+            <router-link to="/homepage">
+              <img class="h-8 w-auto" src="/img/logo.png" alt="Logo" />
+            </router-link>
           </div>
         </div>
 
         <div class="hidden lg:relative lg:z-10 lg:ml-4 lg:flex lg:items-center">
-          <h1>Hello, {{ userName === undefined ? "Guest" : userName }}</h1>
+          <h1>Hello, {{ userName === undefined ? 'Guest' : userName }}</h1>
 
           <div class="relative ml-4 flex-shrink-0">
             <div>
@@ -41,7 +43,7 @@ const toggleDropdown = (open) => {
                 @mouseover="toggleDropdown(true)"
               >
                 <span class="absolute -inset-1.5"></span>
-                <span class="sr-only">Open user menu</span>
+                <span class="sr-only"></span>
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   width="36"
@@ -70,23 +72,23 @@ const toggleDropdown = (open) => {
               >
                 <router-link to="/profile">
                   <span
-                    class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-[#161d2a]"
+                    class="block px-4 py-2 pinkCustom hover:bg-gray-100 dark:hover:bg-[#161d2a]"
                     role="menuitem"
                     >Manage Profile</span
                   >
                 </router-link>
                 <span
-                  class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-[#161d2a]"
+                  class="block px-4 py-2 pinkCustom hover:bg-gray-100 dark:hover:bg-[#161d2a]"
                   role="menuitem"
                   >History</span
                 >
                 <span
                   @click="logoutClick()"
-                  class="flex flex-row px-4 py-2 hover:bg-gray-100 dark:hover:bg-[#161d2a]"
+                  class="flex flex-row px-4 py-2 redCustom hover:bg-gray-100 dark:hover:bg-[#161d2a]"
                   role="menuitem"
                 >
                   Log out
-                  <svg
+                  <!-- <svg
                     class="ml-1"
                     xmlns="http://www.w3.org/2000/svg"
                     width="18"
@@ -97,7 +99,7 @@ const toggleDropdown = (open) => {
                       fill="#454545"
                       d="m17 7l-1.41 1.41L18.17 11H8v2h10.17l-2.58 2.58L17 17l5-5M4 5h8V3H4c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h8v-2H4z"
                     />
-                  </svg>
+                  </svg> -->
                 </span>
               </div>
             </div>
@@ -105,7 +107,24 @@ const toggleDropdown = (open) => {
         </div>
       </div>
     </div>
+
+    <!-- <nav class="hidden lg:flex lg:space-x-8 lg:py-2" aria-label="Global">
+      <router-link to="/homepage">
+        <span
+          class="bg-gray-900 text-white inline-flex items-center rounded-md py-2 px-3 text-sm font-medium"
+          aria-current="page"
+          >Home
+        </span>
+      </router-link>
+    </nav> -->
   </header>
 </template>
 
-<style scoped></style>
+<style scoped>
+.pinkCustom {
+  color: #ff54d1;
+}
+.redCustom {
+  color: #ff3434;
+}
+</style>
