@@ -4,6 +4,7 @@ import { ref, onMounted, watch } from "vue"
 import { getItemById } from "../../libs/fetchUtils"
 import { useRouter, useRoute } from "vue-router"
 import { useUsers } from "@/stores/userStore"
+import Navbar from "@/components/Navbar.vue"
 
 const userStore = useUsers()
 const userInfo = userStore.getUser()
@@ -43,6 +44,7 @@ const updateCouter = (newCouter) => {
 
 <template>
   <div>
+    <Navbar />
     <Buyticketmodal @update:couter="updateCouter">
       <template #imgOfTicket>
         <img :src="itembyId?.img" alt="" />

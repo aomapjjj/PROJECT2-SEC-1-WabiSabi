@@ -30,7 +30,7 @@ const usersUrl = `${import.meta.env.VITE_APP_URL_USER}`
 const showPassword = ref(false)
 
 const handleSignUp = async () => {
-  // ตรวจสอบฟอร์มว่ากรอกครบทุกช่อง
+ 
   if (
     !email.value ||
     !username.value ||
@@ -42,20 +42,20 @@ const handleSignUp = async () => {
     return
   }
 
-  // ตรวจสอบรูปแบบอีเมล
+  
   const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
   if (!emailPattern.test(email.value)) {
     signupMessage.value = 'Invalid email format.'
     return
   }
 
-  // ตรวจสอบความยาว Password
+  
   if (password.value.length < 8) {
     signupMessage.value = 'Password must be at least 8 characters.'
     return
   }
 
-  // ตรวจสอบ Username ห้ามซ้ำ
+
   try {
     const users = await getItems(usersUrl)
     const isUsernameTaken = users.some(
@@ -71,13 +71,13 @@ const handleSignUp = async () => {
     return
   }
 
-  // ถ้าผ่านทุกการตรวจสอบ จะสร้างผู้ใช้ใหม่
+ 
   const newUser = {
     email: email.value,
     password: password.value,
     username: username.value,
     firstname: firstname.value,
-    lastname: lastname.value
+    lastname: lastname.value,
   }
 
   try {
@@ -96,7 +96,7 @@ const handleSignUp = async () => {
   }
 }
 
-// ฟังก์ชัน login
+
 const handleLogin = async () => {
   const userCredentials = {
     email: email.value,
