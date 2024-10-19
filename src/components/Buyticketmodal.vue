@@ -1,14 +1,42 @@
 <script setup>
-import { ref, watch, computed } from "vue"
-
-import { useRouter } from "vue-router"
+import { ref, watch, onMounted } from "vue"
+import { useRouter , useRoute } from "vue-router"
+import ModalToPay from "./ModalToPay.vue";
+import { useUsers } from '@/stores/userStore'
+import { getItemById } from "../../libs/fetchUtils"
 
 const router = useRouter()
 const selectedType = ref()
-
+const showModal = ref(false)
 const nameOnCard = ref("")
 const cardNumber = ref("")
 const isDisable = ref(false)
+const route = useRoute()
+const userStore = useUsers()
+const userInfo = userStore.getUser()
+const baseUrlconcert = `${import.meta.env.VITE_APP_URL_CON}`
+const itembyId = ref()
+const buyticketItemId = ref()
+
+watch(
+  () => route.params.buyticketId,
+  (newId) => {
+    buyticketItemId.value = newId
+  },
+  { immediate: true }
+)
+
+
+
+onMounted(async () => {
+  try {
+    const item = await getItemById(baseUrlconcert, buyticketItemId.value)
+    itembyId.value = item
+    console.log(itembyId.value)
+  } catch (error) {
+    console.log("error na")
+  }
+})
 
 watch(nameOnCard, (newValue) => {
   nameOnCard.value = newValue
@@ -24,11 +52,13 @@ const toPayPage = () => {
     isDisable.value = true
     return
   }else{
-    router.push("/pay")
+    showModal.value = true
+   
   }
 } else {
+  showModal.value = true
     isDisable.value = false
-    router.push("/pay")
+   
   }
 }
 
@@ -280,6 +310,7 @@ const backtoHompage = () => {
                     class="form-radio h-5 w-5 text-indigo-500"
                     name="type"
                     id="type2"
+                    checked
                     @change="selectedType = false"
                   />
                   <img src="/img/PromptPay.png" width="80" class="ml-3" />
@@ -289,6 +320,7 @@ const backtoHompage = () => {
             <div>
               <button
                 @click="toPayPage()"
+                
                 class="block w-full max-w-xs mx-auto bg-indigo-500 hover:bg-indigo-700 focus:bg-indigo-700 text-white px-3 py-2 font-semibold rounded-full"
               >
                 PAY NOW
@@ -299,7 +331,7 @@ const backtoHompage = () => {
       </div>
     </div>
   </div>
-  <ModalToPay>
+  <ModalToPay :isOpen="showModal"  @close="showModal = false">
       <template #fullname>
         {{ userInfo.firstname + " " + userInfo.lastname }}
       </template>
@@ -328,14 +360,7 @@ const backtoHompage = () => {
         }}
       </template>
 
-      <template #btn>
-        <button
-          class="align-middle select-none font-sans font-bold text-center uppercase transition-all disabled:opacity-50 disabled:shadow-none disabled:pointer-events-none text-xs py-3 px-6 rounded-lg shadow-gray-900/10 hover:shadow-gray-900/20 focus:opacity-[0.85] active:opacity-[0.85] active:shadow-none block w-full bg-blue-gray-900/10 text-blue-gray-900 shadow-none hover:scale-105 hover:shadow-none focus:scale-105 focus:shadow-none active:scale-100"
-          type="button"
-        >
-          close
-        </button>
-      </template>
+    
     </ModalToPay>
 </template>
 

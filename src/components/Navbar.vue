@@ -1,26 +1,28 @@
 <script setup>
-import { ref } from 'vue';
-import { useUsers } from '@/stores/userStore'
-import { useRouter } from 'vue-router'
+import { ref } from "vue"
+import { useUsers } from "@/stores/userStore"
+import { useRouter } from "vue-router"
 const userStore = useUsers()
 const userName = userStore.getUser()?.username
 const router = useRouter()
 
 const logoutClick = () => {
-  localStorage.removeItem('user')
-  router.push('/')
+  localStorage.removeItem("user")
+  router.push("/")
 }
 
-const isDropdownOpen = ref(false);
-const toggleDropdown = () => {
-  isDropdownOpen.value = !isDropdownOpen.value;
-}
+const isDropdownOpen = ref(false)
 
+const toggleDropdown = (open) => {
+  isDropdownOpen.value = open
+}
 </script>
 
 <template>
   <header class="bg-white shadow-md">
-    <div class="mx-auto max-w-7xl px-2 sm:px-4 lg:divide-y lg:divide-teal-700 lg:px-8">
+    <div
+      class="mx-auto max-w-7xl px-2 sm:px-4 lg:divide-y lg:divide-teal-700 lg:px-8"
+    >
       <div class="relative flex h-16 justify-between">
         <div class="relative z-10 flex px-2 lg:px-0">
           <div class="flex flex-shrink-0 items-center">
@@ -29,21 +31,20 @@ const toggleDropdown = () => {
         </div>
 
         <div class="hidden lg:relative lg:z-10 lg:ml-4 lg:flex lg:items-center">
-          <h1>Hello, {{ userName === undefined ? 'Guest' : userName }}</h1>
-          <!-- Profile dropdown -->
+          <h1>Hello, {{ userName === undefined ? "Guest" : userName }}</h1>
+
           <div class="relative ml-4 flex-shrink-0">
             <div>
               <button
                 type="button"
-                class="relative flex rounded-full text-sm text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 "
-                @click="toggleDropdown"
-                
+                class="relative flex rounded-full text-sm text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2"
+                @mouseover="toggleDropdown(true)"
               >
                 <span class="absolute -inset-1.5"></span>
                 <span class="sr-only">Open user menu</span>
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
-                  width="32"
+                  width="36"
                   height="32"
                   viewBox="0 0 24 24"
                 >
@@ -54,10 +55,12 @@ const toggleDropdown = () => {
                 </svg>
               </button>
             </div>
-    
+
             <div
               v-if="isDropdownOpen"
-              class="absolute right-0 mt-2 w-48 rounded-md shadow-lg bg-white border border-gray-200 dark:bg-[#20293A] dark:border-slate-700"
+              class="absolute right-0 w-48 rounded-md shadow-lg bg-white border border-gray-200 dark:bg-[#20293A] dark:border-slate-700"
+              @mouseover="toggleDropdown(true)"
+              @mouseleave="toggleDropdown(false)"
             >
               <div
                 class="py-1 text-gray-700 dark:text-gray-400 text-sm"
@@ -65,24 +68,37 @@ const toggleDropdown = () => {
                 aria-orientation="vertical"
                 aria-labelledby="user-menu-button"
               >
-             <router-link to="/profile">
-                <span
-                  class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-[#161d2a]"
-                  role="menuitem"
-                  >Manage Profile</span
-                >
-              </router-link>
+                <router-link to="/profile">
+                  <span
+                    class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-[#161d2a]"
+                    role="menuitem"
+                    >Manage Profile</span
+                  >
+                </router-link>
                 <span
                   class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-[#161d2a]"
                   role="menuitem"
                   >History</span
                 >
-                <span @click="logoutClick()"
-                  class="flex flex-row  px-4 py-2 hover:bg-gray-100 dark:hover:bg-[#161d2a]"
+                <span
+                  @click="logoutClick()"
+                  class="flex flex-row px-4 py-2 hover:bg-gray-100 dark:hover:bg-[#161d2a]"
                   role="menuitem"
-                  >Log out <svg  class="ml-1"xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24"><path fill="#454545" d="m17 7l-1.41 1.41L18.17 11H8v2h10.17l-2.58 2.58L17 17l5-5M4 5h8V3H4c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h8v-2H4z"/></svg></span
-               
+                >
+                  Log out
+                  <svg
+                    class="ml-1"
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="18"
+                    height="18"
+                    viewBox="0 0 24 24"
                   >
+                    <path
+                      fill="#454545"
+                      d="m17 7l-1.41 1.41L18.17 11H8v2h10.17l-2.58 2.58L17 17l5-5M4 5h8V3H4c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h8v-2H4z"
+                    />
+                  </svg>
+                </span>
               </div>
             </div>
           </div>
