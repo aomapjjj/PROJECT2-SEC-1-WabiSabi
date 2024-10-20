@@ -2,6 +2,7 @@
 import { ref } from 'vue'
 import { useUsers } from '@/stores/userStore'
 import { useRouter } from 'vue-router'
+import ModalLogout from './ModalLogout.vue';
 const userStore = useUsers()
 const userName = userStore.getUser()?.username
 const router = useRouter()
@@ -16,10 +17,21 @@ const isDropdownOpen = ref(false)
 const toggleDropdown = (open) => {
   isDropdownOpen.value = open
 }
+
+const isLogoutModalOpen = ref(false);
+
+const openLogoutModal = () => {
+  isLogoutModalOpen.value = true;
+};
+
+const closeLogoutModal = () => {
+  isLogoutModalOpen.value = false;
+};
+
 </script>
 
 <template>
-  <header class="bg-white shadow-md">
+  <header class="bg-white shadow-md sticky top-0 z-50">
     <div
       class="mx-auto max-w-7xl px-2 sm:px-4 lg:divide-y lg:divide-teal-700 lg:px-8"
     >
@@ -79,7 +91,7 @@ const toggleDropdown = (open) => {
                 </router-link>
                 
                 <span
-                  @click="logoutClick()"
+                  @click="openLogoutModal"
                   class="flex flex-row px-4 py-2 redCustom hover:bg-gray-100 dark:hover:bg-[#161d2a]"
                   role="menuitem"
                 >
@@ -113,6 +125,8 @@ const toggleDropdown = (open) => {
         </span>
       </router-link>
     </nav> -->
+     <!-- Logout Modal -->
+     <ModalLogout v-if="isLogoutModalOpen" @close="closeLogoutModal" />
   </header>
 </template>
 
