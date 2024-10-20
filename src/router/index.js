@@ -33,12 +33,12 @@ const router = createRouter({
     {
       path: '/profile',
       name: 'profile',
-      component: Profile,
-      children:[
-        { path: "/profile/edit-profile/:username", name: "Edit", component: Profile },
-        { path: "/profile/delete-profile/:username", name: "Delete", component: Profile },
-        { path: "/profile/history-profile/:username", name: "History", component: Profile }
-      ]
+      component: Profile
+      // children:[
+      //   { path: "/profile/edit-profile/:username", name: "Edit", component: Profile },
+      //   { path: "/profile/delete-profile/:username", name: "Delete", component: Profile },
+      //   { path: "/profile/history-profile/:username", name: "History", component: Profile }
+      // ]
     },
     
 
