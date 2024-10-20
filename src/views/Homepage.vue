@@ -66,7 +66,7 @@ watch(filteredItems, () => {
             d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
           />
         </svg>
-        <svg
+        <!-- <svg
           xmlns="http://www.w3.org/2000/svg"
           class="absolute items-end my-auto h-8 w-12 stroke-white px-3.5 peer-focus:border-white peer-focus:stroke-white"
           viewBox="0 0 24 24"
@@ -76,7 +76,7 @@ watch(filteredItems, () => {
             fill-rule="evenodd"
             d="m12 10.586l5.657-5.657l1.414 1.414L13.414 12l5.657 5.657l-1.414 1.414L12 13.414l-5.657 5.657l-1.414-1.414L10.586 12L4.929 6.343L6.343 4.93z"
           />
-        </svg>
+        </svg> -->
       </form>
     </div>
 
