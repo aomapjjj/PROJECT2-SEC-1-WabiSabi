@@ -1,21 +1,20 @@
 <script setup>
-import Buyticketmodal from "@/components/Buyticketmodal.vue"
-import { ref, onMounted, watch } from "vue"
-import { getItemById } from "../../libs/fetchUtils"
-import { useRouter, useRoute } from "vue-router"
-import { useUsers } from "@/stores/userStore"
-import Navbar from "@/components/Navbar.vue"
+import BuyTicketModal from '../components/Buyticketmodal.vue'
+import { ref, onMounted, watch } from 'vue'
+import { getItemById } from '../../libs/fetchUtils'
+import { useRouter, useRoute } from 'vue-router'
+import { useUsers } from '../stores/userStore'
+import Navbar from '../components/Navbar.vue'
 
 const userStore = useUsers()
 const userInfo = userStore.getUser()
 const route = useRoute()
 const router = useRouter()
 
-
 const baseUrlconcert = `${import.meta.env.VITE_APP_URL_CON}`
 const itembyId = ref()
 
-const buyticketItemId = ref("")
+const buyticketItemId = ref('')
 
 watch(
   () => route.params.buyticketId,
@@ -29,9 +28,8 @@ onMounted(async () => {
   try {
     const item = await getItemById(baseUrlconcert, buyticketItemId.value)
     itembyId.value = item
-    
   } catch (error) {
-    console.log("error na")
+    console.log('error na')
   }
 })
 
@@ -45,12 +43,20 @@ const updateCouter = (newCouter) => {
 <template>
   <div>
     <Navbar />
-    <Buyticketmodal @update:couter="updateCouter">
+    <BuyTicketModal @update:couter="updateCouter">
       <template #imgOfTicket>
         <img :src="itembyId?.img" alt="" />
       </template>
       <template #title>
         {{ itembyId?.title }}
+      </template>
+      <template #date>
+        <div v-for="(dates, index) in itembyId?.date" :key="index">
+          {{ `${dates.month} ${dates.day}, ${dates.year}` }}
+        </div>
+      </template>
+      <template #time>
+        {{ itembyId?.time }}
       </template>
       <template #location>
         {{ itembyId?.location }}
@@ -58,7 +64,7 @@ const updateCouter = (newCouter) => {
       <template #subtotal>
         {{
           (itembyId?.price * couter).toFixed(2) == 0
-            ? "Free"
+            ? 'Free'
             : (itembyId?.price * couter).toFixed(2)
         }}
       </template>
@@ -74,13 +80,12 @@ const updateCouter = (newCouter) => {
         }}
       </template>
       <template #fullname>
-        {{ userInfo.firstname + " " + userInfo.lastname }}
+        {{ userInfo.firstname + ' ' + userInfo.lastname }}
       </template>
       <template #address>
-        {{ userInfo.address === undefined ? "-" : userInfo.address }}
+        {{ userInfo.address === undefined ? '-' : userInfo.address }}
       </template>
-    </Buyticketmodal>
-   
+    </BuyTicketModal>
   </div>
 </template>
 <style scoped></style>
