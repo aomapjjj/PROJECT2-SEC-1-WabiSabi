@@ -1,58 +1,65 @@
 <script setup>
-import { ref, watch } from "vue"
-import { useUsers } from "@/stores/userStore"
-import SaveModal from "./SaveModal.vue"
-import { editItem, deleteItemById } from "../../libs/fetchUtils"
-import { useRouter, useRoute } from "vue-router"
-import History from "./History.vue"
-const route = useRoute()
-const router = useRouter()
-const showContent = ref(true)
-const userStore = useUsers()
-const userInfo = userStore.getUser()
-const oldUserDetail = ref({ ...userInfo })
-const openSaveModal = ref(false)
-const openDeleteModal = ref(false)
-const isChanged = ref(false)
+import { ref, watch } from "vue";
+import { useUsers } from "@/stores/userStore";
+import SaveModal from "./SaveModal.vue";
+import { editItem, deleteItemById } from "../../libs/fetchUtils";
+import { useRouter, useRoute } from "vue-router";
+import History from "./History.vue";
+import Toast from "./Toast.vue";
+const route = useRoute();
+const router = useRouter();
+const showContent = ref(true);
+const userStore = useUsers();
+const userInfo = userStore.getUser();
+const oldUserDetail = ref({ ...userInfo });
+const openSaveModal = ref(false);
+const openDeleteModal = ref(false);
+const showSuccessToast = ref(false);
+const isChanged = ref(false);
 const newUserDetail = ref({
-  ...userInfo
-})
+  ...userInfo,
+});
 
-console.log(newUserDetail.value)
+console.log(newUserDetail.value);
 watch(newUserDetail.value, (newVal) => {
   isChanged.value =
-    JSON.stringify(newVal) !== JSON.stringify(oldUserDetail.value)
-})
+    JSON.stringify(newVal) !== JSON.stringify(oldUserDetail.value);
+});
 
 const saveUserEdited = async () => {
   const editedUserDetail = await editItem(
     `${import.meta.env.VITE_APP_URL_USER}`,
     oldUserDetail.value.id,
     newUserDetail.value
-  )
-  userStore.saveEditedUser(editedUserDetail.editedItem)
-  openSaveModal.value = false
+  );
+  userStore.saveEditedUser(editedUserDetail.editedItem);
+  openSaveModal.value = false;
   if (editedUserDetail.status === 200) {
-    router.push({name:'Profile'})
+    router.push("/profile");
+    showSuccessToast.value = true;
+    setTimeout(() => {
+      showSuccessToast.value = false;
+    }, 2000);
+    isChanged.value = false;
   }
-}
+};
 
 const deleteUserAccount = async (removeId) => {
   try {
     const deleteStatus = await deleteItemById(
       `${import.meta.env.VITE_APP_URL_USER}`,
       removeId
-    )
+    );
     if (deleteStatus === 200) {
-      userStore.deleteUser()
-      router.push("/")
+      userStore.deleteUser();
+      router.push("/");
     } else {
-      console.log("Failed to delete user: ", deleteStatus)
+      console.log("Failed to delete user: ", deleteStatus);
     }
   } catch (error) {
-    console.error("Error deleting user:", error)
+    console.error("Error deleting user:", error);
   }
-}
+};
 </script>
 
 <template>
@@ -64,7 +71,7 @@ const deleteUserAccount = async (removeId) => {
             <div class="bg-white shadow rounded-lg p-6">
               <div
                 @click="showContent = true"
-                class="flex flex-row items-center gap-2"
+                class="flex flex-row items-center gap-2 cursor-pointer"
               >
                 <h1>Manage Profile</h1>
                 <svg
@@ -83,7 +90,7 @@ const deleteUserAccount = async (removeId) => {
               <hr class="my-6 border-t border-gray-300" />
               <div
                 @click="showContent = false"
-                class="flex flex-row items-center gap-2"
+                class="flex flex-row items-center gap-2 cursor-pointer"
               >
                 <h1>History</h1>
                 <svg
@@ -111,8 +118,9 @@ const deleteUserAccount = async (removeId) => {
           </div>
 
           <div v-if="showContent === true" class="col-span-4 sm:col-span-9">
+            <div class=" w-full bg-white rounded-lg "><h2 class="text-2xl text-gray-600 font-bold mb-4 p-2 text-center">&#127813; Edit Your Profile &#127813;</h2></div>
             <div class="bg-white shadow rounded-lg p-6">
-              <h2 class="text-2xl font-bold mb-4">My Profile</h2>
+              
               <div class="relative z-0 mb-6 w-full group">
                 <label for="firstname" class="block mb-2 font-semibold"
                   >Firstname</label
@@ -189,15 +197,13 @@ const deleteUserAccount = async (removeId) => {
                     class="mt-10 text-white bgGreen hover:bg-green-700 inline-flex items-center rounded-full py-2 px-3 text-l font-medium"
                     :class="{
                       'cursor-not-allowed bg-gray-500 text-gray-300 opacity-50 hover:bg-gray-500':
-                        !isChanged
+                        !isChanged,
                     }"
                     :disabled="!isChanged"
                     @click="openSaveModal = true"
                   >
                     Save
                   </button>
-
-                  
                 </div>
 
                 <Teleport to="body">
@@ -297,7 +303,15 @@ const deleteUserAccount = async (removeId) => {
           </div>
 
           <div v-if="showContent === false" class="col-span-4 sm:col-span-9">
-                <History />
+            <History />
+          </div>
+
+          <div>
+            <Toast :showSuccessToast="showSuccessToast">
+              <template #headerToast> Success! </template>
+
+              <template #messageToast> Your Profile have been saved. </template>
+            </Toast>
           </div>
         </div>
       </div>

@@ -19,7 +19,7 @@ const toggleDropdown = (open) => {
 </script>
 
 <template>
-  <header class="bg-white shadow-md">
+  <header class="bg-white shadow-md sticky top-0 z-50">
     <div
       class="mx-auto max-w-7xl px-2 sm:px-4 lg:divide-y lg:divide-teal-700 lg:px-8"
     >
