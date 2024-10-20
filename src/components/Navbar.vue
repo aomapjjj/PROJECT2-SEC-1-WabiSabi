@@ -2,7 +2,7 @@
 import { ref } from 'vue'
 import { useUsers } from '@/stores/userStore'
 import { useRouter } from 'vue-router'
-import ModalLogout from './ModalLogout.vue';
+import ModalLogout from './LogoutModal.vue';
 const userStore = useUsers()
 const userName = userStore.getUser()?.username
 const router = useRouter()

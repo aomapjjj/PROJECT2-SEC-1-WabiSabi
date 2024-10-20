@@ -1,13 +1,14 @@
-<!-- modallogout.vue -->
 <script setup>
-import { defineEmits } from 'vue';
+import { useRouter } from 'vue-router'
 
-const emits = defineEmits(['close']);
+const emits = defineEmits(['close'])
+const router = useRouter()
 
 const confirmSignOut = () => {
-  localStorage.removeItem('user');
-  window.location.href = '/'; // Navigate to home after logout
-};
+  localStorage.removeItem('user')
+  localStorage.removeItem('historiesUser')
+  router.push("/")
+}
 </script>
 
 <template>
