@@ -15,6 +15,9 @@ const logoutClick = () => {
 const isDropdownOpen = ref(false)
 
 const toggleDropdown = (open) => {
+  if (!userName || userName === undefined) {
+    showModalSignup.value = true
+  }
   isDropdownOpen.value = open
 }
 
