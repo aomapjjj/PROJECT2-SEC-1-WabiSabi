@@ -1,13 +1,14 @@
 <script setup>
-import { ref, watch, onMounted } from "vue"
-import { useRouter , useRoute } from "vue-router"
-import ModalToPay from "./ModalToPay.vue";
-import { useUsers } from '@/stores/userStore'
-import { getItemById } from "../../libs/fetchUtils"
+import { ref, watch, onMounted, computed } from "vue"
+import { useRouter, useRoute } from "vue-router"
+import ModalToPay from "./ModalToPay.vue"
+import { useUsers } from "@/stores/userStore"
+import { addItem, getItemById } from "../../libs/fetchUtils"
 
 const router = useRouter()
 const selectedType = ref()
 const showModal = ref(false)
+const payment = ref('')
 const nameOnCard = ref("")
 const cardNumber = ref("")
 const isDisable = ref(false)
@@ -15,8 +16,10 @@ const route = useRoute()
 const userStore = useUsers()
 const userInfo = userStore.getUser()
 const baseUrlconcert = `${import.meta.env.VITE_APP_URL_CON}`
+const baseUrlhistory = `${import.meta.env.VITE_APP_URL_HISTORIES}`
 const itembyId = ref()
 const buyticketItemId = ref()
+const historyTicket = ref([])
 
 watch(
   () => route.params.buyticketId,
@@ -26,8 +29,6 @@ watch(
   { immediate: true }
 )
 
-
-
 onMounted(async () => {
   try {
     const item = await getItemById(baseUrlconcert, buyticketItemId.value)
@@ -36,7 +37,41 @@ onMounted(async () => {
   } catch (error) {
     console.log("error na")
   }
+
 })
+
+const currentPrice = computed(() => {
+  if (!itembyId.value?.price) return "0.00"
+  const price = itembyId.value.price * couter.value;
+  const tax = price * (7 / 100);
+  const totalPrice = (price + tax).toFixed(2);
+  return totalPrice;
+})
+
+const newhistory = {
+  id: userInfo.id,
+  history: historyTicket.value
+}
+
+const addItemToHistory = async () => {
+  toPayPage()
+  historyTicket.value.push({idConcert:itembyId.value.id , img:itembyId.value.img , title:itembyId.value.title , price: currentPrice, date: itembyId.value.date , payments:payment.value})
+
+  try {
+    const response = await addItem(baseUrlhistory, newhistory)
+    if (typeof response === "object") {
+      userStore.addNewHistory(response)
+    
+    } else {
+      console.log('เกิดปัญหานร้า')
+    }
+  } catch (error) {
+    console.error(error)
+  }
+}
+
+
+
 
 watch(nameOnCard, (newValue) => {
   nameOnCard.value = newValue
@@ -47,18 +82,18 @@ watch(cardNumber, (newValue) => {
 })
 
 const toPayPage = () => {
-  if(selectedType.value){
-  if (nameOnCard.value.length === 0 || cardNumber.value.length === 0 ) {
-    isDisable.value = true
-    return
-  }else{
+  if (selectedType.value) {
+    if (nameOnCard.value.length === 0 || cardNumber.value.length === 0) {
+      isDisable.value = true
+      return 
+    } else {
+      showModal.value = true
+      payment.value = 'Visa'
+    }
+  } else {
     showModal.value = true
-   
-  }
-} else {
-  showModal.value = true
     isDisable.value = false
-   
+    payment.value = 'Promtpay'
   }
 }
 
@@ -79,23 +114,12 @@ const decrement = () => {
   }
 }
 
-const backtoHompage = () => {
-  router.go(-1)
-}
+
+
 </script>
 
 <template>
   <div class="min-w-screen min-h-screen bg-gray-50 py-5">
-    <div class="px-5">
-      <div class="mb-2">
-        <span
-          @click="backtoHompage"
-          class="text-xl text-gray-600 hover:underline"
-        >
-          << Back
-        </span>
-      </div>
-    </div>
     <div
       class="w-full bg-white border-t border-b border-gray-200 px-5 py-10 text-gray-800"
     >
@@ -113,7 +137,7 @@ const backtoHompage = () => {
                 </div>
 
                 <div class="flex-grow pl-3">
-                  <!-- เปลี่ยนจาก flex items-center เป็น flex flex-col -->
+                 
                   <div class="flex flex-col">
                     <h6 class="font-bold uppercase text-gray-600 text-3xl">
                       <slot name="title"></slot>
@@ -217,6 +241,7 @@ const backtoHompage = () => {
                 <div class="mb-5">
                   <label for="type1" class="flex items-center cursor-pointer">
                     <input
+                     v-model="payment"
                       type="radio"
                       class="form-radio h-5 w-5 text-indigo-500"
                       name="type"
@@ -237,6 +262,7 @@ const backtoHompage = () => {
                     >
                     <div>
                       <input
+                      
                         class="w-full px-3 py-2 mb-1 border border-gray-200 rounded-md focus:outline-none focus:border-indigo-500 transition-colors"
                         placeholder="John Doe"
                         type="text"
@@ -298,7 +324,6 @@ const backtoHompage = () => {
                         <option value="2029">2029</option>
                       </select>
                     </div>
-                    
                   </div>
                 </div>
               </div>
@@ -306,6 +331,7 @@ const backtoHompage = () => {
               <div class="w-full p-3">
                 <label for="type2" class="flex items-center cursor-pointer">
                   <input
+                    v-model="payment"
                     type="radio"
                     class="form-radio h-5 w-5 text-indigo-500"
                     name="type"
@@ -319,8 +345,7 @@ const backtoHompage = () => {
             </div>
             <div>
               <button
-                @click="toPayPage()"
-                
+                @click="addItemToHistory()"
                 class="block w-full max-w-xs mx-auto bg-indigo-500 hover:bg-indigo-700 focus:bg-indigo-700 text-white px-3 py-2 font-semibold rounded-full"
               >
                 PAY NOW
@@ -331,37 +356,32 @@ const backtoHompage = () => {
       </div>
     </div>
   </div>
-  <ModalToPay :isOpen="showModal"  @close="showModal = false">
-      <template #fullname>
-        {{ userInfo.firstname + " " + userInfo.lastname }}
-      </template>
-      <template #total>
-        {{
-          (
-            itembyId?.price * couter +
-            parseFloat((itembyId?.price * couter * (7 / 100)).toFixed(2))
-          ).toFixed(2)
-        }}
-      </template>
-      <template #address>
-        {{ userInfo?.address }}
-      </template>
-      <template #email>
-        {{ userInfo?.email }}
-      </template>
-      <template #nameConcert>
-        {{ itembyId?.title }}
-      </template>
-      <template #price>
-        {{
-          (itembyId?.price * couter).toFixed(2) == 0
-            ? "Free"
-            : (itembyId?.price * couter).toFixed(2)
-        }}
-      </template>
-
-    
-    </ModalToPay>
+  <ModalToPay :isOpen="showModal" @close="showModal = false">
+    <template #fullname>
+      {{ userInfo.firstname + " " + userInfo.lastname }}
+    </template>
+    <template #total>
+      {{
+       currentPrice
+      }}
+    </template>
+    <template #address>
+      {{ userInfo?.address }}
+    </template>
+    <template #email>
+      {{ userInfo?.email }}
+    </template>
+    <template #nameConcert>
+      {{ itembyId?.title }}
+    </template>
+    <template #price>
+      {{
+       currentPrice == 0
+          ? "Free"
+          : currentPrice
+      }}
+    </template>
+  </ModalToPay>
 </template>
 
 <style scoped></style>
