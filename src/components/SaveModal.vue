@@ -26,8 +26,7 @@ const emits = defineEmits(['save', 'cancel'])
         >
           <div class="bg-white px-4 pb-4 pt-5 sm:p-6 sm:pb-4">
             <div class="sm:flex sm:items-start">
-
-                <slot name="svg"></slot>
+              <slot name="svg"></slot>
 
               <div class="mt-3 text-center sm:ml-4 sm:mt-0 sm:text-left">
                 <h3

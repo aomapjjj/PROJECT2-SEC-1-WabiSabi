@@ -7,7 +7,7 @@
 ### [aomapjjj](https://github.com/aomapjjj) 65130500050 นางสาวพาณิภัค จงศิริวาณิช (25%)
   - Edit user account
   - ทำ router
-  - component หน้า buyticket
+  - component หน้า Buyticket, History Payment
 
 ### [Peacebluegirl](https://github.com/Peacebluegirl) 65130500052 นางสาวพิมพ์พิชญา แก้วแสง (25%)
   - Add user หน้า sign up
