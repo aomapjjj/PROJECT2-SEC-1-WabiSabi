@@ -99,7 +99,7 @@ const handleSignUp = async () => {
 
 const handleLogin = async () => {
   const userCredentials = {
-    email: email.value,
+    username: username.value,
     password: password.value
   }
 
@@ -107,7 +107,7 @@ const handleLogin = async () => {
     const users = await getItems(usersUrl)
     const user = users.find(
       (user) =>
-        user.email === userCredentials.email &&
+        user.username === userCredentials.username &&
         user.password === userCredentials.password
     )
     if (user) {
@@ -116,7 +116,7 @@ const handleLogin = async () => {
       router.push('/homepage')
       closeModal()
     } else {
-      loginMessage.value = 'Invalid email or password'
+      loginMessage.value = 'Invalid username or password'
     }
   } catch (error) {
     loginMessage.value = 'An error occurred during login'
@@ -274,9 +274,9 @@ const handleLogin = async () => {
           </p>
           <div class="mx-auto max-w-xs">
             <input
-              v-model="email"
-              type="email"
-              placeholder="Email"
+              v-model="username"
+              type="username"
+              placeholder="Username"
               class="w-full px-8 py-4 rounded-lg font-medium bg-gray-100 border border-gray-200 text-sm focus:outline-none focus:border-gray-400"
             />
             <div class="relative mt-5">
