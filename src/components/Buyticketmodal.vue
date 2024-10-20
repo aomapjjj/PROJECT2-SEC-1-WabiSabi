@@ -1,16 +1,16 @@
 <script setup>
-import { ref, watch, onMounted, computed } from "vue"
-import { useRouter, useRoute } from "vue-router"
-import ModalToPay from "./ModalToPay.vue"
-import { useUsers } from "@/stores/userStore"
-import { addItem, getItemById } from "../../libs/fetchUtils"
+import { ref, watch, onMounted, computed } from 'vue'
+import { useRouter, useRoute } from 'vue-router'
+import ModalToPay from './ModalToPay.vue'
+import { useUsers } from '../stores/userStore'
+import { addItem, getItemById } from '../../libs/fetchUtils'
 
 const router = useRouter()
 const selectedType = ref()
 const showModal = ref(false)
 const payment = ref('')
-const nameOnCard = ref("")
-const cardNumber = ref("")
+const nameOnCard = ref('')
+const cardNumber = ref('')
 const isDisable = ref(false)
 const route = useRoute()
 const userStore = useUsers()
@@ -35,17 +35,16 @@ onMounted(async () => {
     itembyId.value = item
     console.log(itembyId.value)
   } catch (error) {
-    console.log("error na")
+    console.log('error na')
   }
-
 })
 
 const currentPrice = computed(() => {
-  if (!itembyId.value?.price) return "0.00"
-  const price = itembyId.value.price * couter.value;
-  const tax = price * (7 / 100);
-  const totalPrice = (price + tax).toFixed(2);
-  return totalPrice;
+  if (!itembyId.value?.price) return '0.00'
+  const price = itembyId.value.price * couter.value
+  const tax = price * (7 / 100)
+  const totalPrice = (price + tax).toFixed(2)
+  return totalPrice
 })
 
 const newhistory = {
@@ -55,13 +54,19 @@ const newhistory = {
 
 const addItemToHistory = async () => {
   toPayPage()
-  historyTicket.value.push({idConcert:itembyId.value.id , img:itembyId.value.img , title:itembyId.value.title , price: currentPrice, date: itembyId.value.date , payments:payment.value})
+  historyTicket.value.push({
+    idConcert: itembyId.value.id,
+    img: itembyId.value.img,
+    title: itembyId.value.title,
+    price: currentPrice,
+    date: itembyId.value.date,
+    payments: payment.value
+  })
 
   try {
     const response = await addItem(baseUrlhistory, newhistory)
-    if (typeof response === "object") {
+    if (typeof response === 'object') {
       userStore.addNewHistory(response)
-    
     } else {
       console.log('เกิดปัญหานร้า')
     }
@@ -69,9 +74,6 @@ const addItemToHistory = async () => {
     console.error(error)
   }
 }
-
-
-
 
 watch(nameOnCard, (newValue) => {
   nameOnCard.value = newValue
@@ -85,7 +87,7 @@ const toPayPage = () => {
   if (selectedType.value) {
     if (nameOnCard.value.length === 0 || cardNumber.value.length === 0) {
       isDisable.value = true
-      return 
+      return
     } else {
       showModal.value = true
       payment.value = 'Visa'
@@ -97,25 +99,22 @@ const toPayPage = () => {
   }
 }
 
-console.log("validateCard", isDisable.value)
+console.log('validateCard', isDisable.value)
 
-const emit = defineEmits(["update:couter"])
+const emit = defineEmits(['update:couter'])
 const couter = ref(1)
 
 const increment = () => {
   couter.value++
-  emit("update:couter", couter.value)
+  emit('update:couter', couter.value)
 }
 
 const decrement = () => {
   if (couter.value > 1) {
     couter.value--
-    emit("update:couter", couter.value)
+    emit('update:couter', couter.value)
   }
 }
-
-
-
 </script>
 
 <template>
@@ -137,7 +136,6 @@ const decrement = () => {
                 </div>
 
                 <div class="flex-grow pl-3">
-                 
                   <div class="flex flex-col">
                     <h6 class="font-bold uppercase text-gray-600 text-3xl">
                       <slot name="title"></slot>
@@ -241,7 +239,7 @@ const decrement = () => {
                 <div class="mb-5">
                   <label for="type1" class="flex items-center cursor-pointer">
                     <input
-                     v-model="payment"
+                      v-model="payment"
                       type="radio"
                       class="form-radio h-5 w-5 text-indigo-500"
                       name="type"
@@ -262,7 +260,6 @@ const decrement = () => {
                     >
                     <div>
                       <input
-                      
                         class="w-full px-3 py-2 mb-1 border border-gray-200 rounded-md focus:outline-none focus:border-indigo-500 transition-colors"
                         placeholder="John Doe"
                         type="text"
@@ -358,12 +355,10 @@ const decrement = () => {
   </div>
   <ModalToPay :isOpen="showModal" @close="showModal = false">
     <template #fullname>
-      {{ userInfo.firstname + " " + userInfo.lastname }}
+      {{ userInfo.firstname + ' ' + userInfo.lastname }}
     </template>
     <template #total>
-      {{
-       currentPrice
-      }}
+      {{ currentPrice }}
     </template>
     <template #address>
       {{ userInfo?.address }}
@@ -375,11 +370,7 @@ const decrement = () => {
       {{ itembyId?.title }}
     </template>
     <template #price>
-      {{
-       currentPrice == 0
-          ? "Free"
-          : currentPrice
-      }}
+      {{ currentPrice == 0 ? 'Free' : currentPrice }}
     </template>
   </ModalToPay>
 </template>

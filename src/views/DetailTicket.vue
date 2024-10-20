@@ -1,10 +1,10 @@
 <script setup>
-import { ref, onMounted , watch} from 'vue'
+import { ref, onMounted, watch } from 'vue'
 import { getItemById } from '../../libs/fetchUtils'
-import { useRouter, useRoute } from 'vue-router'
+import { useRoute } from 'vue-router'
 
-import DetailTicketModal from '@/components/DetailTicketModal.vue'
-import Navbar from '@/components/Navbar.vue'
+import DetailTicketModal from '../components/DetailTicketModal.vue'
+import Navbar from '../components/Navbar.vue'
 
 const route = useRoute()
 const baseUrlconcert = `${import.meta.env.VITE_APP_URL_CON}`
@@ -21,43 +21,42 @@ watch(
 
 console.log(ticketItemId)
 
-
 onMounted(async () => {
-  try{
-    const item  = await getItemById(baseUrlconcert, ticketItemId.value)
-  itembyId.value = item
-  console.log(itembyId.value)
-  }catch(error){
+  try {
+    const item = await getItemById(baseUrlconcert, ticketItemId.value)
+    itembyId.value = item
+    console.log(itembyId.value)
+  } catch (error) {
     console.log('error na')
   }
-}) 
-
+})
 </script>
 
 <template>
   <Navbar />
   <div class="h-full min-h-screen">
-    
-    <DetailTicketModal >
+    <DetailTicketModal>
       <template #concertName>
         {{ itembyId?.title }}
       </template>
       <template #imgOfTicket>
-        <img :src="itembyId?.img" alt="img" class="w-62 "> 
+        <img :src="itembyId?.img" alt="img" class="w-[350px] object-cover" />
       </template>
       <template #typeOfTicket>{{ itembyId?.type }}</template>
       <template #nameOfConcert>{{ itembyId?.title }}</template>
       <template #date>
         <div v-for="(dates, index) in itembyId?.date" :key="index">
-                  {{ `${dates.month} ${dates.day}, ${dates.year}` }}
-           </div>
+          {{ `${dates.month} ${dates.day}, ${dates.year}` }}
+        </div>
       </template>
       <template #time>
-        {{ itembyId?.time  }}
+        {{ itembyId?.time }}
       </template>
       <template #location>{{ itembyId?.location }}</template>
-      <template #description>{{ itembyId?.description  }} </template>
-      <template #price>{{ itembyId?.price === 0  ? 'Free' :  itembyId?.price  }}</template>
+      <template #description>{{ itembyId?.description }} </template>
+      <template #price>
+        {{ itembyId?.price === 0 ? 'Free' : '฿' + itembyId?.price }}</template
+      >
     </DetailTicketModal>
   </div>
 </template>

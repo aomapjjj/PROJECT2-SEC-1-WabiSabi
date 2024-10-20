@@ -1,36 +1,33 @@
 <script setup>
-import { ref, onMounted, computed } from 'vue'
-import { getItemById, getItems } from '../../libs/fetchUtils'
+import { ref, onMounted, computed, watch } from 'vue'
+import { getItems } from '../../libs/fetchUtils'
 import ContentHomepage from '../components/ContentHomepage.vue'
 import Navbar from '../components/Navbar.vue'
 import Footer from '../components/Footer.vue'
 import SlidePicture from '../components/SlidePicture.vue'
-import TypeOfConcert from '@/components/TypeOfConcert.vue'
 
 const baseUrlConcert = `${import.meta.env.VITE_APP_URL_CON}`
 const allItems = ref()
 
 // Search
 const searchConcert = ref('')
+const gridContainer = ref(null)
 
 onMounted(async () => {
   try {
     const items = await getItems(baseUrlConcert)
     allItems.value = items
-
-    // กรองประเภทคอนเสิร์ตโดยไม่ซ้ำกัน และเอาเฉพาะประเภทที่อยู่ใน allowedTypes
-    // const uniqueTypes = [...new Set(items.map(item => item.type))]
-    //   .filter(type => allowedTypes.includes(type))
-
-    //   concertTypes.value = uniqueTypes
-
-    //   console.log(items.map(item => item.type))
-    //   console.log(...new Set(items.map(item => item.type)))
-    //   console.log(concertTypes.value = uniqueTypes.slice(0, 11))
   } catch (error) {
     console.error('Error fetching data:', error)
   }
 })
+
+// Reset scroll - Search
+const resetScrollPosition = () => {
+  if (gridContainer.value) {
+    gridContainer.value.scrollTo({ top: 0, behavior: 'smooth' })
+  }
+}
 
 const filteredItems = computed(() => {
   if (!searchConcert.value) return allItems.value
@@ -39,100 +36,60 @@ const filteredItems = computed(() => {
   )
 })
 
-const activeType = ref('All')
-
-const setActiveType = (type) => {
-  activeType.value = type
-}
+watch(filteredItems, () => {
+  resetScrollPosition()
+})
 </script>
 
 <template>
   <Navbar />
   <div class="bgBlue min-h-screen flex flex-col justify-between">
     <!-- Search bar -->
-    <div class="flex justify-end items-center py-4 px-8">
-      <!-- <h1 class="text-2xl font-bold">CONCERTS</h1> -->
-      <div class="flex items-center space-x-2">
+    <div class="w-full flex justify-end">
+      <form class="relative py-4 px-8 w-max">
         <input
           v-model="searchConcert"
           type="text"
-          placeholder="Search concert here"
-          class="text-black rounded-full px-4 py-2 w-64"
+          class="peer cursor-pointer text-white relative z-10 h-12 w-12 rounded-full border bg-transparent pl-12 outline-none focus:w-full focus:cursor-text focus:border-white focus:pl-16 focus:pr-4"
         />
-        <button class="bg-red-600 text-white rounded-full px-4 py-2">
-          Search
-        </button>
-      </div>
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          class="absolute inset-y-0 my-auto h-8 w-12 border-r border-transparent stroke-white px-3.5 peer-focus:border-white peer-focus:stroke-white"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+          stroke-width="2"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
+          />
+        </svg>
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          class="absolute items-end my-auto h-8 w-12 stroke-white px-3.5 peer-focus:border-white peer-focus:stroke-white"
+          viewBox="0 0 24 24"
+        >
+          <path
+            fill="currentColor"
+            fill-rule="evenodd"
+            d="m12 10.586l5.657-5.657l1.414 1.414L13.414 12l5.657 5.657l-1.414 1.414L12 13.414l-5.657 5.657l-1.414-1.414L10.586 12L4.929 6.343L6.343 4.93z"
+          />
+        </svg>
+      </form>
     </div>
 
     <SlidePicture />
-
-    <div class="border border-white border-dotted mt-4"></div>
-
-    <!-- <div>
-    <span class="text-cyan-500 bg-yellow-400 hover:bg-cyan-500 hover:text-yellow-400 inline-flex items-center rounded-full py-2 px-3 text-sm font-medium">All</span>
-    <span class="text-cyan-500 bg-yellow-400 hover:bg-cyan-500 hover:text-yellow-400 inline-flex items-center rounded-full py-2 px-3 text-sm font-medium">Jazz</span>
-    <span class="text-cyan-500 bg-yellow-400 hover:bg-cyan-500 hover:text-yellow-400 inline-flex items-center rounded-full py-2 px-3 text-sm font-medium">Pop</span>
-    <span class="text-cyan-500 bg-yellow-400 hover:bg-cyan-500 hover:text-yellow-400 inline-flex items-center rounded-full py-2 px-3 text-sm font-medium">Electronic Dance</span>
-    <span class="text-cyan-500 bg-yellow-400 hover:bg-cyan-500 hover:text-yellow-400 inline-flex items-center rounded-full py-2 px-3 text-sm font-medium">Alternative Rock</span>
-    <span class="text-cyan-500 bg-yellow-400 hover:bg-cyan-500 hover:text-yellow-400 inline-flex items-center rounded-full py-2 px-3 text-sm font-medium">Indie Pop</span>
-    <span class="text-cyan-500 bg-yellow-400 hover:bg-cyan-500 hover:text-yellow-400 inline-flex items-center rounded-full py-2 px-3 text-sm font-medium">Folk</span>
-    <span class="text-cyan-500 bg-yellow-400 hover:bg-cyan-500 hover:text-yellow-400 inline-flex items-center rounded-full py-2 px-3 text-sm font-medium">Electronic</span>
-    <span class="text-cyan-500 bg-yellow-400 hover:bg-cyan-500 hover:text-yellow-400 inline-flex items-center rounded-full py-2 px-3 text-sm font-medium">R&B</span>
-    <span class="text-cyan-500 bg-yellow-400 hover:bg-cyan-500 hover:text-yellow-400 inline-flex items-center rounded-full py-2 px-3 text-sm font-medium">Soul</span>
-    <span class="text-cyan-500 bg-yellow-400 hover:bg-cyan-500 hover:text-yellow-400 inline-flex items-center rounded-full py-2 px-3 text-sm font-medium">Rock</span>
-    <span class="text-cyan-500 bg-yellow-400 hover:bg-cyan-500 hover:text-yellow-400 inline-flex items-center rounded-full py-2 px-3 text-sm font-medium">Classical</span>
-    <span class="text-cyan-500 bg-yellow-400 hover:bg-cyan-500 hover:text-yellow-400 inline-flex items-center rounded-full py-2 px-3 text-sm font-medium">Ambient</span>
-    <span class="text-cyan-500 bg-yellow-400 hover:bg-cyan-500 hover:text-yellow-400 inline-flex items-center rounded-full py-2 px-3 text-sm font-medium">Experimental</span>
-    <span class="text-cyan-500 bg-yellow-400 hover:bg-cyan-500 hover:text-yellow-400 inline-flex items-center rounded-full py-2 px-3 text-sm font-medium">Orchestral</span>
-    </div> -->
-
-    <!-- ประเภทคอนเสิร์ต -->
-    <!-- <div class="flex justify-center space-x-4 p-4">
-      <button
-        v-for="(type, index) in concertTypes"
-        :key="index"
-        :class="
-          type.active ? 'bg-gray-600 text-white' : 'bg-gray-400 text-white'
-        "
-        class="rounded-full px-6 py-2 text-lg font-bold focus:outline-none transition-colors duration-200"
-      >
-        {{ type }}
-      </button>
-    </div> -->
-
-
-<div class="overflow-x-auto whitespace-nowrap mt-6">
-  <div class="inline-flex space-x-4">
-    <TypeOfConcert type="All" @filter="filterByType" :isActive="activeType === 'All'">All</TypeOfConcert>
-    <TypeOfConcert type="Jazz" @filter="filterByType" :isActive="activeType === 'Jazz'">Jazz</TypeOfConcert>
-    <TypeOfConcert type="Pop" @filter="filterByType" :isActive="activeType === 'Pop'">Pop</TypeOfConcert>
-    <TypeOfConcert type="Electronic Dance" @filter="filterByType" :isActive="activeType === 'Electronic Dance'">Electronic Dance</TypeOfConcert>
-    <TypeOfConcert type="Alternative Rock" @filter="filterByType" :isActive="activeType === 'Alternative Rock'">Alternative Rock</TypeOfConcert>
-    <TypeOfConcert type="Indie Pop" @filter="filterByType" :isActive="activeType === 'Indie Pop'">Indie Pop</TypeOfConcert>
-    <TypeOfConcert type="Folk" @filter="filterByType" :isActive="activeType === 'Folk'">Folk</TypeOfConcert>
-    <TypeOfConcert type="Electronic" @filter="filterByType" :isActive="activeType === 'Electronic'">Electronic</TypeOfConcert>
-    <TypeOfConcert type="R&B" @filter="filterByType" :isActive="activeType === 'R&B'">R&B</TypeOfConcert>
-    <TypeOfConcert type="Soul" @filter="filterByType" :isActive="activeType === 'Soul'">Soul</TypeOfConcert>
-    <TypeOfConcert type="Rock" @filter="filterByType" :isActive="activeType === 'Rock'">Rock</TypeOfConcert>
-    <TypeOfConcert type="Classical" @filter="filterByType" :isActive="activeType === 'Classical'">Classical</TypeOfConcert>
-    <TypeOfConcert type="Ambient" @filter="filterByType" :isActive="activeType === 'Ambient'">Ambient</TypeOfConcert>
-    <TypeOfConcert type="Experimental" @filter="filterByType" :isActive="activeType === 'Experimental'">Experimental</TypeOfConcert>
-    <TypeOfConcert type="Orchestral" @filter="filterByType" :isActive="activeType === 'Orchestral'">Orchestral</TypeOfConcert>
-  </div>
-  </div>
-
-
     <!-- content -->
-    <div class="flex-grow">
+    <div class="flex-grow max-w-full max-h-full mx-auto px-6">
       <div
         class="animated fadeIn faster left-0 top-0 flex justify-center items-center inset-0 outline-none focus:outline-none bg-no-repeat bg-center bg-cover"
       >
-        <div
-          class="relative min-h-screen flex flex-col items-center justify-center"
-        >
+        <div class="relative flex flex-col items-center justify-center">
           <div
-            class="grid mt-8 gap-8 grid-cols-1 md:grid-cols-3 xl:grid-cols-3"
+            ref="gridContainer"
+            class="grid mt-6 gap-4 grid-cols-1 md:grid-cols-2 xl:grid-cols-3"
           >
             <ContentHomepage
               v-for="(item, index) in filteredItems"
