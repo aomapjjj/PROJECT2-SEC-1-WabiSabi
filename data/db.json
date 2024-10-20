@@ -16,14 +16,14 @@
       "time": "6:00 PM - 10:00 PM",
       "location": "Lumpini Park, Bangkok",
       "price": 0,
-      "remaining_tickets": 1000
+      "remaining_tickets": 3
     },
     {
       "id": "2",
       "img": "/concertPoster/2.png",
       "title": "Starlight Pulse Festival",
       "description": "Immerse yourself in a vibrant world of music and light at the Starlight Pulse Festival! Experience an electrifying fusion of pop, electronic dance music, and alternative rock as renowned artists take the stage. Prepare to be mesmerized by stunning visuals, captivating performances, and an energetic atmosphere that will ignite your senses.",
-      "type": "Pop, Electronic Dance Music, Alternative Rock",
+      "type": "Pop, Electronic Dance, Alternative Rock",
       "date": [
         {
           "day": 10,
@@ -34,7 +34,7 @@
       "time": "5:00 PM - 9:00 PM",
       "location": "IMPACT Arena, Muang Thong Thani",
       "price": 300,
-      "remaining_tickets": 500
+      "remaining_tickets": 50
     },
     {
       "id": "3",
@@ -52,14 +52,14 @@
       "time": "6:00 PM - 10:00 PM",
       "location": "Central Plaza Chiangmai Airport",
       "price": 0,
-      "remaining_tickets": 750
+      "remaining_tickets": 200
     },
     {
       "id": "4",
       "img": "/concertPoster/4.png",
       "title": "Beyond the Frequency",
       "description": "Prepare to embark on a sonic adventure as Beyond the Frequency pushes the boundaries of electronic music! This electrifying concert features a diverse lineup of DJs and producers who will guide you through a captivating journey of experimental soundscapes, pulsating beats, and immersive visuals. Get ready to lose yourself in a world of pure sonic bliss.",
-      "type": "Electronic Music",
+      "type": "Electronic",
       "date": [
         {
           "day": 31,
@@ -88,7 +88,7 @@
       "time": "5:30 PM - 9:30 PM",
       "location": "Queen Sirikit National Convention Center, Bangkok",
       "price": 300,
-      "remaining_tickets": 800
+      "remaining_tickets": 500
     },
     {
       "id": "6",
@@ -113,7 +113,7 @@
       "img": "/concertPoster/7.png",
       "title": "Colors of Music",
       "description": "Experience a kaleidoscope of musical styles at the Colors of Music concert! This vibrant event features a diverse lineup of artists showcasing everything from classical music to contemporary world music. Prepare to be transported to different cultures and eras through enchanting melodies, intricate harmonies, and mesmerizing performances.",
-      "type": "Classical Music, World Music",
+      "type": "Classical",
       "date": [
         {
           "day": 10,
@@ -131,7 +131,7 @@
       "img": "/concertPoster/8.png",
       "title": "Artistic Echoes",
       "description": "Immerse yourself in a world of art and music at the Artistic Echoes concert! This captivating event combines a showcase of renowned artists with a musical performance that reflects the themes and inspirations behind their works. Enjoy a unique and immersive experience that celebrates the interconnectedness of art and music.",
-      "type": "Classical Music, Contemporary Music",
+      "type": "Classical, Contemporary",
       "date": [
         {
           "day": 15,
@@ -154,7 +154,7 @@
       "img": "/concertPoster/9.png",
       "title": "Galactic Beats",
       "description": "Prepare for an intergalactic journey through sound at the Galactic Beats concert! This electrifying event features a lineup of DJs and producers who will transport you to otherworldly realms with their pulsating beats, hypnotic melodies, and immersive visuals. Experience the fusion of electronic music, psychedelic art, and cosmic energy, creating a truly unforgettable experience.",
-      "type": "Electronic Music",
+      "type": "Electronic",
       "date": [
         {
           "day": 24,
@@ -189,8 +189,8 @@
       "id": "11",
       "img": "/concertPoster/11.png",
       "title": "Cosmic Soundwave",
-      "description": null,
-      "type": null,
+      "description": "Cosmic Soundwave is an electrifying music festival that brings together a fusion of sound, lights, and high-energy performances. Taking place at the iconic Central World Plaza in Bangkok, this event promises a night filled with mesmerizing visual effects and an eclectic mix of performances from world-renowned DJs and live bands. From soaring electronic beats to pulsating basslines, Cosmic Soundwave creates an immersive atmosphere that transports attendees to a different dimension of music. With state-of-the-art sound systems and mind-blowing visual projections, the concert will keep the crowd dancing from dusk till midnight. Don’t miss out on this epic musical journey where the cosmic meets the terrestrial!",
+      "type": "Electronic, EDM",
       "date": [
         {
           "day": 12,
@@ -201,14 +201,14 @@
       "time": "7:00 PM - Midnight",
       "location": "Central World Plaza, Bangkok",
       "price": 500,
-      "remaining_tickets": null
+      "remaining_tickets": 100
     },
     {
       "id": "12",
       "img": "/concertPoster/12.png",
       "title": "Echoes of Infinity",
-      "description": null,
-      "type": null,
+      "description": "Echoes of Infinity brings an ethereal experience to the concert stage, blending ambient soundscapes with live instruments and cutting-edge digital effects. Set at the expansive BITEC Bangna in Bangkok, this event will captivate the audience with its immersive, otherworldly atmosphere, designed to evoke a sense of infinity through sound and visuals. Performers will take you on a musical journey through time and space, seamlessly merging live performances with experimental electronic beats. Prepare to lose yourself in the vastness of Echoes of Infinity.",
+      "type": "Ambient, Experimental",
       "date": [
         {
           "day": 20,
@@ -219,14 +219,14 @@
       "time": "6:00 PM - 11:00 PM",
       "location": "BITEC Bangna, Bangkok",
       "price": 600,
-      "remaining_tickets": null
+      "remaining_tickets": 200
     },
     {
       "id": "13",
       "img": "/concertPoster/13.png",
       "title": "Stardust Serenade",
-      "description": null,
-      "type": null,
+      "description": "Stardust Serenade is a magical evening of classical and contemporary orchestral music that promises to enchant its audience. Featuring a full symphony orchestra and special guest soloists, this concert will explore the celestial beauty of the universe through music. The stunning acoustics of Siam Paragon Hall in Bangkok will enhance the performance, creating an unforgettable experience as the music soars through the night. A perfect concert for those who appreciate the serene and sublime, Stardust Serenade will leave you with a sense of wonder.",
+      "type": "Classical, Orchestral",
       "date": [
         {
           "day": 5,
@@ -237,14 +237,14 @@
       "time": "8:00 PM - Midnight",
       "location": "Siam Paragon Hall, Bangkok",
       "price": 700,
-      "remaining_tickets": null
+      "remaining_tickets": 20
     },
     {
       "id": "14",
       "img": "/concertPoster/14.png",
       "title": "The Pulsar Vibes",
-      "description": null,
-      "type": null,
+      "description": "The Pulsar Vibes is a high-octane music festival featuring some of the most electrifying rock and indie bands. Held at the Indoor Stadium Huamark in Bangkok, this event will be a sonic explosion of live performances, raw energy, and crowd-engaging vibes. Known for its pulsating beats and high-energy atmosphere, The Pulsar Vibes promises to be a night filled with powerful rhythms, electrifying guitar solos, and unforgettable live shows. Fans of live rock music won’t want to miss this epic night.",
+      "type": "Rock, Indie",
       "date": [
         {
           "day": 18,
@@ -255,14 +255,14 @@
       "time": "7:00 PM - 11:30 PM",
       "location": "Indoor Stadium Huamark, Bangkok",
       "price": 800,
-      "remaining_tickets": null
+      "remaining_tickets": 500
     },
     {
       "id": "15",
       "img": "/concertPoster/15.png",
       "title": "Aurora Melodies",
-      "description": null,
-      "type": null,
+      "description": "Aurora Melodies is an intimate concert that combines the soothing sounds of acoustic guitars, pianos, and vocal harmonies to create an evening of heartfelt music. Set in the Thammasat University Auditorium, this concert will showcase both emerging and established singer-songwriters. The music reflects themes of nature, love, and introspection, offering a warm and comforting atmosphere perfect for those who enjoy peaceful, melodic performances.",
+      "type": "Acoustic, Folk",
       "date": [
         {
           "day": 24,
@@ -273,14 +273,14 @@
       "time": "5:00 PM - 9:00 PM",
       "location": "Thammasat University Auditorium, Bangkok",
       "price": 300,
-      "remaining_tickets": null
+      "remaining_tickets": 50
     },
     {
       "id": "16",
       "img": "/concertPoster/16.png",
       "title": "Celestial Groove",
-      "description": null,
-      "type": null,
+      "description": "Celestial Groove is a vibrant music festival that brings together funky beats, smooth grooves, and soul-stirring vocals for an unforgettable evening. Held at Central Plaza Chiangmai Airport, the event will feature a lineup of bands and DJs that specialize in funk, soul, and R&B. The smooth rhythms and lively beats will keep the audience dancing all night. With colorful lights and an electric atmosphere, Celestial Groove is the ultimate celebration of feel-good music.",
+      "type": "Funk, Soul, R&B",
       "date": [
         {
           "day": 10,
@@ -291,14 +291,14 @@
       "time": "6:30 PM - 11:00 PM",
       "location": "Central Plaza Chiangmai Airport, Chiang Mai",
       "price": 400,
-      "remaining_tickets": null
+      "remaining_tickets": 450
     },
     {
       "id": "17",
       "img": "/concertPoster/17.png",
       "title": "Galaxy Frequencies",
-      "description": null,
-      "type": null,
+      "description": "Galaxy Frequencies is a cutting-edge electronic music event featuring a diverse array of DJs and producers. Taking place at Union Mall Hall in Bangkok, this concert will showcase a variety of electronic genres, from techno to house, with heavy bass drops and futuristic sounds that will captivate the audience. The immersive visual experience will elevate the performances, making this an event for electronic music lovers to get lost in the beats and rhythms of the galaxy.",
+      "type": "Electronic, Techno, House",
       "date": [
         {
           "day": 1,
@@ -309,14 +309,14 @@
       "time": "7:30 PM - Midnight",
       "location": "Union Mall Hall, Bangkok",
       "price": 450,
-      "remaining_tickets": null
+      "remaining_tickets": 250
     },
     {
       "id": "18",
       "img": "/concertPoster/18.png",
       "title": "Nebula Nights",
-      "description": null,
-      "type": null,
+      "description": "Nebula Nights is an outdoor concert set in the scenic surroundings of Lumpini Park in Bangkok. This event offers a laid-back evening of chillwave, lo-fi beats, and downtempo electronic music. Perfect for unwinding under the stars, Nebula Nights invites the audience to relax, picnic, and enjoy the dreamy atmosphere created by soft, ambient sounds. The event is ideal for those looking for a calming and introspective musical experience.",
+      "type": "Chillwave, Lo-fi, Ambient",
       "date": [
         {
           "day": 15,
@@ -327,14 +327,14 @@
       "time": "6:00 PM - 10:30 PM",
       "location": "Lumpini Park, Bangkok",
       "price": 200,
-      "remaining_tickets": null
+      "remaining_tickets": 600
     },
     {
       "id": "19",
       "img": "/concertPoster/19.png",
       "title": "Sonic Supernova",
-      "description": null,
-      "type": null,
+      "description": "Sonic Supernova is a concert packed with dynamic performances by some of the most exciting alternative rock bands in the region. Hosted at Central Festival Hatyai, this concert will offer a diverse lineup that ranges from indie rock to experimental sounds, ensuring a night full of energy and unpredictable moments. Whether you're a die-hard rock fan or someone looking to discover new bands, Sonic Supernova promises an electrifying atmosphere.",
+      "type": "Alternative, Indie Rock",
       "date": [
         {
           "day": 20,
@@ -345,14 +345,14 @@
       "time": "7:00 PM - 11:00 PM",
       "location": "Central Festival Hatyai, Hatyai",
       "price": 350,
-      "remaining_tickets": null
+      "remaining_tickets": 300
     },
     {
       "id": "20",
       "img": "/concertPoster/20.png",
       "title": "Orbit of Rhythms",
-      "description": null,
-      "type": null,
+      "description": "Orbit of Rhythms is a large-scale music event that celebrates world music and global beats. Taking place at the Supachalasai National Stadium in Bangkok, the event will feature a wide array of performances, including African drums, Latin rhythms, and Asian fusion music. It’s a celebration of the diversity of sounds from around the world, with performances that will inspire and move the audience. Perfect for those who love world music and want to experience something truly unique.",
+      "type": "Fusion",
       "date": [
         {
           "day": 8,
@@ -363,7 +363,7 @@
       "time": "5:30 PM - 9:30 PM",
       "location": "Supachalasai National Stadium, Bangkok",
       "price": 600,
-      "remaining_tickets": null
+      "remaining_tickets": 150
     }
   ],
   "users": [
@@ -376,8 +376,7 @@
       "sex": "Male",
       "address": "Bangkok, Thailand",
       "telephone": "+66811234567",
-      "email": "admin@dev.com",
-      "favorite": []
+      "email": "admin@dev.com"
     },
     {
       "id": "86b3",
@@ -385,7 +384,8 @@
       "password": "admin",
       "username": "admin",
       "firstname": "admin",
-      "lastname": "admin"
+      "lastname": "admin",
+      "sex": "Female"
     },
     {
       "id": "4a7e",
@@ -442,6 +442,283 @@
       "username": "pear",
       "firstname": "pear",
       "lastname": "pear"
+    },
+    {
+      "id": "5e3a",
+      "email": "pearmai@justkdyforever",
+      "password": "555555555555",
+      "username": "Pearmai",
+      "firstname": "Pearmai",
+      "lastname": "Wannasiri"
+    },
+    {
+      "id": "942f",
+      "email": "123@ewr.cofsdm",
+      "password": "12345678",
+      "username": "123",
+      "firstname": "123",
+      "lastname": "123546",
+      "history": [],
+      "sex": "Female",
+      "address": "21312312\n321321",
+      "telephone": "08921313"
+    }
+  ],
+  "histories": [
+    {
+      "id": "942f",
+      "history": [
+        {
+          "idConcert": "2",
+          "img": "/concertPoster/2.png",
+          "title": "Starlight Pulse Festival",
+          "price": "321.00",
+          "date": [
+            {
+              "day": 10,
+              "month": "January",
+              "year": 2025
+            }
+          ],
+          "payments": "Promtpay"
+        }
+      ]
+    },
+    {
+      "id": "942f",
+      "history": [
+        {
+          "idConcert": "1",
+          "img": "/concertPoster/1.png",
+          "title": "Swing into the Groove",
+          "price": "0.00",
+          "date": [
+            {
+              "day": 14,
+              "month": "December",
+              "year": 2025
+            }
+          ],
+          "payments": "Promtpay"
+        }
+      ]
+    },
+    {
+      "id": "942f",
+      "history": [
+        {
+          "idConcert": "5",
+          "img": "/concertPoster/5.png",
+          "title": "Sounds of Joy",
+          "price": "1605.00",
+          "date": [
+            {
+              "day": 10,
+              "month": "Febuary",
+              "year": 2025
+            }
+          ],
+          "payments": "Visa"
+        }
+      ]
+    },
+    {
+      "id": "942f",
+      "history": [
+        {
+          "idConcert": "5",
+          "img": "/concertPoster/5.png",
+          "title": "Sounds of Joy",
+          "price": "963.00",
+          "date": [
+            {
+              "day": 10,
+              "month": "Febuary",
+              "year": 2025
+            }
+          ],
+          "payments": "Promtpay"
+        }
+      ]
+    },
+    {
+      "id": "942f",
+      "history": [
+        {
+          "idConcert": "2",
+          "img": "/concertPoster/2.png",
+          "title": "Starlight Pulse Festival",
+          "price": "321.00",
+          "date": [
+            {
+              "day": 10,
+              "month": "January",
+              "year": 2025
+            }
+          ],
+          "payments": "Promtpay"
+        }
+      ]
+    },
+    {
+      "id": "942f",
+      "history": [
+        {
+          "idConcert": "2",
+          "img": "/concertPoster/2.png",
+          "title": "Starlight Pulse Festival",
+          "price": "321.00",
+          "date": [
+            {
+              "day": 10,
+              "month": "January",
+              "year": 2025
+            }
+          ],
+          "payments": "Promtpay"
+        }
+      ]
+    },
+    {
+      "id": "942f",
+      "history": [
+        {
+          "idConcert": "2",
+          "img": "/concertPoster/2.png",
+          "title": "Starlight Pulse Festival",
+          "price": "321.00",
+          "date": [
+            {
+              "day": 10,
+              "month": "January",
+              "year": 2025
+            }
+          ],
+          "payments": "Promtpay"
+        },
+        {
+          "idConcert": "2",
+          "img": "/concertPoster/2.png",
+          "title": "Starlight Pulse Festival",
+          "price": "321.00",
+          "date": [
+            {
+              "day": 10,
+              "month": "January",
+              "year": 2025
+            }
+          ],
+          "payments": "Promtpay"
+        }
+      ]
+    },
+    {
+      "id": "942f",
+      "history": [
+        {
+          "idConcert": "2",
+          "img": "/concertPoster/2.png",
+          "title": "Starlight Pulse Festival",
+          "price": "321.00",
+          "date": [
+            {
+              "day": 10,
+              "month": "January",
+              "year": 2025
+            }
+          ],
+          "payments": "Promtpay"
+        },
+        {
+          "idConcert": "2",
+          "img": "/concertPoster/2.png",
+          "title": "Starlight Pulse Festival",
+          "price": "321.00",
+          "date": [
+            {
+              "day": 10,
+              "month": "January",
+              "year": 2025
+            }
+          ],
+          "payments": "Promtpay"
+        },
+        {
+          "idConcert": "2",
+          "img": "/concertPoster/2.png",
+          "title": "Starlight Pulse Festival",
+          "price": "321.00",
+          "date": [
+            {
+              "day": 10,
+              "month": "January",
+              "year": 2025
+            }
+          ],
+          "payments": "Promtpay"
+        }
+      ]
+    },
+    {
+      "id": "942f",
+      "history": [
+        {
+          "idConcert": "2",
+          "img": "/concertPoster/2.png",
+          "title": "Starlight Pulse Festival",
+          "price": "963.00",
+          "date": [
+            {
+              "day": 10,
+              "month": "January",
+              "year": 2025
+            }
+          ],
+          "payments": "Promtpay"
+        },
+        {
+          "idConcert": "2",
+          "img": "/concertPoster/2.png",
+          "title": "Starlight Pulse Festival",
+          "price": "963.00",
+          "date": [
+            {
+              "day": 10,
+              "month": "January",
+              "year": 2025
+            }
+          ],
+          "payments": "Promtpay"
+        },
+        {
+          "idConcert": "2",
+          "img": "/concertPoster/2.png",
+          "title": "Starlight Pulse Festival",
+          "price": "963.00",
+          "date": [
+            {
+              "day": 10,
+              "month": "January",
+              "year": 2025
+            }
+          ],
+          "payments": "Promtpay"
+        },
+        {
+          "idConcert": "2",
+          "img": "/concertPoster/2.png",
+          "title": "Starlight Pulse Festival",
+          "price": "963.00",
+          "date": [
+            {
+              "day": 10,
+              "month": "January",
+              "year": 2025
+            }
+          ],
+          "payments": "Promtpay"
+        }
+      ]
     }
   ]
 }

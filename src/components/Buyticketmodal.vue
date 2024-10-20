@@ -1,46 +1,125 @@
 <script setup>
-import { ref , watch } from "vue"
-
-import { useRouter } from "vue-router"
-
+import { ref, watch, onMounted, computed } from "vue"
+import { useRouter, useRoute } from "vue-router"
+import ModalToPay from "./ModalToPay.vue"
+import { useUsers } from "@/stores/userStore"
+import { addItem, getItemById } from "../../libs/fetchUtils"
 
 const router = useRouter()
+const selectedType = ref()
+const showModal = ref(false)
+const payment = ref('')
+const nameOnCard = ref("")
+const cardNumber = ref("")
+const isDisable = ref(false)
+const route = useRoute()
+const userStore = useUsers()
+const userInfo = userStore.getUser()
+const baseUrlconcert = `${import.meta.env.VITE_APP_URL_CON}`
+const baseUrlhistory = `${import.meta.env.VITE_APP_URL_HISTORIES}`
+const itembyId = ref()
+const buyticketItemId = ref()
+const historyTicket = ref([])
 
-const emit = defineEmits(['update:couter']);
-const couter = ref(1);
+watch(
+  () => route.params.buyticketId,
+  (newId) => {
+    buyticketItemId.value = newId
+  },
+  { immediate: true }
+)
+
+onMounted(async () => {
+  try {
+    const item = await getItemById(baseUrlconcert, buyticketItemId.value)
+    itembyId.value = item
+    console.log(itembyId.value)
+  } catch (error) {
+    console.log("error na")
+  }
+
+})
+
+const currentPrice = computed(() => {
+  if (!itembyId.value?.price) return "0.00"
+  const price = itembyId.value.price * couter.value;
+  const tax = price * (7 / 100);
+  const totalPrice = (price + tax).toFixed(2);
+  return totalPrice;
+})
+
+const newhistory = {
+  id: userInfo.id,
+  history: historyTicket.value
+}
+
+const addItemToHistory = async () => {
+  toPayPage()
+  historyTicket.value.push({idConcert:itembyId.value.id , img:itembyId.value.img , title:itembyId.value.title , price: currentPrice, date: itembyId.value.date , payments:payment.value})
+
+  try {
+    const response = await addItem(baseUrlhistory, newhistory)
+    if (typeof response === "object") {
+      userStore.addNewHistory(response)
+    
+    } else {
+      console.log('เกิดปัญหานร้า')
+    }
+  } catch (error) {
+    console.error(error)
+  }
+}
+
+
+
+
+watch(nameOnCard, (newValue) => {
+  nameOnCard.value = newValue
+})
+
+watch(cardNumber, (newValue) => {
+  cardNumber.value = newValue
+})
+
+const toPayPage = () => {
+  if (selectedType.value) {
+    if (nameOnCard.value.length === 0 || cardNumber.value.length === 0) {
+      isDisable.value = true
+      return 
+    } else {
+      showModal.value = true
+      payment.value = 'Visa'
+    }
+  } else {
+    showModal.value = true
+    isDisable.value = false
+    payment.value = 'Promtpay'
+  }
+}
+
+console.log("validateCard", isDisable.value)
+
+const emit = defineEmits(["update:couter"])
+const couter = ref(1)
 
 const increment = () => {
-  couter.value++;
-  emit('update:couter', couter.value);
-};
+  couter.value++
+  emit("update:couter", couter.value)
+}
 
 const decrement = () => {
   if (couter.value > 1) {
-    couter.value--;
-    emit('update:couter', couter.value);
+    couter.value--
+    emit("update:couter", couter.value)
   }
-};
-
-const backtoHompage = () => {
-    router.go(-1)
 }
+
 
 
 </script>
 
 <template>
   <div class="min-w-screen min-h-screen bg-gray-50 py-5">
-    <div class="px-5">
-      <div class="mb-2">
-        <span
-          @click="backtoHompage"
-          class="text-xl text-gray-600 hover:underline"
-        >
-          << Back
-        </span>
-      </div>
-      
-    </div>
     <div
       class="w-full bg-white border-t border-b border-gray-200 px-5 py-10 text-gray-800"
     >
@@ -48,62 +127,65 @@ const backtoHompage = () => {
         <div class="-mx-3 md:flex items-start">
           <div class="px-3 md:w-7/12 lg:pr-10">
             <div
-      class="w-full mx-auto text-gray-800 font-light mb-6 border-b border-gray-200 pb-6"
-    >
-      <div class="w-full flex items-start">
-        <div
-          class="overflow-hidden w-52 h-62 rounded-lg bg-gray-50 border border-gray-200 mr-8"
-        >
-         <slot name="imgOfTicket"></slot>
-        </div>
+              class="w-full mx-auto text-gray-800 font-light mb-6 border-b border-gray-200 pb-6"
+            >
+              <div class="w-full flex items-start">
+                <div
+                  class="overflow-hidden w-52 h-62 rounded-lg bg-gray-50 border border-gray-200 mr-8"
+                >
+                  <slot name="imgOfTicket"></slot>
+                </div>
 
-        <div class="flex-grow pl-3">
-          <!-- เปลี่ยนจาก flex items-center เป็น flex flex-col -->
-          <div class="flex flex-col">
-            <h6 class="font-bold uppercase text-gray-600 text-3xl">
-              <slot name="title"></slot>
-            </h6>
-            <h1 class="text-gray-600 text-md mb-24 mt-4">
-              <slot name="location"></slot>
-            </h1>
-          </div>
+                <div class="flex-grow pl-3">
+                 
+                  <div class="flex flex-col">
+                    <h6 class="font-bold uppercase text-gray-600 text-3xl">
+                      <slot name="title"></slot>
+                    </h6>
+                    <h1 class="text-gray-600 text-md mb-24 mt-4">
+                      <slot name="location"></slot>
+                    </h1>
+                  </div>
 
-          <div>
-   
-    <div class="custom-number-input h-10 w-32 ">
-      <div class="flex flex-row h-10 w-full rounded-lg relative bg-transparent">
-        <button @click="decrement"
-          class="bg-gray-300 text-gray-400 hover:text-gray-700 hover:bg-gray-400 h-full w-20 rounded-l cursor-pointer outline-none"
-        >
-          <span class="m-auto text-2xl font-thin">-</span>
-        </button>
-        <input
-          type="text"
-          disabled
-          class="outline-none focus:outline-none text-center w-full bg-gray-300 font-semibold text-md hover:text-black focus:text-black md:text-basecursor-default flex items-center text-gray-700"
-          v-model="couter"
-        />
-        <button @click="increment"
-          class="bg-gray-300 text-gray-400 hover:text-gray-700 hover:bg-gray-400 h-full w-20 rounded-r cursor-pointer"
-        >
-          <span class="m-auto text-2xl font-thin">+</span>
-        </button>
-      </div>
-    </div>
-  </div>
-        </div>
+                  <div>
+                    <div class="custom-number-input h-10 w-32">
+                      <div
+                        class="flex flex-row h-10 w-full rounded-lg relative bg-transparent"
+                      >
+                        <button
+                          @click="decrement"
+                          class="bg-gray-300 text-gray-400 hover:text-gray-700 hover:bg-gray-400 h-full w-20 rounded-l cursor-pointer outline-none"
+                        >
+                          <span class="m-auto text-2xl font-thin">-</span>
+                        </button>
+                        <input
+                          type="text"
+                          disabled
+                          class="outline-none focus:outline-none text-center w-full bg-gray-300 font-semibold text-md hover:text-black focus:text-black md:text-basecursor-default flex items-center text-gray-700"
+                          v-model="couter"
+                        />
+                        <button
+                          @click="increment"
+                          class="bg-gray-300 text-gray-400 hover:text-gray-700 hover:bg-gray-400 h-full w-20 rounded-r cursor-pointer"
+                        >
+                          <span class="m-auto text-2xl font-thin">+</span>
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
 
-        
-      </div>
-    </div>
-            
             <div class="mb-6 pb-6 border-b border-gray-200 text-gray-800">
               <div class="w-full flex mb-3 items-center">
                 <div class="flex-grow">
                   <span class="text-gray-600">Subtotal</span>
                 </div>
                 <div class="pl-3">
-                  <span class="font-semibold"> <slot name="subtotal"></slot> </span>
+                  <span class="font-semibold">
+                    <slot name="subtotal"></slot>
+                  </span>
                 </div>
               </div>
               <div class="w-full flex items-center">
@@ -123,7 +205,9 @@ const backtoHompage = () => {
                   <span class="text-gray-600">Total</span>
                 </div>
                 <div class="pl-3">
-                  <span class="font-semibold text-gray-400 text-sm mr-2">THB</span>
+                  <span class="font-semibold text-gray-400 text-sm mr-2"
+                    >THB</span
+                  >
                   <span class="font-semibold"><slot name="total"></slot></span>
                 </div>
               </div>
@@ -133,21 +217,19 @@ const backtoHompage = () => {
             <div
               class="w-full mx-auto rounded-lg bg-white border border-gray-200 p-3 text-gray-800 font-light mb-6"
             >
-              <div class="w-full flex mb-3 items-center ">
-               
-                  <span class="text-gray-600 font-semibold mr-2">Contact :</span>
-               
-                <div class="flex-grow ">
-                 <slot name="fullname" ></slot>
+              <div class="w-full flex mb-3 items-center">
+                <span class="text-gray-600 font-semibold mr-2">Contact :</span>
+
+                <div class="flex-grow">
+                  <slot name="fullname"></slot>
                 </div>
               </div>
               <div class="w-full flex items-center">
-               
-                  <span class="text-gray-600 font-semibold mr-2" 
-                    >Billing Address :</span
-                  >
-               
-                <div class="flex-grow ">
+                <span class="text-gray-600 font-semibold mr-2"
+                  >Billing Address :</span
+                >
+
+                <div class="flex-grow">
                   <span><slot name="address"></slot></span>
                 </div>
               </div>
@@ -159,11 +241,12 @@ const backtoHompage = () => {
                 <div class="mb-5">
                   <label for="type1" class="flex items-center cursor-pointer">
                     <input
+                     v-model="payment"
                       type="radio"
-                      class="form-radio h-5 w-5 text-indigo-500  "
+                      class="form-radio h-5 w-5 text-indigo-500"
                       name="type"
                       id="type1"
-                      checked
+                      @change="selectedType = true"
                     />
                     <img
                       src="https://leadershipmemphis.org/wp-content/uploads/2020/08/780370.png"
@@ -171,16 +254,19 @@ const backtoHompage = () => {
                     />
                   </label>
                 </div>
-                <div>
+
+                <div v-if="selectedType">
                   <div class="mb-3">
                     <label class="text-gray-600 font-semibold text-sm mb-2 ml-1"
                       >Name on card</label
                     >
                     <div>
                       <input
+                      
                         class="w-full px-3 py-2 mb-1 border border-gray-200 rounded-md focus:outline-none focus:border-indigo-500 transition-colors"
                         placeholder="John Doe"
                         type="text"
+                        v-model="nameOnCard"
                       />
                     </div>
                   </div>
@@ -193,6 +279,7 @@ const backtoHompage = () => {
                         class="w-full px-3 py-2 mb-1 border border-gray-200 rounded-md focus:outline-none focus:border-indigo-500 transition-colors"
                         placeholder="0000 0000 0000 0000"
                         type="text"
+                        v-model="cardNumber"
                       />
                     </div>
                   </div>
@@ -237,53 +324,64 @@ const backtoHompage = () => {
                         <option value="2029">2029</option>
                       </select>
                     </div>
-                    <div class="px-2 w-1/4">
-                      <label
-                        class="text-gray-600 font-semibold text-sm mb-2 ml-1"
-                        >Security code</label
-                      >
-                      <div>
-                        <input
-                          class="w-full px-3 py-2 mb-1 border border-gray-200 rounded-md focus:outline-none focus:border-indigo-500 transition-colors"
-                          placeholder="000"
-                          type="text"
-                        />
-                      </div>
-                    </div>
                   </div>
                 </div>
               </div>
+
               <div class="w-full p-3">
                 <label for="type2" class="flex items-center cursor-pointer">
                   <input
+                    v-model="payment"
                     type="radio"
                     class="form-radio h-5 w-5 text-indigo-500"
                     name="type"
                     id="type2"
+                    checked
+                    @change="selectedType = false"
                   />
-                  <img
-                    src="/img/PromptPay.png"
-                    width="80"
-                    class="ml-3"
-                  />
+                  <img src="/img/PromptPay.png" width="80" class="ml-3" />
                 </label>
               </div>
             </div>
             <div>
               <button
-                class="block w-full max-w-xs mx-auto bg-indigo-500 hover:bg-indigo-700 focus:bg-indigo-700 text-white rounded-lg px-3 py-2 font-semibold"
+                @click="addItemToHistory()"
+                class="block w-full max-w-xs mx-auto bg-indigo-500 hover:bg-indigo-700 focus:bg-indigo-700 text-white px-3 py-2 font-semibold rounded-full"
               >
-                <i class="mdi mdi-lock-outline mr-1"></i> PAY NOW
+                PAY NOW
               </button>
             </div>
           </div>
         </div>
       </div>
     </div>
-    
   </div>
-
-  
+  <ModalToPay :isOpen="showModal" @close="showModal = false">
+    <template #fullname>
+      {{ userInfo.firstname + " " + userInfo.lastname }}
+    </template>
+    <template #total>
+      {{
+       currentPrice
+      }}
+    </template>
+    <template #address>
+      {{ userInfo?.address }}
+    </template>
+    <template #email>
+      {{ userInfo?.email }}
+    </template>
+    <template #nameConcert>
+      {{ itembyId?.title }}
+    </template>
+    <template #price>
+      {{
+       currentPrice == 0
+          ? "Free"
+          : currentPrice
+      }}
+    </template>
+  </ModalToPay>
 </template>
 
 <style scoped></style>

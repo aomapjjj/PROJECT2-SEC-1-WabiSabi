@@ -1,26 +1,53 @@
-import { defineStore, acceptHMRUpdate } from "pinia";
-import { ref } from "vue";
+import { defineStore, acceptHMRUpdate } from 'pinia'
+import { ref } from 'vue'
 
-
-const useUsers = defineStore("users", () => {
-
-const user = ref()
+const useUsers = defineStore('users', () => {
+  const user = ref()
+  const historiesUser = ref([])
   const setUser = (userItem) => {
     user.value = userItem
-    localStorage.setItem("user", JSON.stringify(user.value))
-  };
+    localStorage.setItem('user', JSON.stringify(user.value))
+  }
 
   const getUser = () => {
-    const storedUser = localStorage.getItem("user");
+    const storedUser = localStorage.getItem('user')
     if (storedUser) {
       user.value = JSON.parse(storedUser)
     }
     return user.value
-  };
+  }
+
+  const saveEditedUser = (editedUser) => {
+    user.value = { ...editedUser }
+    setUser(user.value)
+  }
+
+  const deleteUser = () => {
+    user.value = null
+    localStorage.removeItem('user')
+  }
+
+  const addNewHistory = (newProduct) => {
+    historiesUser.value.push({ ...newProduct })
+    localStorage.setItem('historiesUser', JSON.stringify(historiesUser.value)) 
+  }
+  
+ 
+  const getHistories = () => {
+    const storedHistory = localStorage.getItem('historiesUser')
+    if (storedHistory) {
+      historiesUser.value = JSON.parse(storedHistory) 
+    }
+    return historiesUser.value 
+  }
 
   return {
     setUser,
-    getUser
+    getUser,
+    saveEditedUser,
+    deleteUser,
+    addNewHistory,
+    getHistories
   }
 })
 

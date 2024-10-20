@@ -37,6 +37,7 @@ onMounted(async () => {
 <template>
   <Navbar />
   <div class="h-full min-h-screen">
+    
     <DetailTicketModal >
       <template #concertName>
         {{ itembyId?.title }}

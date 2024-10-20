@@ -25,11 +25,11 @@ const closeSignupModal = () => {
 
     <nav>
       <ul class="flex pt-1.5 text-md lg:pt-0 lg:text-lg">
-        <RouterLink to="/homepage">
+        <router-link to="/homepage">
           <li class="lg:px-4">
             <button class="p-3 text-green-400 font-semibold">Home</button>
           </li>
-        </RouterLink>
+        </router-link>
         <li class="lg:px-4">
           <button
             @click="openSignupModal"
