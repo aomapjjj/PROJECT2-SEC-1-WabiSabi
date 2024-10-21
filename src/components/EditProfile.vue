@@ -1,65 +1,65 @@
 <script setup>
-import { ref, watch } from "vue";
-import { useUsers } from "@/stores/userStore";
-import SaveModal from "./SaveModal.vue";
-import { editItem, deleteItemById } from "../../libs/fetchUtils";
-import { useRouter, useRoute } from "vue-router";
-import History from "./History.vue";
-import Toast from "./Toast.vue";
-const route = useRoute();
-const router = useRouter();
-const showContent = ref(true);
-const userStore = useUsers();
-const userInfo = userStore.getUser();
-const oldUserDetail = ref({ ...userInfo });
-const openSaveModal = ref(false);
-const openDeleteModal = ref(false);
-const showSuccessToast = ref(false);
-const isChanged = ref(false);
+import { ref, watch } from 'vue'
+import { useUsers } from '@/stores/userStore'
+import SaveModal from './EditAndDeleteModal.vue'
+import { editItem, deleteItemById } from '../../libs/fetchUtils'
+import { useRouter, useRoute } from 'vue-router'
+import History from './History.vue'
+import Toast from './Toast.vue'
+const route = useRoute()
+const router = useRouter()
+const showContent = ref(true)
+const userStore = useUsers()
+const userInfo = userStore.getUser()
+const oldUserDetail = ref({ ...userInfo })
+const openSaveModal = ref(false)
+const openDeleteModal = ref(false)
+const showSuccessToast = ref(false)
+const isChanged = ref(false)
 const newUserDetail = ref({
-  ...userInfo,
-});
+  ...userInfo
+})
 
-console.log(newUserDetail.value);
+console.log(newUserDetail.value)
 watch(newUserDetail.value, (newVal) => {
   isChanged.value =
-    JSON.stringify(newVal) !== JSON.stringify(oldUserDetail.value);
-});
+    JSON.stringify(newVal) !== JSON.stringify(oldUserDetail.value)
+})
 
 const saveUserEdited = async () => {
   const editedUserDetail = await editItem(
     `${import.meta.env.VITE_APP_URL_USER}`,
     oldUserDetail.value.id,
     newUserDetail.value
-  );
-  userStore.saveEditedUser(editedUserDetail.editedItem);
-  openSaveModal.value = false;
+  )
+  userStore.saveEditedUser(editedUserDetail.editedItem)
+  openSaveModal.value = false
   if (editedUserDetail.status === 200) {
-    router.push("/profile");
-    showSuccessToast.value = true;
+    router.push('/profile')
+    showSuccessToast.value = true
     setTimeout(() => {
-      showSuccessToast.value = false;
-    }, 2000);
-    isChanged.value = false;
+      showSuccessToast.value = false
+    }, 2000)
+    isChanged.value = false
   }
-};
+}
 
 const deleteUserAccount = async (removeId) => {
   try {
     const deleteStatus = await deleteItemById(
       `${import.meta.env.VITE_APP_URL_USER}`,
       removeId
-    );
+    )
     if (deleteStatus === 200) {
-      userStore.deleteUser();
-      router.push("/");
+      userStore.deleteUser()
+      router.push('/')
     } else {
-      console.log("Failed to delete user: ", deleteStatus);
+      console.log('Failed to delete user: ', deleteStatus)
     }
   } catch (error) {
-    console.error("Error deleting user:", error);
+    console.error('Error deleting user:', error)
   }
-};
+}
 </script>
 
 <template>
@@ -71,13 +71,11 @@ const deleteUserAccount = async (removeId) => {
             <div class="bg-white shadow rounded-lg p-6">
               <div
                 @click="showContent = true"
-                class="flex flex-row items-center gap-2 cursor-pointer"
+                class="flex flex-row items-center gap-2 cursor-pointer hover:bg-gray-200 hover:rounded-lg transform transition-transform duration-300 ease-in-out hover:scale-105 p-3"
               >
-                <h1>Manage Profile</h1>
                 <svg
+                  class="h-5 w-5"
                   xmlns="http://www.w3.org/2000/svg"
-                  width="24"
-                  height="24"
                   viewBox="0 0 24 24"
                 >
                   <path
@@ -85,18 +83,17 @@ const deleteUserAccount = async (removeId) => {
                     d="M12 4a4 4 0 0 1 4 4a4 4 0 0 1-4 4a4 4 0 0 1-4-4a4 4 0 0 1 4-4m0 10c4.42 0 8 1.79 8 4v2H4v-2c0-2.21 3.58-4 8-4"
                   />
                 </svg>
+                <h1>Manage Profile</h1>
               </div>
               <div class="flex flex-col items-center"></div>
               <hr class="my-6 border-t border-gray-300" />
               <div
                 @click="showContent = false"
-                class="flex flex-row items-center gap-2 cursor-pointer"
+                class="flex flex-row items-center gap-2 cursor-pointer hover:bg-gray-200 hover:rounded-lg transform transition-transform duration-300 ease-in-out hover:scale-105 p-3"
               >
-                <h1>History</h1>
                 <svg
+                  class="h-5 w-5"
                   xmlns="http://www.w3.org/2000/svg"
-                  width="24"
-                  height="24"
                   viewBox="0 0 24 24"
                 >
                   <path
@@ -104,23 +101,40 @@ const deleteUserAccount = async (removeId) => {
                     d="M13.5 8H12v5l4.28 2.54l.72-1.21l-3.5-2.08zM13 3a9 9 0 0 0-9 9H1l3.96 4.03L9 12H6a7 7 0 0 1 7-7a7 7 0 0 1 7 7a7 7 0 0 1-7 7c-1.93 0-3.68-.79-4.94-2.06l-1.42 1.42A8.9 8.9 0 0 0 13 21a9 9 0 0 0 9-9a9 9 0 0 0-9-9"
                   />
                 </svg>
+                <h1>History</h1>
               </div>
               <hr class="my-6 border-t border-gray-300" />
+
+              <!-- Delete Button -->
               <div class="flex flex-row items-center gap-2">
                 <button
                   @click="openDeleteModal = true"
-                  class="text-white bgRed hover:bg-red-800 inline-flex items-center rounded-full py-2 px-3 text-sm font-medium"
+                  class="text-white bgRed inline-flex items-center rounded-lg py-2 px-3 text-sm font-medium"
                 >
-                  Delete Account
+                  <svg
+                    class="h-5 w-5 text-white"
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      fill="currentColor"
+                      fill-rule="evenodd"
+                      d="m18.412 6.5l-.801 13.617A2 2 0 0 1 15.614 22H8.386a2 2 0 0 1-1.997-1.883L5.59 6.5H3.5v-1A.5.5 0 0 1 4 5h16a.5.5 0 0 1 .5.5v1zM10 2.5h4a.5.5 0 0 1 .5.5v1h-5V3a.5.5 0 0 1 .5-.5M9 9l.5 9H11l-.4-9zm4.5 0l-.5 9h1.5l.5-9z"
+                    />
+                  </svg>
+                  <span class="ml-2">Delete Account</span>
                 </button>
               </div>
             </div>
           </div>
 
           <div v-if="showContent === true" class="col-span-4 sm:col-span-9">
-            <div class=" w-full bg-white rounded-lg "><h2 class="text-2xl text-gray-600 font-bold mb-4 p-2 text-center">&#127813; Edit Your Profile &#127813;</h2></div>
+            <div class="w-full bg-white rounded-lg">
+              <h2 class="text-2xl text-gray-600 font-bold mb-4 p-2 text-center">
+                &#127813; Edit Your Profile &#127813;
+              </h2>
+            </div>
             <div class="bg-white shadow rounded-lg p-6">
-              
               <div class="relative z-0 mb-6 w-full group">
                 <label for="firstname" class="block mb-2 font-semibold"
                   >Firstname</label
@@ -191,13 +205,13 @@ const deleteUserAccount = async (removeId) => {
                   v-model="newUserDetail.email"
                 />
 
-                <div class="flex justify-between">
+                <div class="flex justify-end">
                   <!-- Save -->
                   <button
                     class="mt-10 text-white bgGreen hover:bg-green-700 inline-flex items-center rounded-full py-2 px-3 text-l font-medium"
                     :class="{
                       'cursor-not-allowed bg-gray-500 text-gray-300 opacity-50 hover:bg-gray-500':
-                        !isChanged,
+                        !isChanged
                     }"
                     :disabled="!isChanged"
                     @click="openSaveModal = true"
@@ -325,6 +339,10 @@ const deleteUserAccount = async (removeId) => {
 }
 .bgRed {
   background-color: #ff3434;
+  transition: background-color 0.3s ease;
+}
+.bgRed:hover {
+  background-color: #ff0000;
 }
 .bgGreen {
   background-color: #09e666;

@@ -14,7 +14,7 @@
         }
       ],
       "time": "6:00 PM - 10:00 PM",
-      "location": "Lumpini Park, Bangkok",
+      "location": "Lumpini Park",
       "price": 0,
       "remaining_tickets": 3
     },
@@ -23,7 +23,7 @@
       "img": "/concertPoster/2.png",
       "title": "Starlight Pulse Festival",
       "description": "Immerse yourself in a vibrant world of music and light at the Starlight Pulse Festival! Experience an electrifying fusion of pop, electronic dance music, and alternative rock as renowned artists take the stage. Prepare to be mesmerized by stunning visuals, captivating performances, and an energetic atmosphere that will ignite your senses.",
-      "type": "Pop, Electronic Dance, Alternative Rock",
+      "type": "Pop, Electronic Dance",
       "date": [
         {
           "day": 10,
@@ -68,7 +68,7 @@
         }
       ],
       "time": "8:00 PM - 12:00 AM",
-      "location": "Thammasat University Auditorium, Bangkok",
+      "location": "Thammasat University Auditorium",
       "price": 0,
       "remaining_tickets": 200
     },
@@ -86,7 +86,7 @@
         }
       ],
       "time": "5:30 PM - 9:30 PM",
-      "location": "Queen Sirikit National Convention Center, Bangkok",
+      "location": "Queen Sirikit National Convention Center",
       "price": 300,
       "remaining_tickets": 500
     },
@@ -104,7 +104,7 @@
         }
       ],
       "time": "4:00 PM - 8:00 PM",
-      "location": "Siam Center, Bangkok",
+      "location": "Siam Center",
       "price": 200,
       "remaining_tickets": 600
     },
@@ -122,7 +122,7 @@
         }
       ],
       "time": "5:30 PM - 9:30 PM",
-      "location": "Queen Sirikit National Convention Center, Bangkok",
+      "location": "Queen Sirikit National Convention Center",
       "price": 300,
       "remaining_tickets": 400
     },
@@ -135,11 +135,6 @@
       "date": [
         {
           "day": 15,
-          "month": "September",
-          "year": 2025
-        },
-        {
-          "day": 16,
           "month": "September",
           "year": 2025
         }
@@ -163,7 +158,7 @@
         }
       ],
       "time": "8:00 PM - 00:00 PM",
-      "location": "Union Mall Hall, Bangkok",
+      "location": "Union Mall Hall",
       "price": 300,
       "remaining_tickets": 100
     },
@@ -199,7 +194,7 @@
         }
       ],
       "time": "7:00 PM - Midnight",
-      "location": "Central World Plaza, Bangkok",
+      "location": "Central World Plaza",
       "price": 500,
       "remaining_tickets": 100
     },
@@ -217,7 +212,7 @@
         }
       ],
       "time": "6:00 PM - 11:00 PM",
-      "location": "BITEC Bangna, Bangkok",
+      "location": "BITEC Bangna",
       "price": 600,
       "remaining_tickets": 200
     },
@@ -235,7 +230,7 @@
         }
       ],
       "time": "8:00 PM - Midnight",
-      "location": "Siam Paragon Hall, Bangkok",
+      "location": "Siam Paragon Hall",
       "price": 700,
       "remaining_tickets": 20
     },
@@ -253,7 +248,7 @@
         }
       ],
       "time": "7:00 PM - 11:30 PM",
-      "location": "Indoor Stadium Huamark, Bangkok",
+      "location": "Indoor Stadium Huamark",
       "price": 800,
       "remaining_tickets": 500
     },
@@ -271,7 +266,7 @@
         }
       ],
       "time": "5:00 PM - 9:00 PM",
-      "location": "Thammasat University Auditorium, Bangkok",
+      "location": "Thammasat University Auditorium",
       "price": 300,
       "remaining_tickets": 50
     },
@@ -289,7 +284,7 @@
         }
       ],
       "time": "6:30 PM - 11:00 PM",
-      "location": "Central Plaza Chiangmai Airport, Chiang Mai",
+      "location": "Central Plaza Chiangmai Airport",
       "price": 400,
       "remaining_tickets": 450
     },
@@ -297,8 +292,8 @@
       "id": "17",
       "img": "/concertPoster/17.png",
       "title": "Galaxy Frequencies",
-      "description": "Galaxy Frequencies is a cutting-edge electronic music event featuring a diverse array of DJs and producers. Taking place at Union Mall Hall in Bangkok, this concert will showcase a variety of electronic genres, from techno to house, with heavy bass drops and futuristic sounds that will captivate the audience. The immersive visual experience will elevate the performances, making this an event for electronic music lovers to get lost in the beats and rhythms of the galaxy.",
-      "type": "Electronic, Techno, House",
+      "description": "Galaxy Frequencies is a cutting-edge electronic music event featuring a diverse array of DJs and producers. Taking place at Lumpini Park in Bangkok, this concert will showcase a variety of electronic genres, from techno to house, with heavy bass drops and futuristic sounds that will captivate the audience. The immersive visual experience will elevate the performances, making this an event for electronic music lovers to get lost in the beats and rhythms of the galaxy.",
+      "type": "Electronic, Techno",
       "date": [
         {
           "day": 1,
@@ -307,7 +302,7 @@
         }
       ],
       "time": "7:30 PM - Midnight",
-      "location": "Union Mall Hall, Bangkok",
+      "location": "Lumpini Park",
       "price": 450,
       "remaining_tickets": 250
     },
@@ -315,7 +310,7 @@
       "id": "18",
       "img": "/concertPoster/18.png",
       "title": "Nebula Nights",
-      "description": "Nebula Nights is an outdoor concert set in the scenic surroundings of Lumpini Park in Bangkok. This event offers a laid-back evening of chillwave, lo-fi beats, and downtempo electronic music. Perfect for unwinding under the stars, Nebula Nights invites the audience to relax, picnic, and enjoy the dreamy atmosphere created by soft, ambient sounds. The event is ideal for those looking for a calming and introspective musical experience.",
+      "description": "Nebula Nights is an outdoor concert set in the scenic surroundings of Central Plaza Chiangmai Airport in Chiangmai. This event offers a laid-back evening of chillwave, lo-fi beats, and downtempo electronic music. Perfect for unwinding under the stars, Nebula Nights invites the audience to relax, picnic, and enjoy the dreamy atmosphere created by soft, ambient sounds. The event is ideal for those looking for a calming and introspective musical experience.",
       "type": "Chillwave, Lo-fi, Ambient",
       "date": [
         {
@@ -325,7 +320,7 @@
         }
       ],
       "time": "6:00 PM - 10:30 PM",
-      "location": "Lumpini Park, Bangkok",
+      "location": "Central Plaza Chiangmai Airport",
       "price": 200,
       "remaining_tickets": 600
     },
@@ -343,7 +338,7 @@
         }
       ],
       "time": "7:00 PM - 11:00 PM",
-      "location": "Central Festival Hatyai, Hatyai",
+      "location": "Central Festival Hatyai",
       "price": 350,
       "remaining_tickets": 300
     },
@@ -361,7 +356,7 @@
         }
       ],
       "time": "5:30 PM - 9:30 PM",
-      "location": "Supachalasai National Stadium, Bangkok",
+      "location": "Supachalasai National Stadium",
       "price": 600,
       "remaining_tickets": 150
     }
@@ -377,348 +372,7 @@
       "address": "Bangkok, Thailand",
       "telephone": "+66811234567",
       "email": "admin@dev.com"
-    },
-    {
-      "id": "86b3",
-      "email": "admin",
-      "password": "admin",
-      "username": "admin",
-      "firstname": "admin",
-      "lastname": "admin",
-      "sex": "Female"
-    },
-    {
-      "id": "4a7e",
-      "email": "sfe",
-      "password": "sef",
-      "username": "Hello",
-      "firstname": "fnose",
-      "lastname": "sef"
-    },
-    {
-      "id": "d610",
-      "email": "eiei",
-      "password": "eiei",
-      "username": "Aomza",
-      "firstname": "eiei",
-      "lastname": "eiei"
-    },
-    {
-      "id": "a6be",
-      "email": "r",
-      "password": "r",
-      "username": "r",
-      "firstname": "r",
-      "lastname": "r"
-    },
-    {
-      "id": "507b",
-      "email": "r",
-      "password": "r",
-      "username": "r",
-      "firstname": "r",
-      "lastname": "r"
-    },
-    {
-      "id": "4ee1",
-      "email": "r",
-      "password": "r",
-      "username": "r",
-      "firstname": "r",
-      "lastname": "r"
-    },
-    {
-      "id": "0ad4",
-      "email": "r",
-      "password": "r",
-      "username": "r",
-      "firstname": "r",
-      "lastname": "r"
-    },
-    {
-      "id": "c50f",
-      "email": "pear",
-      "password": "pear",
-      "username": "pear",
-      "firstname": "pear",
-      "lastname": "pear"
-    },
-    {
-      "id": "5e3a",
-      "email": "pearmai@justkdyforever",
-      "password": "555555555555",
-      "username": "Pearmai",
-      "firstname": "Pearmai",
-      "lastname": "Wannasiri"
-    },
-    {
-      "id": "942f",
-      "email": "123@ewr.cofsdm",
-      "password": "12345678",
-      "username": "123",
-      "firstname": "123",
-      "lastname": "123546",
-      "history": [],
-      "sex": "Female",
-      "address": "21312312\n321321",
-      "telephone": "08921313"
     }
   ],
-  "histories": [
-    {
-      "id": "942f",
-      "history": [
-        {
-          "idConcert": "2",
-          "img": "/concertPoster/2.png",
-          "title": "Starlight Pulse Festival",
-          "price": "321.00",
-          "date": [
-            {
-              "day": 10,
-              "month": "January",
-              "year": 2025
-            }
-          ],
-          "payments": "Promtpay"
-        }
-      ]
-    },
-    {
-      "id": "942f",
-      "history": [
-        {
-          "idConcert": "1",
-          "img": "/concertPoster/1.png",
-          "title": "Swing into the Groove",
-          "price": "0.00",
-          "date": [
-            {
-              "day": 14,
-              "month": "December",
-              "year": 2025
-            }
-          ],
-          "payments": "Promtpay"
-        }
-      ]
-    },
-    {
-      "id": "942f",
-      "history": [
-        {
-          "idConcert": "5",
-          "img": "/concertPoster/5.png",
-          "title": "Sounds of Joy",
-          "price": "1605.00",
-          "date": [
-            {
-              "day": 10,
-              "month": "Febuary",
-              "year": 2025
-            }
-          ],
-          "payments": "Visa"
-        }
-      ]
-    },
-    {
-      "id": "942f",
-      "history": [
-        {
-          "idConcert": "5",
-          "img": "/concertPoster/5.png",
-          "title": "Sounds of Joy",
-          "price": "963.00",
-          "date": [
-            {
-              "day": 10,
-              "month": "Febuary",
-              "year": 2025
-            }
-          ],
-          "payments": "Promtpay"
-        }
-      ]
-    },
-    {
-      "id": "942f",
-      "history": [
-        {
-          "idConcert": "2",
-          "img": "/concertPoster/2.png",
-          "title": "Starlight Pulse Festival",
-          "price": "321.00",
-          "date": [
-            {
-              "day": 10,
-              "month": "January",
-              "year": 2025
-            }
-          ],
-          "payments": "Promtpay"
-        }
-      ]
-    },
-    {
-      "id": "942f",
-      "history": [
-        {
-          "idConcert": "2",
-          "img": "/concertPoster/2.png",
-          "title": "Starlight Pulse Festival",
-          "price": "321.00",
-          "date": [
-            {
-              "day": 10,
-              "month": "January",
-              "year": 2025
-            }
-          ],
-          "payments": "Promtpay"
-        }
-      ]
-    },
-    {
-      "id": "942f",
-      "history": [
-        {
-          "idConcert": "2",
-          "img": "/concertPoster/2.png",
-          "title": "Starlight Pulse Festival",
-          "price": "321.00",
-          "date": [
-            {
-              "day": 10,
-              "month": "January",
-              "year": 2025
-            }
-          ],
-          "payments": "Promtpay"
-        },
-        {
-          "idConcert": "2",
-          "img": "/concertPoster/2.png",
-          "title": "Starlight Pulse Festival",
-          "price": "321.00",
-          "date": [
-            {
-              "day": 10,
-              "month": "January",
-              "year": 2025
-            }
-          ],
-          "payments": "Promtpay"
-        }
-      ]
-    },
-    {
-      "id": "942f",
-      "history": [
-        {
-          "idConcert": "2",
-          "img": "/concertPoster/2.png",
-          "title": "Starlight Pulse Festival",
-          "price": "321.00",
-          "date": [
-            {
-              "day": 10,
-              "month": "January",
-              "year": 2025
-            }
-          ],
-          "payments": "Promtpay"
-        },
-        {
-          "idConcert": "2",
-          "img": "/concertPoster/2.png",
-          "title": "Starlight Pulse Festival",
-          "price": "321.00",
-          "date": [
-            {
-              "day": 10,
-              "month": "January",
-              "year": 2025
-            }
-          ],
-          "payments": "Promtpay"
-        },
-        {
-          "idConcert": "2",
-          "img": "/concertPoster/2.png",
-          "title": "Starlight Pulse Festival",
-          "price": "321.00",
-          "date": [
-            {
-              "day": 10,
-              "month": "January",
-              "year": 2025
-            }
-          ],
-          "payments": "Promtpay"
-        }
-      ]
-    },
-    {
-      "id": "942f",
-      "history": [
-        {
-          "idConcert": "2",
-          "img": "/concertPoster/2.png",
-          "title": "Starlight Pulse Festival",
-          "price": "963.00",
-          "date": [
-            {
-              "day": 10,
-              "month": "January",
-              "year": 2025
-            }
-          ],
-          "payments": "Promtpay"
-        },
-        {
-          "idConcert": "2",
-          "img": "/concertPoster/2.png",
-          "title": "Starlight Pulse Festival",
-          "price": "963.00",
-          "date": [
-            {
-              "day": 10,
-              "month": "January",
-              "year": 2025
-            }
-          ],
-          "payments": "Promtpay"
-        },
-        {
-          "idConcert": "2",
-          "img": "/concertPoster/2.png",
-          "title": "Starlight Pulse Festival",
-          "price": "963.00",
-          "date": [
-            {
-              "day": 10,
-              "month": "January",
-              "year": 2025
-            }
-          ],
-          "payments": "Promtpay"
-        },
-        {
-          "idConcert": "2",
-          "img": "/concertPoster/2.png",
-          "title": "Starlight Pulse Festival",
-          "price": "963.00",
-          "date": [
-            {
-              "day": 10,
-              "month": "January",
-              "year": 2025
-            }
-          ],
-          "payments": "Promtpay"
-        }
-      ]
-    }
-  ]
+  "histories": []
 }

@@ -1,6 +1,6 @@
 <script setup>
 import { ref } from 'vue'
-import { useRouter, useRoute } from 'vue-router'
+import { useRouter} from 'vue-router'
 
 const router = useRouter()
 const changColor = ref(false)
@@ -27,6 +27,7 @@ const toDetailticket = (id) => {
             <div class="w-full flex-none text-xs textBlue font-medium">
               <slot name="typeOfTicket"></slot>
             </div>
+            <!-- Heart -->
             <div class="flex-auto flex space-x-3 -ml-4 mb-1">
               <button class="group" @click="changColor = !changColor">
                 <svg
@@ -67,24 +68,19 @@ const toDetailticket = (id) => {
               <!-- Date -->
               <div class="flex flex-row items-center text-xs mb-2">
                 <svg
+                  class="h-4 w-4 mr-2 text-gray-400"
                   xmlns="http://www.w3.org/2000/svg"
-                  class="h-5 w-5 mr-2 text-gray-400"
-                  fill="none"
                   viewBox="0 0 24 24"
-                  stroke="currentColor"
                 >
                   <path
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
-                    d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"
-                  ></path>
+                    fill="currentColor"
+                    d="M22 10H2v9a3 3 0 0 0 3 3h14a3 3 0 0 0 3-3zM7 8a1 1 0 0 1-1-1V3a1 1 0 0 1 2 0v4a1 1 0 0 1-1 1m10 0a1 1 0 0 1-1-1V3a1 1 0 0 1 2 0v4a1 1 0 0 1-1 1"
+                    opacity=".5"
+                  />
                   <path
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
-                    d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"
-                  ></path>
+                    fill="currentColor"
+                    d="M19 4h-1v3a1 1 0 0 1-2 0V4H8v3a1 1 0 0 1-2 0V4H5a3 3 0 0 0-3 3v3h20V7a3 3 0 0 0-3-3"
+                  />
                 </svg>
                 <slot name="date"></slot>
               </div>
@@ -92,70 +88,34 @@ const toDetailticket = (id) => {
               <!-- Time -->
               <div class="flex flex-row items-center text-xs mb-2">
                 <svg
+                  class="h-4 w-4 mr-2 text-gray-400"
                   xmlns="http://www.w3.org/2000/svg"
-                  class="h-5 w-5 mr-2 text-gray-400"
-                  fill="none"
                   viewBox="0 0 24 24"
-                  stroke="currentColor"
                 >
                   <path
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
-                    d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"
-                  ></path>
-                  <path
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
-                    d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"
-                  ></path>
+                    fill="currentColor"
+                    fill-rule="evenodd"
+                    d="M12.75 11.38V6h-1.5v6l4.243 4.243l1.06-1.06zM12 22C6.477 22 2 17.523 2 12S6.477 2 12 2s10 4.477 10 10s-4.477 10-10 10"
+                  />
                 </svg>
                 <slot name="time"></slot>
               </div>
               <!-- Location -->
-              <div class="flex flex-row items-center text-xs mb-2">
+              <div class="flex flex-row items-center text-xs mb-2 truncate">
                 <svg
+                  class="h-4 w-4 mr-2 text-gray-400"
                   xmlns="http://www.w3.org/2000/svg"
-                  class="h-5 w-5 mr-2 text-gray-400"
-                  fill="none"
                   viewBox="0 0 24 24"
-                  stroke="currentColor"
                 >
                   <path
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
-                    d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"
-                  ></path>
-                  <path
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
-                    d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"
-                  ></path>
+                    fill="currentColor"
+                    fill-rule="evenodd"
+                    d="M11.262 22.134S4 16.018 4 10a8 8 0 1 1 16 0c0 6.018-7.262 12.134-7.262 12.134c-.404.372-1.069.368-1.476 0M12 13.5a3.5 3.5 0 1 0 0-7a3.5 3.5 0 0 0 0 7"
+                  />
                 </svg>
                 <slot name="location"></slot>
               </div>
             </div>
-
-            <!-- <div class="flex-1 inline-flex items-center">
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      class="h-5 w-5 mr-2 text-gray-400"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      stroke="currentColor"
-                    >
-                      <path
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                        stroke-width="2"
-                        d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"
-                      ></path>
-                    </svg>
-                    <p class="">05-25-2021</p>
-                  </div> -->
           </div>
           <div class="flex p-2 border-t border-gray-200"></div>
           <div class="flex space-x-3 text-sm font-medium">

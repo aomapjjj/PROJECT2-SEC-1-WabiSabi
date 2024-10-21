@@ -2,7 +2,7 @@
 import { ref } from 'vue'
 import { addItem, getItems } from '../../libs/fetchUtils'
 import { useRouter } from 'vue-router'
-import { useUsers } from '@/stores/userStore'
+import { useUsers } from '../stores/userStore'
 
 const userStore = useUsers()
 
@@ -12,7 +12,7 @@ const props = defineProps({
 
 const isSignUp = ref(true)
 const emit = defineEmits(['close'])
-const router = useRouter() // ใช้ router เพื่อการนำทาง
+const router = useRouter()
 
 const closeModal = () => {
   emit('close')
@@ -30,7 +30,6 @@ const usersUrl = `${import.meta.env.VITE_APP_URL_USER}`
 const showPassword = ref(false)
 
 const handleSignUp = async () => {
- 
   if (
     !email.value ||
     !username.value ||
@@ -42,19 +41,16 @@ const handleSignUp = async () => {
     return
   }
 
-  
   const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
   if (!emailPattern.test(email.value)) {
     signupMessage.value = 'Invalid email format.'
     return
   }
 
-  
   if (password.value.length < 8) {
     signupMessage.value = 'Password must be at least 8 characters.'
     return
   }
-
 
   try {
     const users = await getItems(usersUrl)
@@ -71,13 +67,12 @@ const handleSignUp = async () => {
     return
   }
 
- 
   const newUser = {
     email: email.value,
     password: password.value,
     username: username.value,
     firstname: firstname.value,
-    lastname: lastname.value,
+    lastname: lastname.value
   }
 
   try {
@@ -95,7 +90,6 @@ const handleSignUp = async () => {
     console.error(error)
   }
 }
-
 
 const handleLogin = async () => {
   const userCredentials = {
@@ -123,8 +117,6 @@ const handleLogin = async () => {
     console.error(error)
   }
 }
-
-
 </script>
 
 <template>
@@ -140,7 +132,7 @@ const handleLogin = async () => {
         </div>
 
         <!-- Tabs -->
-        <div class="flex justify-between mt-6 mb-4">
+        <div class="flex justify-between mb-4">
           <button
             @click="isSignUp = false"
             :class="{
@@ -164,12 +156,13 @@ const handleLogin = async () => {
         <!-- Form Content -->
         <div v-if="isSignUp">
           <h1
-            class="text-2xl text-blue-600 xl:text-3xl font-extrabold m-6 text-center"
+            class="text-2xl text-blue-600 xl:text-3xl font-extrabold text-center"
           >
             Sign Up
           </h1>
           <p class="text-xs text-blue-600 font-medium m-6 text-center">
-            Join the Wasabi Ticket family and never miss your favorite concerts!
+            Join the Wasabi Ticket family and <br />
+            never miss your favorite concerts!
           </p>
 
           <div class="mx-auto max-w-xs">
@@ -177,7 +170,7 @@ const handleLogin = async () => {
               v-model="username"
               type="text"
               placeholder="Username"
-              class="mt-5 w-full px-8 py-4 rounded-lg font-medium bg-gray-100 border border-gray-200 text-sm focus:outline-none focus:border-gray-400"
+              class="w-full px-8 py-4 rounded-lg font-medium bg-gray-100 border border-gray-200 text-sm focus:outline-none focus:border-gray-400"
             />
             <input
               v-model="firstname"
@@ -248,17 +241,27 @@ const handleLogin = async () => {
               </button>
             </div>
 
-            <!-- ปุ่ม Sign Up -->
-            <button
-              @click="handleSignUp"
-              class="mt-5 bg-yellow-300 text-gray-100 w-full py-4 rounded-lg hover:bg-green-400 flex items-center justify-center transition-all duration-300 ease-in-out"
-            >
-              <span class="ml-3">Sign Up</span>
-            </button>
+            <div class="flex space-x-4">
+              <!-- Sign Up Button-->
+              <button
+                @click="handleSignUp"
+                class="mt-5 bg-yellow-300 text-gray-100 w-full py-4 rounded-lg hover:bg-green-400 flex items-center justify-center transition-all duration-300 ease-in-out"
+              >
+                <span>Sign Up</span>
+              </button>
 
-            <!-- ข้อความแจ้งเตือน -->
-            <div v-if="signupMessage" class="mt-2 text-red-500 text-center">
-              {{ signupMessage }}
+              <!-- Close Button -->
+              <button
+                @click="closeModal"
+                class="mt-5 bg-gray-400 text-gray-100 w-full py-4 rounded-lg hover:bg-gray-500 flex items-center justify-center transition-all duration-300 ease-in-out"
+              >
+                <span>Close</span>
+              </button>
+
+              <!-- Message -->
+              <div v-if="signupMessage" class="mt-2 text-red-500 text-center">
+                {{ signupMessage }}
+              </div>
             </div>
           </div>
         </div>
@@ -270,7 +273,7 @@ const handleLogin = async () => {
             Login
           </h1>
           <p class="text-xs text-blue-600 font-medium m-6 text-center">
-            Welcome back! Log in to unlock exclusive concert experiences.
+            Welcome back to Wasabi Ticket! <br> Log in to unlock exclusive concert experiences.
           </p>
           <div class="mx-auto max-w-xs">
             <input
@@ -341,12 +344,6 @@ const handleLogin = async () => {
             </p>
           </div>
         </div>
-      </div>
-      <!-- Close Button -->
-      <div class="text-right p-4">
-        <button @click="closeModal" class="text-gray-500 hover:text-gray-700">
-          Close
-        </button>
       </div>
     </div>
   </div>
