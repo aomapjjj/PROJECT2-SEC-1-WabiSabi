@@ -1,6 +1,6 @@
 <script setup>
 import { ref , watch} from 'vue'
-import ModalSignup from '@/components/ModalSignup.vue'
+import ModalSignup from '@/components/SignupModal.vue'
 
 const showModal = ref(false)
 
