@@ -2,10 +2,12 @@
 import { ref, watch } from 'vue'
 import { useRouter, useRoute } from 'vue-router'
 import { useUsers } from '../stores/userStore'
+import SignupModal from './SignupModal.vue';
 const route = useRoute()
 const router = useRouter()
 
 const ticketItemId = ref('')
+const showModalSignup = ref(false)
 
 watch(
   () => route.params.ticketId,
@@ -17,8 +19,14 @@ watch(
 const userStore = useUsers()
 const userInfo = userStore.getUser()
 
+
+
 const toBuyTicketpage = (id) => {
-  router.push({ name: 'buyticket', params: { buyticketId: id } })
+  if (!userInfo || userInfo.id === undefined) {
+    showModalSignup.value = true
+  } else {
+    router.push({ name: 'buyticket', params: { buyticketId: id } })
+  }
 }
 
 // const ticketsLeft = ref(2)
@@ -149,6 +157,7 @@ const toBuyTicketpage = (id) => {
       </div>
     </div>
   </div>
+   <SignupModal :isVisible="showModalSignup" @close="showModalSignup = false" />
 </template>
 
 <style scoped>

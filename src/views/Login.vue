@@ -1,22 +1,16 @@
 <script setup>
-import { ref , watch} from 'vue'
-import ModalSignup from '@/components/SignupModal.vue'
+import { ref } from 'vue'
+import CombineLoginSignup from '@/components/CombineLoginSignup.vue'
 
 const showModal = ref(false)
 
-
-const openSignupModal = () => {
+const openSignupLoginModal = () => {
   showModal.value = true
 }
 
-
-
-const closeSignupModal = () => {
+const closeSignupLoginModal = () => {
   showModal.value = false
 }
-
-
-
 </script>
 
 <template>
@@ -32,7 +26,7 @@ const closeSignupModal = () => {
         </router-link>
         <li class="lg:px-4">
           <button
-            @click="openSignupModal"
+            @click="openSignupLoginModal"
             class="p-3 text-green-400 font-semibold"
           >
             Login
@@ -41,6 +35,9 @@ const closeSignupModal = () => {
       </ul>
     </nav>
   </header>
+  
+  <!-- CombineLoginSignup Component -->
+  <CombineLoginSignup :isVisible="showModal" @close="closeSignupLoginModal" />
 
   <main class="max-w-6xl mx-auto pt-10 pb-36 px-8">
     <div class="max-w-md mx-auto mb-14 text-center">
@@ -54,55 +51,29 @@ const closeSignupModal = () => {
       </p>
     </div>
 
-    <div
-      class="flex flex-col justify-between items-center lg:flex-row lg:items-start"
-    >
+    <div class="flex flex-col justify-between items-center lg:flex-row lg:items-start">
       <!-- First Poster -->
-      <div
-        class="w-full flex-1 mt-8 p-8 order-2 bg-white shadow-xl rounded-3xl sm:w-96 lg:w-full lg:order-1"
-      >
-        <div class="mb-7 pb-7 flex items-center  border-gray-300">
-          <img
-            src="/concertPoster/1.png"
-            alt="Concert Poster 1"
-            class="rounded-3xl w-full h-full"
-          />
+      <div class="w-full flex-1 mt-8 p-8 order-2 bg-white shadow-xl rounded-3xl sm:w-96 lg:w-full lg:order-1">
+        <div class="mb-7 pb-7 flex items-center border-gray-300">
+          <img src="/concertPoster/1.png" alt="Concert Poster 1" class="rounded-3xl w-full h-full" />
         </div>
-        
       </div>
 
       <!-- Second Poster -->
-      <div
-        class="w-full flex-1 p-8 order-1 shadow-xl rounded-3xl bg-gray-900 text-gray-400 sm:w-96 lg:w-full lg:order-2 lg:mt-0"
-      >
-        <div class="mb-8 pb-8 flex items-center  border-gray-600">
-          <img
-            src="/concertPoster/17.png"
-            alt="Concert Poster 2"
-            class="rounded-3xl w-full h-full"
-          />
+      <div class="w-full flex-1 p-8 order-1 shadow-xl rounded-3xl bg-gray-900 text-gray-400 sm:w-96 lg:w-full lg:order-2 lg:mt-0">
+        <div class="mb-8 pb-8 flex items-center border-gray-600">
+          <img src="/concertPoster/17.png" alt="Concert Poster 2" class="rounded-3xl w-full h-full" />
         </div>
-        
       </div>
 
       <!-- Third Poster -->
-      <div
-        class="w-full flex-1 mt-8 p-8 order-3 bg-white shadow-xl rounded-3xl sm:w-96 lg:w-full lg:order-3"
-      >
-        <div class="mb-7 pb-7 flex items-center  border-gray-300">
-          <img
-            src="/concertPoster/14.png"
-            alt="Concert Poster 3"
-            class="rounded-3xl w-full h-full"
-          />
+      <div class="w-full flex-1 mt-8 p-8 order-3 bg-white shadow-xl rounded-3xl sm:w-96 lg:w-full lg:order-3">
+        <div class="mb-7 pb-7 flex items-center border-gray-300">
+          <img src="/concertPoster/14.png" alt="Concert Poster 3" class="rounded-3xl w-full h-full" />
         </div>
-        
       </div>
     </div>
   </main>
-
-  <!-- ส่ง showModal เป็น props -->
-  <ModalSignup :isVisible="showModal" @close="closeSignupModal" />
 </template>
 
 <style scoped></style>
