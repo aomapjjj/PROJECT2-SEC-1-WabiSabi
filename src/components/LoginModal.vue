@@ -9,7 +9,7 @@ const router = useRouter()
 
 const props = defineProps({
   isVisible: Boolean,
-  close: Function
+  
 })
 
 const username = ref('')
@@ -107,7 +107,7 @@ const handleLogin = async () => {
 
         <button
           @click="handleLogin"
-          class="mt-5 bg-yellow-300 text-gray-100 w-full py-4 rounded-lg hover:bg-green-400 flex items-center justify-center transition-all duration-300 ease-in-out"
+          class="mt-5 mb-5 bg-yellow-300 text-gray-100 w-full py-4 rounded-lg hover:bg-green-400 flex items-center justify-center transition-all duration-300 ease-in-out"
         >
           <span class="ml-3">Login</span>
         </button>
