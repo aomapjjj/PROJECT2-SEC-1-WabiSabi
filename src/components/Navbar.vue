@@ -1,10 +1,10 @@
 <script setup>
 import { ref } from 'vue'
 import { useUsers } from '../stores/userStore'
-
+import { useRouter } from 'vue-router'
 import LogoutModal from './LogoutModal.vue'
 import CombineLoginSignup from './CombineLoginSignup.vue'
-
+const router = useRouter()
 const userStore = useUsers()
 
 const showModalSignup = ref(false)
@@ -23,6 +23,7 @@ const toggleDropdown = (open) => {
 const toLoginOrSignup = () => {
   if (!userName || userName === undefined) {
     showModalSignup.value = true
+    router.push({name:'hompagelogin'})
   }
 }
 </script>
@@ -90,17 +91,17 @@ const toLoginOrSignup = () => {
                 >
               </div>
             </div>
-            <!-- Login - Sign up -->
+           
             <div
               v-else
-              class="w-full space-y-2flex flex-col -ml-1 sm:flex-row lg:space-y-0 md:w-max lg:border-l"
+              class="w-full space-y-2flex flex-col -ml-1 sm:flex-row lg:space-y-0 md:w-max lg:border-l z-60"
             >
               <div>
-                <div class="relative ml-4 flex-shrink-0 flex items-center">
+                <div class="relative ml-4 flex-shrink-0 flex items-center" @mouseover="toggleDropdown(true)">
                   <button
                     type="button"
                     class="relative flex rounded-full text-sm text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2"
-                    @mouseover="toggleDropdown(true)"
+                    
                   >
                     <span class="absolute -inset-1.5"></span>
                     <span class="sr-only"></span>

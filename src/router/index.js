@@ -1,6 +1,5 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import HomeView from '../views/Login.vue'
-import Login from '../views/Login.vue'
+import HomeView from '@/views/HomeView.vue'
 import Homepage from '../views/Homepage.vue'
 import DetailTicket from '@/views/DetailTicket.vue'
 import BuyTicketpage from '@/views/BuyTicketpage.vue'
@@ -8,18 +7,40 @@ import Profile from '@/views/Profile.vue'
 import ModalToPay from '@/components/ToPayModal.vue'
 import PageNotFound from '@/components/PageNotFound.vue'
 
+const getUser = () => localStorage.getItem("user")
+
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
     {
-      path: '/',
-      name: 'login',
-      component: Login
+      path: "/",
+      redirect: { name: "homeview" } 
     },
+    {
+      path: '/homeview',
+      name: 'homeview',
+      component: HomeView,
+      children: [
+        {
+          path: '/homeview/login',
+          name: 'login',
+          component: HomeView 
+        }
+      ]
+    },
+    
     {
       path: '/homepage',
       name: 'homepage',
-      component: Homepage
+      component: Homepage,
+      children: [
+        {
+          path: '/homepage/login',
+          name: 'hompagelogin',
+          component: HomeView 
+        }
+      ]
+
     },
     {
       path: '/detailticket/:ticketId',
@@ -35,11 +56,7 @@ const router = createRouter({
       path: '/profile',
       name: 'profile',
       component: Profile
-      // children:[
-      //   { path: "/profile/edit-profile/:username", name: "Edit", component: Profile },
-      //   { path: "/profile/delete-profile/:username", name: "Delete", component: Profile },
-      //   { path: "/profile/history-profile/:username", name: "History", component: Profile }
-      // ]
+
     },
     {
       path: '/error404',
@@ -47,6 +64,15 @@ const router = createRouter({
       component: PageNotFound
     }
   ]
+})
+router.beforeEach((to, from, next) => {
+  const isAuthenticated = getUser() !== null
+
+  if (!isAuthenticated && (to.name === 'buyticket' || to.name === 'profile')) {
+    next({ name: 'login' })
+  } else {
+    next()
+  }
 })
 
 export default router
