@@ -10,7 +10,7 @@ const route = useRoute()
 const baseUrlconcert = `${import.meta.env.VITE_APP_URL_CON}`
 const itembyId = ref()
 const ticketItemId = ref('')
-
+const remainingTicket = ref()
 watch(
   () => route.params.ticketId,
   (newId) => {
@@ -25,7 +25,8 @@ onMounted(async () => {
   try {
     const item = await getItemById(baseUrlconcert, ticketItemId.value)
     itembyId.value = item
-    console.log(itembyId.value)
+    remainingTicket.value = item.remaining_tickets
+    console.log(remainingTicket.value)
   } catch (error) {
     console.log('error na')
   }
@@ -35,7 +36,7 @@ onMounted(async () => {
 <template>
   <Navbar />
   <div class="h-full min-h-screen">
-    <DetailTicketModal>
+    <DetailTicketModal :remainTicket="remainingTicket">
       <template #concertName>
         {{ itembyId?.title }}
       </template>
@@ -53,7 +54,8 @@ onMounted(async () => {
         {{ itembyId?.time }}
       </template>
       <template #location>{{ itembyId?.location }}</template>
-      <template #description>{{ itembyId?.description }} </template>
+      <template #ticket>{{ itembyId?.remaining_tickets}} Ticket left</template>
+      <template #description>{{ itembyId?.description }}</template>
       <template #price>
         {{ itembyId?.price === 0 ? 'Free' : '฿' + itembyId?.price }}</template
       >

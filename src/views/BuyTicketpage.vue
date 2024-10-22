@@ -61,6 +61,9 @@ const updateCouter = (newCouter) => {
       <template #location>
         {{ itembyId?.location }}
       </template>
+      <template #ticket>
+        {{ itembyId?.remaining_tickets }} Ticket left
+      </template>
       <template #subtotal>
         {{
           (itembyId?.price * couter).toFixed(2) == 0

@@ -1,18 +1,20 @@
 <script setup>
+
 import { ref } from 'vue'
 import { useRouter } from 'vue-router'
 
-const router = useRouter()
-const changColor = ref(false)
+
+const router = useRouter();
+const changColor = ref(false);
 
 const props = defineProps({
-  ticketItemId: String
-})
+  ticketItemId: String,
+});
 
 const toDetailticket = (id) => {
-  console.log(id)
-  router.push({ name: 'detailticket', params: { ticketId: id } })
-}
+  console.log(id);
+  router.push({ name: "detailticket", params: { ticketId: id } });
+};
 </script>
 
 <template>
