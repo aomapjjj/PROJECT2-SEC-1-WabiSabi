@@ -68,7 +68,7 @@ const sortHistoriesByTitle = () => {
               <p
                 class="flex items-center justify-between gap-2 text-sm font-normal leading-none text-slate-500"
               >
-                Amount
+                Price
               </p>
             </th>
             <th
