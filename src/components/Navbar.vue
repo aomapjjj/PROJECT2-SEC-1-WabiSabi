@@ -1,15 +1,17 @@
 <script setup>
 import { ref } from 'vue'
 import { useUsers } from '../stores/userStore'
-import { useRouter } from 'vue-router'
-import ModalLogout from './LogoutModal.vue'
+
+import LogoutModal from './LogoutModal.vue'
 import CombineLoginSignup from './CombineLoginSignup.vue'
+
 const userStore = useUsers()
-const userName = userStore.getUser()?.username
-const router = useRouter()
+
 const showModalSignup = ref(false)
 const isDropdownOpen = ref(false)
 const isLogoutModalOpen = ref(false)
+
+const userName = userStore.getUser()?.username
 
 const toggleDropdown = (open) => {
   if (!userName || userName === undefined) {
@@ -18,19 +20,17 @@ const toggleDropdown = (open) => {
   isDropdownOpen.value = open
 }
 
-
 const toLoginOrSignup = () => {
-  if (!userName ||userName === undefined) {
+  if (!userName || userName === undefined) {
     showModalSignup.value = true
   }
 }
-
 </script>
 
 <template>
   <header>
     <nav
-      class=" sticky w-full bg-white shadow-2xl shadow-gray-600/5 border-b border-gray-100 dark:border-gray-800 peer-checked:navbar-active"
+      class="sticky w-full bg-white shadow-2xl shadow-gray-600/5 border-b border-gray-100 peer-checked:navbar-active"
     >
       <div class="xl:container m-auto px-6 md:px-12 lg:px-6">
         <div
@@ -83,7 +83,9 @@ const toLoginOrSignup = () => {
               <div
                 class="relative flex h-9 ml-6 items-center justify-center sm:px-6 rounded-full bgGreen"
               >
-                <span @click="toLoginOrSignup()" class="relative text-sm font-semibold text-white"
+                <span
+                  @click="toLoginOrSignup()"
+                  class="relative text-sm font-semibold text-white"
                   >Login or Sign up</span
                 >
               </div>
@@ -155,9 +157,12 @@ const toLoginOrSignup = () => {
         </div>
       </div>
     </nav>
-    <ModalLogout v-if="isLogoutModalOpen" @close="isLogoutModalOpen = false" />
+    <LogoutModal v-if="isLogoutModalOpen" @close="isLogoutModalOpen = false" />
 
-   <CombineLoginSignup :isVisible="showModalSignup" @close="showModalSignup = false" />
+    <CombineLoginSignup
+      :isVisible="showModalSignup"
+      @close="showModalSignup = false"
+    />
   </header>
 </template>
 

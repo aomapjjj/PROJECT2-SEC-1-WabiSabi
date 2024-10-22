@@ -1,9 +1,10 @@
 import { defineStore, acceptHMRUpdate } from 'pinia'
-import { ref } from 'vue'
+import { ref, watch } from 'vue'
 
 const useUsers = defineStore('users', () => {
   const user = ref()
   const historiesUser = ref([])
+
   const setUser = (userItem) => {
     user.value = userItem
     localStorage.setItem('user', JSON.stringify(user.value))
@@ -29,17 +30,20 @@ const useUsers = defineStore('users', () => {
 
   const addNewHistory = (newProduct) => {
     historiesUser.value.push({ ...newProduct })
-    localStorage.setItem('historiesUser', JSON.stringify(historiesUser.value)) 
+    localStorage.setItem('historiesUser', JSON.stringify(historiesUser.value))
   }
-  
- 
+
   const getHistories = () => {
     const storedHistory = localStorage.getItem('historiesUser')
     if (storedHistory) {
-      historiesUser.value = JSON.parse(storedHistory) 
+      historiesUser.value = JSON.parse(storedHistory)
     }
-    return historiesUser.value 
+    return historiesUser.value
   }
+
+  watch(user, () => {
+    console.log('User state updated:', user.value)
+  })
 
   return {
     setUser,

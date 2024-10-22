@@ -1,6 +1,6 @@
 <script setup>
 import { ref } from 'vue'
-import { useRouter} from 'vue-router'
+import { useRouter } from 'vue-router'
 
 const router = useRouter()
 const changColor = ref(false)
@@ -58,11 +58,13 @@ const toDetailticket = (id) => {
               </button>
             </div>
           </div>
+
           <div class="mt-3">
             <h2 class="flex-auto text-lg font-medium">
               <slot name="nameOfConcert"></slot>
             </h2>
           </div>
+
           <div class="flex py-3 text-sm text-gray-500">
             <div class="flex flex-col items-start">
               <!-- Date -->

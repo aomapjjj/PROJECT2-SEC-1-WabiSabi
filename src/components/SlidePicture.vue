@@ -79,7 +79,6 @@ onBeforeUnmount(() => {
             </div>
           </div>
         </div>
-        <!-- Pagination dots -->
         <div class="flex justify-center space-x-2 mt-4">
           <span
             v-for="n in totalSlides"

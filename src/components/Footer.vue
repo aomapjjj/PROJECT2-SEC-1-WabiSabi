@@ -11,7 +11,7 @@
         </div> -->
       </div>
 
-      <div class="pt-4 text-center text-sm">
+      <div class="text-center text-sm">
         <p>&copy; 2024 The Wasabi Ticket, All rights reserved.</p>
       </div>
     </div>
