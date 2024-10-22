@@ -5,10 +5,13 @@ import ContentHomepage from '../components/ContentHomepage.vue'
 import Navbar from '../components/Navbar.vue'
 import Footer from '../components/Footer.vue'
 import SlidePicture from '../components/SlidePicture.vue'
-
+import { useConcerts } from "@/stores/concertStore"
 const baseUrlConcert = `${import.meta.env.VITE_APP_URL_CON}`
 const allItems = ref()
 
+// concert store
+const concertStore = useConcerts()
+const concertInfo = concertStore.getConcert()
 // Search
 const searchConcert = ref('')
 const gridContainer = ref(null)
@@ -17,6 +20,7 @@ onMounted(async () => {
   try {
     const items = await getItems(baseUrlConcert)
     allItems.value = items
+    console.log(concertInfo)
   } catch (error) {
     console.error('Error fetching data:', error)
   }

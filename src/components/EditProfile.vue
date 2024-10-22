@@ -47,6 +47,34 @@ const saveUserEdited = async () => {
     isChanged.value = false
   }
 }
+
+const deleteUserAccount = async (removeId) => {
+  
+  try {
+    const deleteStatus = await deleteItemById(
+      `${import.meta.env.VITE_APP_URL_USER}`,
+      removeId
+    )
+    if (deleteStatus === 200) {
+      userStore.deleteUser()
+      router.push({name:'homeview'})
+    } else {
+      console.log('Failed to delete user: ', deleteStatus)
+    }
+  } catch (error) {
+    console.error('Error deleting user:', error)
+  }
+}
+
+watch(showContent, (newVal) => {
+  if (newVal) {
+    router.push({ name: 'history' , params:{username:userInfo.username}})
+  }
+  else {
+    router.push({ name: 'editprofile' , params:{username:userInfo.username}})
+  }
+})
+
 </script>
 
 <template>
@@ -67,11 +95,12 @@ const saveUserEdited = async () => {
                 >
                   <path
                     fill="#454545"
-                    d="M12 4a4 4 0 0 1 4 4a4 4 0 0 1-4 4a4 4 0 0 1-4-4a4 4 0 0 1 4-4m0 10c4.42 0 8 1.79 8 4v2H4v-2c0-2.21 3.58-4 8-4"
+                    d="M13.5 8H12v5l4.28 2.54l.72-1.21l-3.5-2.08zM13 3a9 9 0 0 0-9 9H1l3.96 4.03L9 12H6a7 7 0 0 1 7-7a7 7 0 0 1 7 7a7 7 0 0 1-7 7c-1.93 0-3.68-.79-4.94-2.06l-1.42 1.42A8.9 8.9 0 0 0 13 21a9 9 0 0 0 9-9a9 9 0 0 0-9-9"
                   />
                 </svg>
-                <h1>Manage Profile</h1>
+                <h1>History</h1>
               </div>
+              
               <div class="flex flex-col items-center"></div>
               <hr class="my-6 border-t border-gray-300" />
               <div
@@ -85,10 +114,10 @@ const saveUserEdited = async () => {
                 >
                   <path
                     fill="#454545"
-                    d="M13.5 8H12v5l4.28 2.54l.72-1.21l-3.5-2.08zM13 3a9 9 0 0 0-9 9H1l3.96 4.03L9 12H6a7 7 0 0 1 7-7a7 7 0 0 1 7 7a7 7 0 0 1-7 7c-1.93 0-3.68-.79-4.94-2.06l-1.42 1.42A8.9 8.9 0 0 0 13 21a9 9 0 0 0 9-9a9 9 0 0 0-9-9"
+                    d="M12 4a4 4 0 0 1 4 4a4 4 0 0 1-4 4a4 4 0 0 1-4-4a4 4 0 0 1 4-4m0 10c4.42 0 8 1.79 8 4v2H4v-2c0-2.21 3.58-4 8-4"
                   />
                 </svg>
-                <h1>History</h1>
+                <h1>Manage Profile</h1>
               </div>
               <hr class="my-6 border-t border-gray-300" />
 
@@ -99,7 +128,7 @@ const saveUserEdited = async () => {
             </div>
           </div>
 
-          <div v-if="showContent === true" class="col-span-4 sm:col-span-9">
+          <div v-if="showContent === false" class="col-span-4 sm:col-span-9">
             <div class="w-full bg-white rounded-lg">
               <h2 class="text-2xl text-gray-600 font-bold mb-4 p-2 text-center">
                 &#127813; Edit Your Profile &#127813;
@@ -238,7 +267,7 @@ const saveUserEdited = async () => {
             </div>
           </div>
 
-          <div v-if="showContent === false" class="col-span-4 sm:col-span-9">
+          <div v-if="showContent === true" class="col-span-4 sm:col-span-9">
             <History />
           </div>
 

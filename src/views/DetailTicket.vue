@@ -2,6 +2,7 @@
 import { ref, onMounted, watch } from 'vue'
 import { getItemById } from '../../libs/fetchUtils'
 import { useRoute } from 'vue-router'
+import { useConcerts } from "@/stores/concertStore"
 
 import DetailTicketModal from '../components/DetailTicketModal.vue'
 import Navbar from '../components/Navbar.vue'
@@ -11,6 +12,11 @@ const baseUrlconcert = `${import.meta.env.VITE_APP_URL_CON}`
 const itembyId = ref()
 const ticketItemId = ref('')
 const remainingTicket = ref()
+
+// concert store
+const concertStore = useConcerts()
+const concertInfo = concertStore.getConcert()
+
 watch(
   () => route.params.ticketId,
   (newId) => {
@@ -25,6 +31,7 @@ onMounted(async () => {
   try {
     const item = await getItemById(baseUrlconcert, ticketItemId.value)
     itembyId.value = item
+    concertStore.setConcert(item)
     remainingTicket.value = item.remaining_tickets
     console.log(remainingTicket.value)
   } catch (error) {

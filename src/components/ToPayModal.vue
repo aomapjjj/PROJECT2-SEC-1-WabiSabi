@@ -9,7 +9,7 @@ const closeModal = defineEmits(['close'])
 <template>
   <div
     v-if="isOpen"
-    class="fixed inset-0 flex items-center justify-center backdrop-blur-sm z-50"
+    class="fixed inset-0 flex items-center justify-center z-50"
   >
     <div class="max-w-[720px] mx-auto">
       <div
