@@ -3,9 +3,11 @@ import { ref, watch, onMounted, computed } from "vue"
 import { useRouter, useRoute } from "vue-router"
 import ModalToPay from "./ToPayModal.vue"
 import { useUsers } from "../stores/userStore"
-import { addItem, getItemById } from "../../libs/fetchUtils"
+import { addItem, editItem, getItemById } from "../../libs/fetchUtils"
 import Homepage from "@/views/Homepage.vue"
+import { useConcerts } from "@/stores/concertStore"
 
+const emit = defineEmits(["update:couter"])
 const router = useRouter()
 const selectedType = ref()
 const showModal = ref(false)
@@ -23,6 +25,25 @@ const buyticketItemId = ref()
 const historyTicket = ref([])
 const remainTicket = ref()
 
+const concertStore = useConcerts()
+const concertInfo = concertStore.getConcert()
+
+const newConcertTicket = ref({
+  ...concertInfo
+})
+
+const couter = ref(1)
+const errorTicketCounterMsg = ref("")
+
+const newTicketRemain = ref()
+
+// new task
+
+// computed newTicketRemain 
+// assign newTicketRemain to new Object
+
+
+console.log(newTicketRemain.value)
 watch(
   () => route.params.buyticketId,
   (newId) => {
@@ -50,6 +71,8 @@ const currentPrice = computed(() => {
   return totalPrice
 })
 
+
+
 const newhistory = {
   id: userInfo.id,
   history: historyTicket.value,
@@ -76,6 +99,11 @@ const addItemToHistory = async () => {
     } catch (error) {
       console.error(error)
     }
+
+    // try {
+    //   const ticketUpdate = await editItem(baseUrlconcert, newConcertTicket.id, newConcertTicket)
+    //   concertStore.saveNewRemainingTicket
+    // }
   }
 }
 
@@ -107,9 +135,7 @@ const toPayPage = () => {
 
 console.log("validateCard", isDisable.value)
 
-const emit = defineEmits(["update:couter"])
-const couter = ref(1)
-const errorTicketCounterMsg = ref("")
+
 
 const increment = () => {
   if (couter.value < remainTicket.value) {
