@@ -1,15 +1,18 @@
-<script setup>
+Homepage<script setup>
 import { ref } from 'vue'
 import CombineLoginSignup from '../components/CombineLoginSignup.vue'
 import Footer from '../components/Footer.vue'
+import { useRouter } from 'vue-router'
 const showModal = ref(false)
-
+const router = useRouter()
 const openSignupLoginModal = () => {
   showModal.value = true
+  router.push({name:'login'})
 }
 
 const closeSignupLoginModal = () => {
   showModal.value = false
+  router.push({name:'homeview'})
 }
 </script>
 
