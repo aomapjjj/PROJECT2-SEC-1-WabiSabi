@@ -1,57 +1,59 @@
 <script setup>
-import { ref, watch, onMounted, computed } from "vue";
-import { useRouter, useRoute } from "vue-router";
-import ModalToPay from "./ToPayModal.vue";
-import { useUsers } from "../stores/userStore";
-import { addItem, getItemById } from "../../libs/fetchUtils";
+import { ref, watch, onMounted, computed } from "vue"
+import { useRouter, useRoute } from "vue-router"
+import ModalToPay from "./ToPayModal.vue"
+import { useUsers } from "../stores/userStore"
+import { addItem, getItemById } from "../../libs/fetchUtils"
+import Homepage from "@/views/Homepage.vue"
 
-const router = useRouter();
-const selectedType = ref();
-const showModal = ref(false);
-const payment = ref("");
-const nameOnCard = ref("");
-const cardNumber = ref("");
-const isDisable = ref(false);
-const route = useRoute();
-const userStore = useUsers();
-const userInfo = userStore.getUser();
-const baseUrlconcert = `${import.meta.env.VITE_APP_URL_CON}`;
-const baseUrlhistory = `${import.meta.env.VITE_APP_URL_HISTORIES}`;
-const itembyId = ref();
-const buyticketItemId = ref();
-const historyTicket = ref([]);
-const remainTicket = ref();
+const router = useRouter()
+const selectedType = ref()
+const showModal = ref(false)
+const payment = ref("")
+const nameOnCard = ref("")
+const cardNumber = ref("")
+const isDisable = ref(false)
+const route = useRoute()
+const userStore = useUsers()
+const userInfo = userStore.getUser()
+const baseUrlconcert = `${import.meta.env.VITE_APP_URL_CON}`
+const baseUrlhistory = `${import.meta.env.VITE_APP_URL_HISTORIES}`
+const itembyId = ref()
+const buyticketItemId = ref()
+const historyTicket = ref([])
+const remainTicket = ref()
+
 watch(
   () => route.params.buyticketId,
   (newId) => {
-    buyticketItemId.value = newId;
+    buyticketItemId.value = newId
   },
   { immediate: true }
-);
+)
 
 onMounted(async () => {
   try {
-    const item = await getItemById(baseUrlconcert, buyticketItemId.value);
-    itembyId.value = item;
-    remainTicket.value = item.remaining_tickets;
-    console.log(itembyId.value);
+    const item = await getItemById(baseUrlconcert, buyticketItemId.value)
+    itembyId.value = item
+    remainTicket.value = item.remaining_tickets
+    console.log(itembyId.value)
   } catch (error) {
-    console.log("error na");
+    console.log("error na")
   }
-});
+})
 
 const currentPrice = computed(() => {
-  if (!itembyId.value?.price) return "0.00";
-  const price = itembyId.value.price * couter.value;
-  const tax = price * (7 / 100);
-  const totalPrice = (price + tax).toFixed(2);
-  return totalPrice;
-});
+  if (!itembyId.value?.price) return "0.00"
+  const price = itembyId.value.price * couter.value
+  const tax = price * (7 / 100)
+  const totalPrice = (price + tax).toFixed(2)
+  return totalPrice
+})
 
 const newhistory = {
   id: userInfo.id,
   history: historyTicket.value,
-};
+}
 
 const addItemToHistory = async () => {
   if (toPayPage()) {
@@ -62,70 +64,75 @@ const addItemToHistory = async () => {
       price: currentPrice,
       date: itembyId.value.date,
       payments: payment.value,
-    });
+    })
 
     try {
-      const response = await addItem(baseUrlhistory, newhistory);
+      const response = await addItem(baseUrlhistory, newhistory)
       if (typeof response === "object") {
-        userStore.addNewHistory(response);
+        userStore.addNewHistory(response)
       } else {
-        console.log("เกิดปัญหานร้า");
+        console.log("เกิดปัญหานร้า")
       }
     } catch (error) {
-      console.error(error);
+      console.error(error)
     }
   }
-};
+}
 
 watch(nameOnCard, (newValue) => {
-  nameOnCard.value = newValue;
-});
+  nameOnCard.value = newValue
+})
 
 watch(cardNumber, (newValue) => {
-  cardNumber.value = newValue;
-});
+  cardNumber.value = newValue
+})
 
 const toPayPage = () => {
   if (selectedType.value) {
     if (nameOnCard.value.length === 0 || cardNumber.value.length === 0) {
-      isDisable.value = true;
-      return false;
+      isDisable.value = true
+      return false
     } else {
-      showModal.value = true;
-      payment.value = "Visa";
-      return true;
+      showModal.value = true
+      payment.value = "Visa"
+      return true
     }
   } else {
-    showModal.value = true;
-    isDisable.value = false;
-    payment.value = "Promtpay";
-    return true;
+    showModal.value = true
+    isDisable.value = false
+    payment.value = "Promtpay"
+    return true
   }
-};
+}
 
-console.log("validateCard", isDisable.value);
+console.log("validateCard", isDisable.value)
 
-const emit = defineEmits(["update:couter"]);
-const couter = ref(1);
-const errorTicketCounterMsg = ref("");
+const emit = defineEmits(["update:couter"])
+const couter = ref(1)
+const errorTicketCounterMsg = ref("")
 
 const increment = () => {
   if (couter.value < remainTicket.value) {
-    couter.value++;
-    emit("update:couter", couter.value);
+    couter.value++
+    emit("update:couter", couter.value)
   } else {
     errorTicketCounterMsg.value =
-      "There are no tickets available for purchase anymore.";
+      "There are no tickets available for purchase anymore."
   }
-};
+}
 
 const decrement = () => {
-  errorTicketCounterMsg.value = "";
+  errorTicketCounterMsg.value = ""
   if (couter.value > 1) {
-    couter.value--;
-    emit("update:couter", couter.value);
+    couter.value--
+    emit("update:couter", couter.value)
   }
-};
+}
+
+const afterPaid = () => {
+  showModal.value = false
+  router.push({ name: "profile" })
+}
 </script>
 
 <template>
@@ -453,7 +460,7 @@ const decrement = () => {
       </div>
     </div>
   </div>
-  <ModalToPay :isOpen="showModal" @close="showModal = false">
+  <ModalToPay :isOpen="showModal" @close="afterPaid">
     <template #fullname>
       {{ userInfo.firstname + " " + userInfo.lastname }}
     </template>

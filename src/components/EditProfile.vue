@@ -169,7 +169,7 @@ const deleteUserAccount = async (removeId) => {
                   <!-- Optional placeholder option -->
                   <option value="Male">Male</option>
                   <option value="Female">Female</option>
-                  <option value="Other">RGB</option>
+                  <option value="LGBTQ">LGBTQ+</option>
                 </select>
 
                 <label for="address" class="block mb-2 mt-2 font-semibold">

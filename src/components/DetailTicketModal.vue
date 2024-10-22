@@ -4,9 +4,6 @@ import { ref, watch } from 'vue'
 import { useRouter, useRoute } from 'vue-router'
 import { useUsers } from '../stores/userStore'
 import CombineLoginSignup from './CombineLoginSignup.vue';
-const route = useRoute()
-const router = useRouter()
-
 
 const props = defineProps({
   remainTicket: Number,
