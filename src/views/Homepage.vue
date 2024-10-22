@@ -5,6 +5,12 @@ import ContentHomepage from '../components/ContentHomepage.vue'
 import Navbar from '../components/Navbar.vue'
 import Footer from '../components/Footer.vue'
 import SlidePicture from '../components/SlidePicture.vue'
+import Toast from '@/components/Toast.vue'
+import { useRoute, useRouter } from 'vue-router'
+
+const showSuccessToast = ref(false)
+const route = useRoute()
+const router = useRouter()
 
 const baseUrlConcert = `${import.meta.env.VITE_APP_URL_CON}`
 const allItems = ref()
@@ -17,6 +23,18 @@ onMounted(async () => {
   try {
     const items = await getItems(baseUrlConcert)
     allItems.value = items
+
+    // ตรวจสอบ query ว่า success = true หรือไม่
+    if (route.query.success === 'true') {
+      showSuccessToast.value = true
+
+     
+      setTimeout(() => {
+        showSuccessToast.value = false
+       
+        router.replace({ query: null })
+      }, 5000)
+    }
   } catch (error) {
     console.error('Error fetching data:', error)
   }
@@ -119,7 +137,13 @@ watch(filteredItems, () => {
         </div>
       </div>
     </div>
+    <div>
+      <Toast :showSuccessToast="showSuccessToast">
+        <template #headerToast> You're all set!  </template>
 
+        <template #messageToast> enjoy the excitement of concert ticket booking! </template>
+      </Toast>
+    </div>
     <Footer></Footer>
   </div>
 </template>

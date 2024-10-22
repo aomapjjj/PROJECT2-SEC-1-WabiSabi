@@ -2,6 +2,9 @@
 import { ref } from 'vue'
 import CombineLoginSignup from '../components/CombineLoginSignup.vue'
 import Footer from '../components/Footer.vue'
+import Toast from '@/components/Toast.vue';
+
+const showSuccessToast = ref(false)
 const showModal = ref(false)
 
 const openSignupLoginModal = () => {
@@ -11,6 +14,16 @@ const openSignupLoginModal = () => {
 const closeSignupLoginModal = () => {
   showModal.value = false
 }
+
+const handleLogoutSuccess = () => {
+  showSuccessToast.value = true
+ 
+  setTimeout(() => {
+    showSuccessToast.value = false
+  }, 5000) 
+}
+
+
 </script>
 
 <template>
@@ -36,7 +49,7 @@ const closeSignupLoginModal = () => {
     </nav>
   </header>
 
-  <CombineLoginSignup :isVisible="showModal" @close="closeSignupLoginModal" />
+  <CombineLoginSignup :isVisible="showModal" @close="closeSignupLoginModal" @logoutSuccess="handleLogoutSuccess"  />
 
   <main class="max-w-6xl mx-auto pt-10 pb-10 px-8">
     <div class="max-w-md mx-auto mb-14 text-center">
@@ -96,7 +109,15 @@ const closeSignupLoginModal = () => {
     </div>
   </main>
 
-  <Footer />
+  
+  <div>
+      <Toast :showSuccessToast="showSuccessToast">
+        <template #headerToast> Logout Successful! </template>
+
+        <template #messageToast> You have successfully logged out. </template>
+      </Toast>
+    </div>
+    <Footer></Footer>
 </template>
 
 <style scoped></style>

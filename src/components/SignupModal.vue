@@ -82,7 +82,7 @@ const handleSignUp = async () => {
       userStore.setUser(response) // Assuming this sets the user correctly in the store
       signupMessage.value = 'Sign up successful!'
       closeModal() // Close modal through emit
-      router.push('/homepage') // Redirect to homepage
+      router.push({ path: '/homepage', query: { success: 'true' } })
     } else {
       signupMessage.value = response.message || 'Sign up failed.' // Ensure there's a fallback message
     }

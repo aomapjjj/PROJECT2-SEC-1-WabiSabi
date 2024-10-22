@@ -2,7 +2,7 @@
 import { useRouter } from 'vue-router'
 import { useUsers } from '../stores/userStore'
 
-const emits = defineEmits(['close'])
+const emits = defineEmits(['close', 'logoutSuccess'])
 const router = useRouter()
 const userStore = useUsers()
 
@@ -10,6 +10,7 @@ const confirmSignOut = () => {
   userStore.deleteUser()
   localStorage.removeItem('user')
   localStorage.removeItem('historiesUser')
+  emits.logoutSuccess()
   router.push('/')
 }
 </script>

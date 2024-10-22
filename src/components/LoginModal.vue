@@ -29,7 +29,7 @@ const handleLogin = async () => {
     )
     if (user) {
       userStore.setUser(user)
-      router.push("/homepage")
+      router.push({ path: "/homepage", query: { success: 'true' } })
     } else {
       loginMessage.value = 'Invalid username or password'
     }
