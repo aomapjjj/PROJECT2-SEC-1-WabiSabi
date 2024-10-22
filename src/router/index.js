@@ -6,6 +6,7 @@ import DetailTicket from '@/views/DetailTicket.vue'
 import BuyTicketpage from '@/views/BuyTicketpage.vue'
 import Profile from '@/views/Profile.vue'
 import ModalToPay from '@/components/ToPayModal.vue'
+const getUser = () => localStorage.getItem("user")
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -41,6 +42,15 @@ const router = createRouter({
       // ]
     }
   ]
+})
+router.beforeEach((to, from, next) => {
+  const isAuthenticated = getUser() !== null
+
+  if (!isAuthenticated && (to.name === 'buyticket' || to.name === 'profile')) {
+    next({ name: 'login' })
+  } else {
+    next()
+  }
 })
 
 export default router

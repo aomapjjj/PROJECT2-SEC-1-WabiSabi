@@ -1,5 +1,5 @@
 <script setup>
-import { ref, defineEmits } from 'vue'
+import { ref } from 'vue'
 import SignupModal from './SignupModal.vue'
 import LoginModal from './LoginModal.vue'
 
@@ -13,6 +13,7 @@ const isSignUp = ref(false)
 
 const toggleModal = () => {
   isSignUp.value = !isSignUp.value
+  
 }
 
 const closeModal = () => {

@@ -22,10 +22,10 @@ const sortHistoriesByTitle = () => {
 <template>
   <div class="mx-auto">
     <div
-      class="relative flex flex-col w-full h-full text-slate-700 bg-white shadow-md rounded-xl bg-clip-border"
+      class="flex flex-col w-full h-full text-slate-700 bg-white shadow-md rounded-xl bg-clip-border "
     >
       <div
-        class="relative mx-4 mt-4 mb-4 overflow-hidden text-slate-700 bg-white rounded-none bg-clip-border"
+        class="relative mx-4 mt-4 mb-4  text-slate-700  rounded-none bg-clip-border"
       >
         <div class="flex items-center justify-between">
           <div>
