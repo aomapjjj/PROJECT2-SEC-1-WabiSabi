@@ -65,6 +65,7 @@ const deleteUserAccount = async (removeId) => {
 }
 
 
+
 watch(showContent, (newVal) => {
   if (newVal) {
     router.push({ name: 'history' , params:{username:userInfo.username}})
@@ -73,6 +74,7 @@ watch(showContent, (newVal) => {
     router.push({ name: 'editprofile' , params:{username:userInfo.username}})
   }
 })
+
 
 </script>
 

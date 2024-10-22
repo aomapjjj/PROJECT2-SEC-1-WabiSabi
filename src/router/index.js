@@ -5,6 +5,8 @@ import DetailTicket from '@/views/DetailTicket.vue'
 import BuyTicketpage from '@/views/BuyTicketpage.vue'
 import Profile from '@/views/Profile.vue'
 import ModalToPay from '@/components/ToPayModal.vue'
+import PageNotFound from '@/components/PageNotFound.vue'
+
 const getUser = () => localStorage.getItem("user")
 
 const router = createRouter({
@@ -14,6 +16,7 @@ const router = createRouter({
       path: "/",
       redirect: { name: "homeview" } 
     },
+    
     {
       path: '/homeview',
       name: 'homeview',
@@ -53,6 +56,7 @@ const router = createRouter({
     {
       path: '/profile',
       name: 'profile',
+
       component: Profile,
       children: [
         {
@@ -66,6 +70,12 @@ const router = createRouter({
           component: Profile 
         },
       ]
+    },
+    {
+      path: '/error404',
+      name: 'PageNotFound',
+      component: PageNotFound
+
     }
   ]
 })
