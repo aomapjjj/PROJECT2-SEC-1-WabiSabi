@@ -3,16 +3,21 @@ import { ref, watch, onMounted, computed } from "vue"
 import { useRouter, useRoute } from "vue-router"
 import ModalToPay from "./ToPayModal.vue"
 import { useUsers } from "../stores/userStore"
-import { addItem, getItemById } from "../../libs/fetchUtils"
+import { addItem, editItem, getItemById } from "../../libs/fetchUtils"
 import Homepage from "@/views/Homepage.vue"
-
+import { useConcerts } from "@/stores/concertStore"
+import Toast from "./Toast.vue"
+const emit = defineEmits(["update:couter"])
 const router = useRouter()
 const selectedType = ref()
 const showModal = ref(false)
 const payment = ref("")
 const nameOnCard = ref("")
 const cardNumber = ref("")
-const isDisable = ref(false)
+const isAlert = ref(false)
+const alertMsg = ref("")
+const isFail = ref(false)
+const alertMsgError = ref("")
 const route = useRoute()
 const userStore = useUsers()
 const userInfo = userStore.getUser()
@@ -22,6 +27,32 @@ const itembyId = ref()
 const buyticketItemId = ref()
 const historyTicket = ref([])
 const remainTicket = ref()
+
+const concertStore = useConcerts()
+const concertInfo = concertStore.getConcert()
+console.log("concertInfo", concertInfo)
+const newConcertTicket = ref({
+  ...concertInfo
+})
+
+const couter = ref(1)
+const errorTicketCounterMsg = ref("")
+const newTicketRemain = ref()
+
+watch(
+  couter,
+  async (newVal) => {
+    const originalRemainingTickets = concertInfo.remaining_tickets
+    newTicketRemain.value = originalRemainingTickets - newVal
+
+    if (newTicketRemain.value < 0) {
+      errorTicketCounterMsg.value = "Not enough tickets remaining."
+    } else {
+      newConcertTicket.value.remaining_tickets = newTicketRemain.value
+    }
+  },
+  { immediate: true }
+)
 
 watch(
   () => route.params.buyticketId,
@@ -52,7 +83,7 @@ const currentPrice = computed(() => {
 
 const newhistory = {
   id: userInfo.id,
-  history: historyTicket.value,
+  history: historyTicket.value
 }
 
 const addItemToHistory = async () => {
@@ -63,7 +94,7 @@ const addItemToHistory = async () => {
       title: itembyId.value.title,
       price: currentPrice,
       date: itembyId.value.date,
-      payments: payment.value,
+      payments: payment.value
     })
 
     try {
@@ -75,6 +106,23 @@ const addItemToHistory = async () => {
       }
     } catch (error) {
       console.error(error)
+    }
+
+    try {
+      const response = await editItem(
+        baseUrlconcert,
+        newConcertTicket.value.id,
+        {
+          ...newConcertTicket.value
+        }
+      )
+      if (response.status === 200) {
+        console.log("Ticket updated successfully:", response.editedItem)
+      } else {
+        console.log("Failed to update ticket:", response.status)
+      }
+    } catch (error) {
+      console.error("Error updating ticket:", error)
     }
   }
 }
@@ -90,26 +138,34 @@ watch(cardNumber, (newValue) => {
 const toPayPage = () => {
   if (selectedType.value) {
     if (nameOnCard.value.length === 0 || cardNumber.value.length === 0) {
-      isDisable.value = true
+      isFail.value = true
+      setTimeout(() => {
+        isFail.value = false
+    }, 2000)
+      alertMsgError.value =
+        "Please fill in the name on the card and the card number completely"
       return false
     } else {
       showModal.value = true
       payment.value = "Visa"
+      isAlert.value = true
+      setTimeout(() => {
+        isAlert.value = false
+    }, 2000)
+      alertMsg.value = "Payment transaction successful."
       return true
     }
   } else {
     showModal.value = true
-    isDisable.value = false
+    isAlert.value = true
+    setTimeout(() => {
+        isAlert.value = false
+    }, 2000)
+    alertMsg.value = "Payment transaction successful."
     payment.value = "Promtpay"
     return true
   }
 }
-
-console.log("validateCard", isDisable.value)
-
-const emit = defineEmits(["update:couter"])
-const couter = ref(1)
-const errorTicketCounterMsg = ref("")
 
 const increment = () => {
   if (couter.value < remainTicket.value) {
@@ -131,7 +187,7 @@ const decrement = () => {
 
 const afterPaid = () => {
   showModal.value = false
-  router.push({ name: "profile" })
+  router.push({ name: "history", params: { username: userInfo.username } })
 }
 </script>
 
@@ -480,6 +536,16 @@ const afterPaid = () => {
       {{ currentPrice == 0 ? "Free" : currentPrice }}
     </template>
   </ModalToPay>
+  <Toast :showSuccessToast="isAlert">
+    <template #headerToast> Success! </template>
+
+    <template #messageToast> {{ alertMsg }} </template>
+  </Toast>
+  <Toast :showFailToast="isFail">
+    <template #headerToastFail> Fail To Pay </template>
+
+    <template #messageToastFail> {{ alertMsgError }} </template>
+  </Toast>
 </template>
 
 <style scoped>

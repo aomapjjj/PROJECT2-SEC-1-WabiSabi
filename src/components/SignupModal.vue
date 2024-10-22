@@ -202,7 +202,5 @@ const handleSignUp = async () => {
 </template>
 
 <style scoped>
-.modal-content {
-  /* Custom styles can be added here */
-}
+
 </style>

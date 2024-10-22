@@ -16,6 +16,7 @@ const router = createRouter({
       path: "/",
       redirect: { name: "homeview" } 
     },
+    
     {
       path: '/homeview',
       name: 'homeview',
@@ -55,13 +56,26 @@ const router = createRouter({
     {
       path: '/profile',
       name: 'profile',
-      component: Profile
 
+      component: Profile,
+      children: [
+        {
+          path: 'editprofile/:username',
+          name: 'editprofile',
+          component: Profile 
+        },
+        {
+          path: 'history/:username',
+          name: 'history',
+          component: Profile 
+        },
+      ]
     },
     {
       path: '/error404',
       name: 'PageNotFound',
       component: PageNotFound
+
     }
   ]
 })
