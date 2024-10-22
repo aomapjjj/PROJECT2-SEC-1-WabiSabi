@@ -45,16 +45,16 @@ watch(filteredItems, () => {
   <Navbar />
   <div class="bgBlue min-h-screen flex flex-col justify-between">
     <!-- Search bar -->
-    <div class="w-full flex justify-end">
+    <div class="w-full flex justify-center mb-4 mt-2">
       <form class="relative py-4 px-8 w-max">
         <input
           v-model="searchConcert"
           type="text"
-          class="peer cursor-pointer text-white relative z-10 h-12 w-12 rounded-full border bg-transparent pl-12 outline-none focus:w-full focus:cursor-text focus:border-white focus:pl-16 focus:pr-4"
+          class="peer text-white relative z-10 h-12 rounded-full border bg-transparent outline-none w-full cursor-text border-white pl-16 pr-12"
         />
         <svg
           xmlns="http://www.w3.org/2000/svg"
-          class="absolute inset-y-0 my-auto h-8 w-12 border-r border-transparent stroke-white px-3.5 peer-focus:border-white peer-focus:stroke-white"
+          class="absolute inset-y-0 my-auto h-8 w-12 border-r border-transparent stroke-white px-3.5 border-white"
           fill="none"
           viewBox="0 0 24 24"
           stroke="currentColor"
@@ -66,17 +66,19 @@ watch(filteredItems, () => {
             d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
           />
         </svg>
-        <!-- <svg
+        <svg
+          v-show="searchConcert.length > 0"
+          @click.stop="searchConcert = ''"
           xmlns="http://www.w3.org/2000/svg"
-          class="absolute items-end my-auto h-8 w-12 stroke-white px-3.5 peer-focus:border-white peer-focus:stroke-white"
+          class="absolute inset-y-0 my-auto right-8 h-8 w-12 stroke-white px-3.5 peer-focus:border-white peer-focus:stroke-white cursor-pointer z-20"
           viewBox="0 0 24 24"
         >
           <path
-            fill="currentColor"
+            fill="#ffff"
             fill-rule="evenodd"
             d="m12 10.586l5.657-5.657l1.414 1.414L13.414 12l5.657 5.657l-1.414 1.414L12 13.414l-5.657 5.657l-1.414-1.414L10.586 12L4.929 6.343L6.343 4.93z"
           />
-        </svg> -->
+        </svg>
       </form>
     </div>
 
