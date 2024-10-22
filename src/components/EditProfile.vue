@@ -6,6 +6,7 @@ import { editItem, deleteItemById } from '../../libs/fetchUtils'
 import { useRouter, useRoute } from 'vue-router'
 import History from './History.vue'
 import Toast from './Toast.vue'
+
 const route = useRoute()
 const router = useRouter()
 const showContent = ref(true)
@@ -19,6 +20,8 @@ const isChanged = ref(false)
 const newUserDetail = ref({
   ...userInfo
 })
+
+
 
 console.log(newUserDetail.value)
 watch(newUserDetail.value, (newVal) => {
@@ -45,6 +48,7 @@ const saveUserEdited = async () => {
 }
 
 const deleteUserAccount = async (removeId) => {
+  
   try {
     const deleteStatus = await deleteItemById(
       `${import.meta.env.VITE_APP_URL_USER}`,
@@ -52,7 +56,7 @@ const deleteUserAccount = async (removeId) => {
     )
     if (deleteStatus === 200) {
       userStore.deleteUser()
-      router.push('/')
+      router.push({name:'homeview'})
     } else {
       console.log('Failed to delete user: ', deleteStatus)
     }
@@ -60,6 +64,7 @@ const deleteUserAccount = async (removeId) => {
     console.error('Error deleting user:', error)
   }
 }
+
 </script>
 
 <template>

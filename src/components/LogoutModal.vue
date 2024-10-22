@@ -10,7 +10,7 @@ const confirmSignOut = () => {
   userStore.deleteUser()
   localStorage.removeItem('user')
   localStorage.removeItem('historiesUser')
-  router.push('/')
+  router.push({name:'homeview'})
 }
 </script>
 

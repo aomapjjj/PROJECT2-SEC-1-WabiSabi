@@ -1,10 +1,10 @@
 <script setup>
 import { ref } from 'vue'
 import { useUsers } from '../stores/userStore'
-
+import { useRouter } from 'vue-router'
 import LogoutModal from './LogoutModal.vue'
 import CombineLoginSignup from './CombineLoginSignup.vue'
-
+const router = useRouter()
 const userStore = useUsers()
 
 const showModalSignup = ref(false)
@@ -23,6 +23,7 @@ const toggleDropdown = (open) => {
 const toLoginOrSignup = () => {
   if (!userName || userName === undefined) {
     showModalSignup.value = true
+    router.push({name:'hompagelogin'})
   }
 }
 </script>
