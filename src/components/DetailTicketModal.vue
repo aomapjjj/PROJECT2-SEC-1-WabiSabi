@@ -1,33 +1,39 @@
 <script setup>
+
 import { ref, watch } from 'vue'
 import { useRouter, useRoute } from 'vue-router'
 import { useUsers } from '../stores/userStore'
-import SignupModal from './SignupModal.vue';
-const route = useRoute()
-const router = useRouter()
+import CombineLoginSignup from './CombineLoginSignup.vue';
 
-const ticketItemId = ref('')
-const showModalSignup = ref(false)
+const props = defineProps({
+  remainTicket: Number,
+});
+
+const route = useRoute();
+const router = useRouter();
+
+const ticketItemId = ref("");
+const showModalSignup = ref(false);
 
 watch(
   () => route.params.ticketId,
   (newId) => {
-    ticketItemId.value = newId
+    ticketItemId.value = newId;
   },
   { immediate: true }
-)
-const userStore = useUsers()
-const userInfo = userStore.getUser()
+);
+const userStore = useUsers();
+const userInfo = userStore.getUser();
 
-
+console.log(props.remainTicket);
 
 const toBuyTicketpage = (id) => {
   if (!userInfo || userInfo.id === undefined) {
-    showModalSignup.value = true
+    showModalSignup.value = true;
   } else {
-    router.push({ name: 'buyticket', params: { buyticketId: id } })
+    router.push({ name: "buyticket", params: { buyticketId: id } });
   }
-}
+};
 
 // const ticketsLeft = ref(2)
 
@@ -125,6 +131,27 @@ const toBuyTicketpage = (id) => {
               </div>
             </div>
 
+            <!-- Ticket -->
+            <div class="mt-4">
+              <div class="flex flex-row items-center text-xs mb-2">
+                <svg
+                  class="h-4 w-4 mr-2 text-gray-400"
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    fill="#09E666"
+                    fill-rule="evenodd"
+                    d="M5 4a3 3 0 0 0-3 3v3a1 1 0 0 0 1 1a1 1 0 0 1 0 2a1 1 0 0 0-1 1v3a3 3 0 0 0 3 3h14a3 3 0 0 0 3-3v-3a1 1 0 0 0-1-1a1 1 0 0 1 0-2a1 1 0 0 0 1-1V7a3 3 0 0 0-3-3zM4 7a1 1 0 0 1 1-1h4v12H5a1 1 0 0 1-1-1v-2.171a3 3 0 0 0 1.121-.708l-.692-.692l.692.692A3 3 0 0 0 4 9.171z"
+                    clip-rule="evenodd"
+                  />
+                </svg>
+                <div class="text-green-400">
+                  <slot name="ticket"></slot>
+                </div>
+              </div>
+            </div>
+
             <div class="mt-4">
               <span class="font-bold text-gray-700 dark:text-gray-300"
                 >Description:</span
@@ -146,9 +173,14 @@ const toBuyTicketpage = (id) => {
                 </div>
                 <button
                   @click="toBuyTicketpage(ticketItemId)"
+                  :disabled="props.remainTicket === 0"
                   class="bgRed text-white font-bold py-2 px-6 rounded-full hover:bg-gray-400"
+                  :class="{
+                    'cursor-not-allowed bg-gray-500 text-gray-300 opacity-50 hover:bg-gray-500':
+                      props.remainTicket === 0,
+                  }"
                 >
-                  GET TICKETS
+                  {{ props.remainTicket === 0 ? "Sold Out!" : "Buy Ticket" }}
                 </button>
               </div>
             </div>
@@ -157,7 +189,9 @@ const toBuyTicketpage = (id) => {
       </div>
     </div>
   </div>
-   <SignupModal :isVisible="showModalSignup" @close="showModalSignup = false" />
+  
+<CombineLoginSignup :isVisible="showModalSignup" @close="showModalSignup = false" />
+
 </template>
 
 <style scoped>
