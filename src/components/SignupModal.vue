@@ -50,7 +50,7 @@ const handleSignUp = async () => {
     return
   }
 
-  // Check if username is taken
+
   try {
     const users = await getItems(usersUrl)
     const isUsernameTaken = users.some(
@@ -66,7 +66,7 @@ const handleSignUp = async () => {
     return
   }
 
-  // Prepare new user object
+  
   const newUser = {
     email: email.value,
     password: password.value,
@@ -75,20 +75,22 @@ const handleSignUp = async () => {
     lastname: lastname.value
   }
 
-  // Sign up the user
+ 
   try {
     const response = await addItem(usersUrl, newUser)
     if (response && typeof response === 'object') {
-      userStore.setUser(response) // Assuming this sets the user correctly in the store
+      userStore.setUser(response)
       signupMessage.value = 'Sign up successful!'
-      closeModal() // Close modal through emit
-      router.push('/homepage') // Redirect to homepage
+      closeModal() 
+      router.push({ name: "homepage" }).then(() => {
+       router.go()
+      })
     } else {
-      signupMessage.value = response.message || 'Sign up failed.' // Ensure there's a fallback message
+      signupMessage.value = response.message || 'Sign up failed.' 
     }
   } catch (error) {
     signupMessage.value = 'An error occurred during sign up.'
-    console.error(error) // Log the error for debugging
+    console.error(error)
   }
 }
 </script>
