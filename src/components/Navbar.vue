@@ -47,7 +47,9 @@ const confirmSignOut = () => {
         >
           <!-- Logo -->
           <div class="w-full items-center flex justify-between lg:w-auto">
-            <img class="h-9 w-auto" src="/img/logo.png" alt="Logo" />
+            <router-link to="/homepage">
+              <img class="h-9 w-auto" src="/img/logo.png" alt="Logo" />
+            </router-link>
             <label
               for="hbr"
               class="peer-checked:hamburger block relative z-20 p-6 -mr-6 cursor-pointer lg:hidden"
