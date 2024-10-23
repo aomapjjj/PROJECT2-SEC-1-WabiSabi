@@ -1,6 +1,4 @@
-<img width="1440" alt="Screenshot 2567-10-23 at 21 27 08" src="https://github.com/user-attachments/assets/aa80af2e-d224-415d-b25f-117eb7040120"># PROJECT2-SEC-1-WabiSabi
-
-<h1 align="center">Wasabi Ticket</h1>
+<p align="center"><img src="https://github.com/user-attachments/assets/e53b9630-e21c-4ba6-aa4c-092031f99a7a" alt="logo" /></p>
 
 ## Member
 
