@@ -92,9 +92,9 @@
 ---
 
 ## References or Inspiration
-[UI References](https://www.theconcert.com/)
-[UI Component](https://www.creative-tim.com/twcomponents/components)
-[AI](https://chatgpt.com/)
-[ความรู้เพิ่มเติมนอกห้องเรียน](https://vuejs.org/guide/built-ins/transition)
-[ความรู้เพิ่มเติมนอกห้องเรียน](https://stackoverflow.com/questions/41425889/vue-js-how-to-use-localstorage-with-vue-js)
+- [UI References](https://www.theconcert.com/)
+- [UI Component](https://www.creative-tim.com/twcomponents/components)
+- [AI](https://chatgpt.com/)
+- [ความรู้เพิ่มเติมนอกห้องเรียน](https://vuejs.org/guide/built-ins/transition)
+- [ความรู้เพิ่มเติมนอกห้องเรียน](https://stackoverflow.com/questions/41425889/vue-js-how-to-use-localstorage-with-vue-js)
 
