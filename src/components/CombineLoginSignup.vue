@@ -25,8 +25,30 @@ const closeModal = () => {
     v-if="props.isVisible"
     class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50"
   >
-    <div class="bg-white w-full max-w-md rounded-lg shadow-lg">
-      <div class="p-6">
+    <div class="bg-white w-full max-w-md rounded-lg shadow-lg relative">
+      <!-- ปุ่มกากบาทเพื่อปิด modal -->
+      <button
+        @click="closeModal"
+        class="absolute m-4 top-2 right-2 bg-red-300 text-gray-100 p-1 rounded-full hover:bg-red-400 flex items-center justify-center transition-all duration-300 ease-in-out"
+        style="width: 30px; height: 30px;"
+      >
+        <svg
+          class="w-5 h-5"
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M6 18L18 6M6 6l12 12"
+          />
+        </svg>
+      </button>
+      
+      <div class="p-12">
         <div class="flex justify-between mb-4">
           <button
             @click="toggleModal"

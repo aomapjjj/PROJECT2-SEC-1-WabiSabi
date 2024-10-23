@@ -7,13 +7,18 @@ import ContentHomepage from '../components/ContentHomepage.vue'
 import Navbar from '../components/Navbar.vue'
 import Footer from '../components/Footer.vue'
 import SlidePicture from '../components/SlidePicture.vue'
+import { useUsers } from '@/stores/userStore'
+import Toast from '@/components/Toast.vue'
 
 const baseUrlConcert = `${import.meta.env.VITE_APP_URL_CON}`
 const allItems = ref()
 
+const showSuccessToast = ref(false)
+
 // concert store
 const concertStore = useConcerts()
 const concertInfo = concertStore.getConcert()
+const userStore = useUsers()
 // Search
 const searchConcert = ref('')
 const gridContainer = ref(null)
@@ -22,11 +27,18 @@ onMounted(async () => {
   try {
     const items = await getItems(baseUrlConcert)
     allItems.value = items
-    console.log(concertInfo)
   } catch (error) {
     console.error('Error fetching data:', error)
   }
+
+  if (userStore.getLoginSignup()) {
+    showSuccessToast.value = true
+    setTimeout(() => {
+      showSuccessToast.value = false
+    }, 15000)
+  }
 })
+
 
 // Reset scroll - Search
 const resetScrollPosition = () => {
@@ -125,7 +137,14 @@ watch(filteredItems, () => {
         </div>
       </div>
     </div>
-
+    <div>
+      <Toast :showSuccessToast="showSuccessToast">
+        <template #headerToast>You're all set!</template>
+        <template #messageToast>
+          Enjoy the excitement of concert ticket booking!
+        </template>
+      </Toast>
+    </div>
     <Footer></Footer>
   </div>
 </template>

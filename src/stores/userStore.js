@@ -5,10 +5,32 @@ const useUsers = defineStore('users', () => {
   const user = ref()
   const historiesUser = ref([])
 
+  const isLoginSignup = ref(false)  
+       
+
+  
+  const setLoginSignup = (status) => {
+    isLoginSignup.value = status
+    localStorage.setItem('login', JSON.stringify(isLoginSignup.value))
+  }
+
+  const getLoginSignup = () => {
+    const storedUser = localStorage.getItem('login')
+    if (storedUser) {
+      isLoginSignup.value = JSON.parse(storedUser)
+    }
+    return isLoginSignup.value
+
+  }
+
+  
+
   const setUser = (userItem) => {
     user.value = userItem
     localStorage.setItem('user', JSON.stringify(user.value))
+    console.log('User logged in:', user.value); // ตรวจสอบว่า user ถูกตั้งค่า
   }
+  
 
   const getUser = () => {
     const storedUser = localStorage.getItem('user')
@@ -26,6 +48,7 @@ const useUsers = defineStore('users', () => {
   const deleteUser = () => {
     user.value = null
     localStorage.removeItem('user')
+    
   }
 
   const addNewHistory = (newProduct) => {
@@ -51,7 +74,10 @@ const useUsers = defineStore('users', () => {
     saveEditedUser,
     deleteUser,
     addNewHistory,
-    getHistories
+    getHistories,
+    setLoginSignup,
+    getLoginSignup,
+    
   }
 })
 
