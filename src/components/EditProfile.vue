@@ -3,7 +3,7 @@ import { ref, watch } from 'vue'
 import { useUsers } from '../stores/userStore'
 import { editItem } from '../../libs/fetchUtils'
 import { useRouter } from 'vue-router'
-import SaveModal from './EditAndDeleteModal.vue'
+import ConfirmModal from './ConfirmModal.vue'
 import History from './History.vue'
 import Toast from './Toast.vue'
 
@@ -225,7 +225,7 @@ watch(showContent, (newVal) => {
 
                 <!-- Save Modal -->
                 <Teleport to="body">
-                  <SaveModal
+                  <ConfirmModal
                     :saveModal="openSaveModal"
                     @save="saveUserEdited"
                     @cancel="openSaveModal = false"
@@ -264,7 +264,7 @@ watch(showContent, (newVal) => {
                         >Cancel</span
                       >
                     </template>
-                  </SaveModal>
+                  </ConfirmModal>
                 </Teleport>
               </div>
             </div>
@@ -277,7 +277,6 @@ watch(showContent, (newVal) => {
           <div>
             <Toast :showSuccessToast="showSuccessToast">
               <template #headerToast> Success! </template>
-
               <template #messageToast> Your Profile have been saved. </template>
             </Toast>
           </div>
