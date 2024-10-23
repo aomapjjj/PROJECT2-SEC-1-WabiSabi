@@ -37,7 +37,7 @@ const router = createRouter({
         {
           path: '/homepage/login',
           name: 'hompagelogin',
-          component: HomeView
+          component: HomePage
         }
       ]
     },
