@@ -5,7 +5,9 @@ import { getItems } from '../../libs/fetchUtils'
 const baseUrlconcert = `${import.meta.env.VITE_APP_URL_CON}`
 
 const currentSlide = ref(0)
+
 let slideInterval = null
+
 const imgInitems = ref()
 
 const startSlider = () => {
@@ -78,18 +80,6 @@ onBeforeUnmount(() => {
               </div>
             </div>
           </div>
-        </div>
-        <div class="flex justify-center space-x-2 mt-4">
-          <span
-            v-for="n in totalSlides"
-            :key="n"
-            class="w-3 h-3 rounded-full"
-            :class="{
-              'bg-red-600': currentSlide === n - 1,
-              'bg-gray-400': currentSlide !== n - 1
-            }"
-            @click="changeSlide(n - 1)"
-          ></span>
         </div>
       </div>
     </div>
