@@ -28,6 +28,8 @@ const handleLogin = async () => {
         user.password === userCredentials.password
     )
     if (user) {
+      userStore.setLoginSignup(true)
+      console.log(userStore.getLoginSignup())
       userStore.setUser(user)
       router.push({ name: 'homepage' }).then(() => {
         router.go()
@@ -110,12 +112,16 @@ const handleLogin = async () => {
         </button>
       </div>
 
-      <button
-        @click="handleLogin"
-        class="mt-5 mb-5 bg-yellow-300 text-gray-100 w-full py-4 rounded-lg hover:bg-green-400 flex items-center justify-center transition-all duration-300 ease-in-out"
-      >
-        <span class="ml-3">Login</span>
-      </button>
+      <div class="flex justify-between mt-5 mb-5">
+        <button
+          @click="handleLogin"
+          class="bg-yellow-300 text-gray-100 w-full py-4 rounded-lg hover:bg-green-400 flex items-center justify-center transition-all duration-300 ease-in-out"
+        >
+          <span class="ml-3">Login</span>
+        </button>
+
+        
+      </div>
 
       <p v-if="loginMessage" class="mt-2 text-red-500 text-center">
         {{ loginMessage }}

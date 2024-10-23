@@ -76,6 +76,7 @@ const handleSignUp = async () => {
   try {
     const response = await addItem(usersUrl, newUser)
     if (response && typeof response === 'object') {
+      userStore.setLoginSignup(true)
       userStore.setUser(response)
       signupMessage.value = 'Sign up successful!'
       closeModal()
@@ -183,12 +184,7 @@ const handleSignUp = async () => {
         >
           <span>Sign Up</span>
         </button>
-        <button
-          @click="closeModal"
-          class="bg-gray-400 text-gray-100 w-full py-4 rounded-lg hover:bg-gray-500 flex items-center justify-center transition-all duration-300 ease-in-out"
-        >
-          <span>Close</span>
-        </button>
+        
       </div>
 
       <div v-if="signupMessage" class="mt-2 text-red-500 text-center">
