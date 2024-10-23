@@ -58,11 +58,10 @@ watch(newUserDetail, (newVal) => {
 
 const isFirstNameValid = computed(() => !!newUserDetail.value.firstname)
 const isLastNameValid = computed(() => !!newUserDetail.value.lastname)
-const isTelephoneValid = computed(() => !!newUserDetail.value.telephone)
 const isEmailValid = computed(()=> !!newUserDetail.value.email)
 
 const isFormValid = computed(() => {
-  return isFirstNameValid.value && isLastNameValid.value && isTelephoneValid.value && isEmailValid.value
+  return isFirstNameValid.value && isLastNameValid.value && isEmailValid.value
 })
 
 watch(showContent, (newVal) => {
@@ -133,7 +132,7 @@ watch(showContent, (newVal) => {
           <div v-if="showContent === false" class="col-span-4 sm:col-span-9">
             <div class="w-full bg-white rounded-lg">
               <h2 class="text-2xl text-gray-600 font-bold mb-4 p-2 text-center">
-                &#127813; Edit Your Profile &#127813;
+                &#127813; Edit My Profile &#127813;
               </h2>
             </div>
             <div class="bg-white shadow rounded-lg p-6">

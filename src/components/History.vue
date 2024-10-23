@@ -29,7 +29,7 @@ const sortHistoriesByTitle = () => {
       >
         <div class="flex items-center justify-between">
           <div>
-            <h3 class="text-xl font-semibold text-slate-800">Your Tickets</h3>
+            <h3 class="text-xl font-semibold text-slate-800">My Tickets</h3>
           </div>
         </div>
       </div>
