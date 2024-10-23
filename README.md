@@ -8,7 +8,7 @@
   - Edit user account
   - Store User
   - Router, Navguard
-  - Component -> buy ticket, history payment page
+  - Component -> Buy ticket, My Ticket , Payment page
 
 ### [Peacebluegirl](https://github.com/Peacebluegirl) 65130500052 นางสาวพิมพ์พิชญา แก้วแสง (25%)
   - Add new user -> sign up page
