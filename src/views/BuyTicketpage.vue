@@ -1,15 +1,15 @@
 <script setup>
-import BuyTicketModal from '../components/Buyticketmodal.vue'
 import { ref, onMounted, watch } from 'vue'
 import { getItemById } from '../../libs/fetchUtils'
-import { useRouter, useRoute } from 'vue-router'
+import { useRoute } from 'vue-router'
 import { useUsers } from '../stores/userStore'
+
 import Navbar from '../components/Navbar.vue'
+import BuyTicketModal from '../components/Buyticketmodal.vue'
 
 const userStore = useUsers()
 const userInfo = userStore.getUser()
 const route = useRoute()
-const router = useRouter()
 
 const baseUrlconcert = `${import.meta.env.VITE_APP_URL_CON}`
 const itembyId = ref()
@@ -29,7 +29,7 @@ onMounted(async () => {
     const item = await getItemById(baseUrlconcert, buyticketItemId.value)
     itembyId.value = item
   } catch (error) {
-    console.log('error na')
+    console.log('error')
   }
 })
 

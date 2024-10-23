@@ -1,22 +1,21 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import HomeView from '@/views/HomeView.vue'
+import HomeView from '../views/HomeView.vue'
 import Homepage from '../views/Homepage.vue'
-import DetailTicket from '@/views/DetailTicket.vue'
-import BuyTicketpage from '@/views/BuyTicketpage.vue'
-import Profile from '@/views/Profile.vue'
-import ModalToPay from '@/components/ToPayModal.vue'
-import PageNotFound from '@/components/PageNotFound.vue'
+import DetailTicket from '../views/DetailTicket.vue'
+import BuyTicketPage from '../views/BuyTicketpage.vue'
+import Profile from '../views/Profile.vue'
+import PageNotFound from '../components/PageNotFound.vue'
 
-const getUser = () => localStorage.getItem("user")
+const getUser = () => localStorage.getItem('user')
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
     {
-      path: "/",
-      redirect: { name: "homeview" } 
+      path: '/',
+      redirect: { name: 'homeview' }
     },
-    
+
     {
       path: '/homeview',
       name: 'homeview',
@@ -25,11 +24,11 @@ const router = createRouter({
         {
           path: '/homeview/login',
           name: 'login',
-          component: HomeView 
+          component: HomeView
         }
       ]
     },
-    
+
     {
       path: '/homepage',
       name: 'homepage',
@@ -38,10 +37,9 @@ const router = createRouter({
         {
           path: '/homepage/login',
           name: 'hompagelogin',
-          component: HomeView 
+          component: HomeView
         }
       ]
-
     },
     {
       path: '/detailticket/:ticketId',
@@ -51,7 +49,7 @@ const router = createRouter({
     {
       path: '/buyticket/:buyticketId',
       name: 'buyticket',
-      component: BuyTicketpage
+      component: BuyTicketPage
     },
     {
       path: '/profile',
@@ -62,20 +60,19 @@ const router = createRouter({
         {
           path: 'editprofile/:username',
           name: 'editprofile',
-          component: Profile 
+          component: Profile
         },
         {
           path: 'history/:username',
           name: 'history',
-          component: Profile 
-        },
+          component: Profile
+        }
       ]
     },
     {
       path: '/error404',
       name: 'PageNotFound',
       component: PageNotFound
-
     }
   ]
 })

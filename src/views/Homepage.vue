@@ -1,11 +1,13 @@
 <script setup>
 import { ref, onMounted, computed, watch } from 'vue'
 import { getItems } from '../../libs/fetchUtils'
+import { useConcerts } from '../stores/concertStore'
+
 import ContentHomepage from '../components/ContentHomepage.vue'
 import Navbar from '../components/Navbar.vue'
 import Footer from '../components/Footer.vue'
 import SlidePicture from '../components/SlidePicture.vue'
-import { useConcerts } from "@/stores/concertStore"
+
 const baseUrlConcert = `${import.meta.env.VITE_APP_URL_CON}`
 const allItems = ref()
 

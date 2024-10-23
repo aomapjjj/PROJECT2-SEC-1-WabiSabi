@@ -2,12 +2,11 @@
 import EditProfile from '../components/EditProfile.vue'
 import Navbar from '../components/Navbar.vue'
 import { ref } from 'vue'
-import { useUsers } from '@/stores/userStore'
-import DeleteModal from '@/components/EditAndDeleteModal.vue'
+import { useUsers } from '../stores/userStore'
+import DeleteModal from '../components/EditAndDeleteModal.vue'
 import { deleteItemById } from '../../libs/fetchUtils'
-import { useRouter, useRoute } from 'vue-router'
+import { useRouter } from 'vue-router'
 
-const route = useRoute()
 const router = useRouter()
 
 const userStore = useUsers()

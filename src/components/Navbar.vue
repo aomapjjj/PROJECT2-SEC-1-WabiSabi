@@ -23,7 +23,7 @@ const toggleDropdown = (open) => {
 const toLoginOrSignup = () => {
   if (!userName || userName === undefined) {
     showModalSignup.value = true
-    router.push({name:'hompagelogin'})
+    router.push({ name: 'hompagelogin' })
   }
 }
 </script>
@@ -91,17 +91,19 @@ const toLoginOrSignup = () => {
                 >
               </div>
             </div>
-           
+
             <div
               v-else
               class="w-full space-y-2flex flex-col -ml-1 sm:flex-row lg:space-y-0 md:w-max lg:border-l z-60"
             >
               <div>
-                <div class="relative ml-4 flex-shrink-0 flex items-center" @mouseover="toggleDropdown(true)">
+                <div
+                  class="relative ml-4 flex-shrink-0 flex items-center"
+                  @mouseover="toggleDropdown(true)"
+                >
                   <button
                     type="button"
                     class="relative flex rounded-full text-sm text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2"
-                    
                   >
                     <span class="absolute -inset-1.5"></span>
                     <span class="sr-only"></span>
