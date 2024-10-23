@@ -6,8 +6,9 @@
 
 ### [aomapjjj](https://github.com/aomapjjj) 65130500050 นางสาวพาณิภัค จงศิริวาณิช (25%)
   - Edit user account
+  - Store User
   - Router, Navguard
-  - Component -> buy ticket, history payment page
+  - Component -> Buy ticket, My Ticket , Payment page
 
 ### [Peacebluegirl](https://github.com/Peacebluegirl) 65130500052 นางสาวพิมพ์พิชญา แก้วแสง (25%)
   - Add new user -> sign up page
@@ -45,5 +46,5 @@
 ---
 
 ## References or Inspiration
-
+[UI References](https://www.theconcert.com/)
 

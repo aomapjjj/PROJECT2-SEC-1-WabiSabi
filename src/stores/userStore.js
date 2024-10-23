@@ -28,7 +28,6 @@ const useUsers = defineStore('users', () => {
   const setUser = (userItem) => {
     user.value = userItem
     localStorage.setItem('user', JSON.stringify(user.value))
-    console.log('User logged in:', user.value) 
   }
 
   const getUser = () => {
@@ -63,7 +62,7 @@ const useUsers = defineStore('users', () => {
   }
 
   watch(user, () => {
-    console.log('User state updated:', user.value)
+    
   })
 
   return {

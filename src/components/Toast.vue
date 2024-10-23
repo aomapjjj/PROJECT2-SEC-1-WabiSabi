@@ -9,7 +9,7 @@ defineProps({
   <Transition>
     <div v-if="showSuccessToast">
       <div
-        class="fixed bottom-5 bg-opacity-70 backdrop-blur-md right-5 bg-green-200 border border-pink-500 rounded-lg shadow-lg p-4 transition-all duration-300 ease-in-out transform hover:scale-105 z-100"
+        class="fixed bottom-5 bg-opacity-70 backdrop-blur-md right-5 bg-green-200 border border-green-500 rounded-lg shadow-lg p-4 transition-all duration-300 ease-in-out transform hover:scale-105 z-100"
         role="alert"
       >
         <!-- Tomato SVG -->
@@ -51,11 +51,12 @@ defineProps({
             <svg
               class="h-6 w-6 text-green-500 mr-3"
               xmlns="http://www.w3.org/2000/svg"
-              viewBox="0 0 20 20"
-              fill="currentColor"
+              viewBox="0 0 24 24"
             >
               <path
-                d="M2.93 17.07A10 10 0 1 1 17.07 2.93 10 10 0 0 1 2.93 17.07zm12.73-1.41A8 8 0 1 0 4.34 4.34a8 8 0 0 0 11.32 11.32zM9 11V9h2v6H9v-4zm0-6h2v2H9V5z"
+                fill="currentColor"
+                fill-rule="evenodd"
+                d="M12 22C6.477 22 2 17.523 2 12S6.477 2 12 2s10 4.477 10 10s-4.477 10-10 10m-1.177-7.86l-2.765-2.767L7 12.431l3.119 3.121a1 1 0 0 0 1.414 0l5.952-5.95l-1.062-1.062z"
               />
             </svg>
           </div>
@@ -73,9 +74,7 @@ defineProps({
   </Transition>
 
   <Transition>
-    <div
-      v-if="showFailToast"
-    >
+    <div v-if="showFailToast">
       <div
         class="right-5 bottom-5 fixed bg-red-100 border-t-4 border-red-500 rounded-b text-red-900 px-4 py-3 shadow-md z-100"
         role="alert"
@@ -105,7 +104,6 @@ defineProps({
 </template>
 
 <style scoped>
-
 /* Tomato Styles */
 .tomato {
   position: absolute;
@@ -116,5 +114,4 @@ defineProps({
   display: flex;
   align-items: center;
 }
-
 </style>

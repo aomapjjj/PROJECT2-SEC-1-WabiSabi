@@ -10,7 +10,6 @@ const props = defineProps({
 })
 
 const toDetailticket = (id) => {
-  console.log(id)
   router.push({ name: 'detailticket', params: { ticketId: id } })
 }
 </script>

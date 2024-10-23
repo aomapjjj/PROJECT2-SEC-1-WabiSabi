@@ -1,7 +1,6 @@
 <script setup>
 import { ref, onMounted, computed, watch } from 'vue'
 import { getItems } from '../../libs/fetchUtils'
-import { useConcerts } from '../stores/concertStore'
 import { useUsers } from '../stores/userStore'
 
 import ContentHomepage from '../components/ContentHomepage.vue'
@@ -15,8 +14,6 @@ const allItems = ref()
 
 const showSuccessToast = ref(false)
 
-// concert store
-const concertStore = useConcerts()
 const userStore = useUsers()
 
 // Search
@@ -46,7 +43,6 @@ watch(
   },
   { immediate: true }
 )
-
 
 // Reset scroll - Search
 const resetScrollPosition = () => {
