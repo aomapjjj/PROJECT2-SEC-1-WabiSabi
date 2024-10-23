@@ -11,8 +11,11 @@
   - Component -> Buy ticket, My Ticket , Payment page
 
 ### [Peacebluegirl](https://github.com/Peacebluegirl) 65130500052 นางสาวพิมพ์พิชญา แก้วแสง (25%)
-  - Add new user -> sign up page
-  - Component -> login page
+  - Add new user -> Sign up page
+  - Store Aleart Login Signup
+  - Log in, Log Out
+  - Combine modal Login and Signup
+  - Component -> Homeview, LoginModal, SignupModal, CombineLoginSignup
 
 ### [moodmoon](https://github.com/moodmoon) 65130500056 นางสาวแพรไหม วรรณศิริ (25%)
   - Delete user account
