@@ -3,7 +3,7 @@ import { ref } from 'vue'
 
 const useConcerts = defineStore('concerts', () => {
   const concert = ref()
-  
+
   const setConcert = (concertItem) => {
     concert.value = concertItem
     localStorage.setItem('concert', JSON.stringify(concert.value))
@@ -12,13 +12,13 @@ const useConcerts = defineStore('concerts', () => {
   const getConcert = () => {
     const storedConcert = localStorage.getItem('concert')
     if (storedConcert) {
-        concert.value = JSON.parse(storedConcert)
+      concert.value = JSON.parse(storedConcert)
     }
     return concert.value
   }
 
   const saveNewRemainingTicket = (editedConcert) => {
-    concert.value = {...editedConcert}
+    concert.value = { ...editedConcert }
     setConcert(concert.value)
   }
 

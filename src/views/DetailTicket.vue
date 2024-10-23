@@ -2,7 +2,7 @@
 import { ref, onMounted, watch } from 'vue'
 import { getItemById } from '../../libs/fetchUtils'
 import { useRoute } from 'vue-router'
-import { useConcerts } from "@/stores/concertStore"
+import { useConcerts } from '../stores/concertStore'
 
 import DetailTicketModal from '../components/DetailTicketModal.vue'
 import Navbar from '../components/Navbar.vue'
@@ -15,7 +15,6 @@ const remainingTicket = ref()
 
 // concert store
 const concertStore = useConcerts()
-const concertInfo = concertStore.getConcert()
 
 watch(
   () => route.params.ticketId,
@@ -35,7 +34,7 @@ onMounted(async () => {
     remainingTicket.value = item.remaining_tickets
     console.log(remainingTicket.value)
   } catch (error) {
-    console.log('error na')
+    console.log('error')
   }
 })
 </script>
@@ -61,7 +60,7 @@ onMounted(async () => {
         {{ itembyId?.time }}
       </template>
       <template #location>{{ itembyId?.location }}</template>
-      <template #ticket>{{ itembyId?.remaining_tickets}} Ticket left</template>
+      <template #ticket>{{ itembyId?.remaining_tickets }} Ticket left</template>
       <template #description>{{ itembyId?.description }}</template>
       <template #price>
         {{ itembyId?.price === 0 ? 'Free' : '฿' + itembyId?.price }}</template

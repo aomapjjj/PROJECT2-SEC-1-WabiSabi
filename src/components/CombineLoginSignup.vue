@@ -13,7 +13,6 @@ const isSignUp = ref(false)
 
 const toggleModal = () => {
   isSignUp.value = !isSignUp.value
-  
 }
 
 const closeModal = () => {

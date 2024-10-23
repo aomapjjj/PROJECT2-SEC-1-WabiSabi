@@ -1,15 +1,13 @@
 <script setup>
 defineProps({
   showSuccessToast: Boolean,
-  showFailToast:Boolean
-});
+  showFailToast: Boolean
+})
 </script>
 
 <template>
   <Transition>
-    <div
-      v-if="showSuccessToast"
-    >
+    <div v-if="showSuccessToast">
       <div
         class="right-5 bottom-5 fixed bg-teal-100 border-t-4 border-teal-500 rounded-b text-teal-900 px-4 py-3 shadow-md z-100"
         role="alert"
@@ -37,9 +35,7 @@ defineProps({
     </div>
   </Transition>
   <Transition>
-    <div
-      v-if="showFailToast"
-    >
+    <div v-if="showFailToast">
       <div
         class="right-5 bottom-5 fixed bg-red-100 border-t-4 border-red-500 rounded-b text-red-900 px-4 py-3 shadow-md z-100"
         role="alert"

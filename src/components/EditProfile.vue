@@ -1,13 +1,12 @@
 <script setup>
 import { ref, watch } from 'vue'
-import { useUsers } from '@/stores/userStore'
-import SaveModal from './EditAndDeleteModal.vue'
+import { useUsers } from '../stores/userStore'
 import { editItem } from '../../libs/fetchUtils'
-import { useRouter, useRoute } from 'vue-router'
+import { useRouter } from 'vue-router'
+import SaveModal from './EditAndDeleteModal.vue'
 import History from './History.vue'
 import Toast from './Toast.vue'
 
-const route = useRoute()
 const router = useRouter()
 const showContent = ref(true)
 
@@ -16,18 +15,13 @@ const userInfo = userStore.getUser()
 
 const oldUserDetail = ref({ ...userInfo })
 const openSaveModal = ref(false)
-const openDeleteModal = ref(false)
 const showSuccessToast = ref(false)
+
 const isChanged = ref(false)
+const hasSaved = ref(false)
 
 const newUserDetail = ref({
   ...userInfo
-})
-
-console.log(newUserDetail.value)
-watch(newUserDetail.value, (newVal) => {
-  isChanged.value =
-    JSON.stringify(newVal) !== JSON.stringify(oldUserDetail.value)
 })
 
 const saveUserEdited = async () => {
@@ -39,42 +33,37 @@ const saveUserEdited = async () => {
   userStore.saveEditedUser(editedUserDetail.editedItem)
   openSaveModal.value = false
   if (editedUserDetail.status === 200) {
-    router.push('/profile')
+    router.push({ name: 'editprofile' })
     showSuccessToast.value = true
     setTimeout(() => {
       showSuccessToast.value = false
     }, 2000)
     isChanged.value = false
+    hasSaved.value = true
   }
 }
 
-const deleteUserAccount = async (removeId) => {
-  
-  try {
-    const deleteStatus = await deleteItemById(
-      `${import.meta.env.VITE_APP_URL_USER}`,
-      removeId
-    )
-    if (deleteStatus === 200) {
-      userStore.deleteUser()
-      router.push({name:'homeview'})
-    } else {
-      console.log('Failed to delete user: ', deleteStatus)
-    }
-  } catch (error) {
-    console.error('Error deleting user:', error)
-  }
+const resetEdit = () => {
+  newUserDetail.value = {...oldUserDetail.value}
+  isChanged.value = true
+  hasSaved.value = true
 }
+
+watch(newUserDetail.value, (newVal) => {
+  isChanged.value =
+    JSON.stringify(newVal) !== JSON.stringify(oldUserDetail.value)
+})
 
 watch(showContent, (newVal) => {
   if (newVal) {
-    router.push({ name: 'history' , params:{username:userInfo.username}})
-  }
-  else {
-    router.push({ name: 'editprofile' , params:{username:userInfo.username}})
+    router.push({ name: 'history', params: { username: userInfo.username } })
+  } else {
+    router.push({
+      name: 'editprofile',
+      params: { username: userInfo.username }
+    })
   }
 })
-
 </script>
 
 <template>
@@ -95,12 +84,14 @@ watch(showContent, (newVal) => {
                 >
                   <path
                     fill="#454545"
-                    d="M13.5 8H12v5l4.28 2.54l.72-1.21l-3.5-2.08zM13 3a9 9 0 0 0-9 9H1l3.96 4.03L9 12H6a7 7 0 0 1 7-7a7 7 0 0 1 7 7a7 7 0 0 1-7 7c-1.93 0-3.68-.79-4.94-2.06l-1.42 1.42A8.9 8.9 0 0 0 13 21a9 9 0 0 0 9-9a9 9 0 0 0-9-9"
+                    fill-rule="evenodd"
+                    d="M5 4a3 3 0 0 0-3 3v3a1 1 0 0 0 1 1a1 1 0 0 1 0 2a1 1 0 0 0-1 1v3a3 3 0 0 0 3 3h14a3 3 0 0 0 3-3v-3a1 1 0 0 0-1-1a1 1 0 0 1 0-2a1 1 0 0 0 1-1V7a3 3 0 0 0-3-3zM4 7a1 1 0 0 1 1-1h4v12H5a1 1 0 0 1-1-1v-2.171a3 3 0 0 0 1.121-.708l-.692-.692l.692.692A3 3 0 0 0 4 9.171z"
+                    clip-rule="evenodd"
                   />
                 </svg>
-                <h1>History</h1>
+                <h1>My Tickets</h1>
               </div>
-              
+
               <div class="flex flex-col items-center"></div>
               <hr class="my-6 border-t border-gray-300" />
               <div
@@ -117,7 +108,7 @@ watch(showContent, (newVal) => {
                     d="M12 4a4 4 0 0 1 4 4a4 4 0 0 1-4 4a4 4 0 0 1-4-4a4 4 0 0 1 4-4m0 10c4.42 0 8 1.79 8 4v2H4v-2c0-2.21 3.58-4 8-4"
                   />
                 </svg>
-                <h1>Manage Profile</h1>
+                <h1>Edit Profile</h1>
               </div>
               <hr class="my-6 border-t border-gray-300" />
 
@@ -163,13 +154,13 @@ watch(showContent, (newVal) => {
                   id="sex"
                   class="w-2/6 p-2 rounded-md border border-blue-500 bg-white focus:ring-2 focus:ring-blue-500"
                   v-model="newUserDetail.sex"
-                  placeholder="Fill Your Detail For Buy Ticket"
+                  placeholder=""
                 >
                   <option value="" disabled>Select an option</option>
                   <!-- Optional placeholder option -->
                   <option value="Male">Male</option>
                   <option value="Female">Female</option>
-                  <option value="LGBTQ">LGBTQ+</option>
+                  <option value="LGBTQ">LGBTQIA+</option>
                 </select>
 
                 <label for="address" class="block mb-2 mt-2 font-semibold">
@@ -181,7 +172,7 @@ watch(showContent, (newVal) => {
                   v-model="newUserDetail.address"
                   rows="4"
                   style="resize: none"
-                  placeholder="Fill Your Detail For Buy Ticket"
+                  placeholder=""
                 ></textarea>
 
                 <label for="tel" class="block mb-2 mt-2 font-semibold"
@@ -192,7 +183,7 @@ watch(showContent, (newVal) => {
                   id="tel"
                   class="w-full p-2 rounded-md border border-blue-500 bg-white focus:ring-2 focus:ring-blue-500"
                   v-model="newUserDetail.telephone"
-                  placeholder="Fill Your Detail For Buy Ticket"
+                  placeholder=""
                 />
 
                 <label for="email" class="block mb-2 mt-2 font-semibold"
@@ -208,7 +199,7 @@ watch(showContent, (newVal) => {
                 <div class="flex justify-end">
                   <!-- Save -->
                   <button
-                    class="mt-10 text-white bgGreen hover:bg-green-700 inline-flex items-center rounded-full py-2 px-3 text-l font-medium"
+                    class="mt-10 text-white bgGreen hover:bg-green-700 inline-flex items-center rounded-full py-2 px-6 text-l font-medium"
                     :class="{
                       'cursor-not-allowed bg-gray-500 text-gray-300 opacity-50 hover:bg-gray-500':
                         !isChanged
@@ -217,6 +208,18 @@ watch(showContent, (newVal) => {
                     @click="openSaveModal = true"
                   >
                     Save
+                  </button>
+                  <!-- Reset -->
+                  <button
+                    @click="resetEdit"
+                     :disabled="!isChanged"
+                     :class="{
+                      'cursor-not-allowed bg-gray-500 text-gray-300 opacity-50 hover:bg-gray-500':
+                        !isChanged
+                    }"
+                    class="mt-10 ml-3 text-white bg-gray-400 hover:bg-gray-500 inline-flex items-center rounded-full py-2 px-4 text-l font-medium"
+                  >
+                    Reset
                   </button>
                 </div>
 
