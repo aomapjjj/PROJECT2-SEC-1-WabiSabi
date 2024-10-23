@@ -9,7 +9,7 @@ defineProps({
   <Transition>
     <div v-if="showSuccessToast">
       <div
-        class="fixed bottom-5 bg-opacity-70 backdrop-blur-md right-5 bg-green-200 border border-pink-500 rounded-lg shadow-lg p-4 transition-all duration-300 ease-in-out transform hover:scale-105 z-100"
+        class="fixed bottom-5 bg-opacity-70 backdrop-blur-md right-5 bg-green-200 border border-green-500 rounded-lg shadow-lg p-4 transition-all duration-300 ease-in-out transform hover:scale-105 z-100"
         role="alert"
       >
         <!-- Tomato SVG -->

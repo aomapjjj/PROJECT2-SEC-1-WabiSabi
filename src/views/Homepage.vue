@@ -15,8 +15,7 @@ const allItems = ref()
 
 const showSuccessToast = ref(false)
 
-// concert store
-const concertStore = useConcerts()
+
 const userStore = useUsers()
 
 // Search

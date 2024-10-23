@@ -29,7 +29,7 @@ onMounted(async () => {
     const item = await getItemById(baseUrlconcert, buyticketItemId.value)
     itembyId.value = item
   } catch (error) {
-    console.log('error')
+    console.log('Error to getItemById')
   }
 })
 

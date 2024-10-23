@@ -29,7 +29,6 @@ const handleLogin = async () => {
     )
     if (user) {
       userStore.setLoginSignup(true)
-      console.log(userStore.getLoginSignup())
       userStore.setUser(user)
       router.push({ name: 'homepage' }).then(() => {
         router.go()

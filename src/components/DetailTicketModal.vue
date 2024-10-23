@@ -24,7 +24,6 @@ watch(
 const userStore = useUsers()
 const userInfo = userStore.getUser()
 
-console.log(props.remainTicket)
 
 const toBuyTicketpage = (id) => {
   if (!userInfo || userInfo.id === undefined) {

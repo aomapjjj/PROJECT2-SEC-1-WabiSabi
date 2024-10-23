@@ -24,7 +24,7 @@ watch(
   { immediate: true }
 )
 
-console.log(ticketItemId)
+
 
 onMounted(async () => {
   try {
@@ -32,9 +32,8 @@ onMounted(async () => {
     itembyId.value = item
     concertStore.setConcert(item)
     remainingTicket.value = item.remaining_tickets
-    console.log(remainingTicket.value)
   } catch (error) {
-    console.log('error')
+    console.log('Error to getItemById')
   }
 })
 </script>

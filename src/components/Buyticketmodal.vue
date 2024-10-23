@@ -33,7 +33,7 @@ const remainTicket = ref()
 
 const concertStore = useConcerts()
 const concertInfo = concertStore.getConcert()
-console.log('concertInfo', concertInfo)
+
 const newConcertTicket = ref({
   ...concertInfo
 })
@@ -70,9 +70,8 @@ onMounted(async () => {
     const item = await getItemById(baseUrlconcert, buyticketItemId.value)
     itembyId.value = item
     remainTicket.value = item.remaining_tickets
-    console.log(itembyId.value)
   } catch (error) {
-    console.log('error na')
+    console.log('Error to getItemById')
   }
 })
 
@@ -105,7 +104,7 @@ const addItemToHistory = async () => {
       if (typeof response === 'object') {
         userStore.addNewHistory(response)
       } else {
-        console.log('เกิดปัญหานร้า')
+        console.log('Error to addItem')
       }
     } catch (error) {
       console.error(error)
@@ -119,11 +118,7 @@ const addItemToHistory = async () => {
           ...newConcertTicket.value
         }
       )
-      if (response.status === 200) {
-        console.log('Ticket updated successfully:', response.editedItem)
-      } else {
-        console.log('Failed to update ticket:', response.status)
-      }
+      
     } catch (error) {
       console.error('Error updating ticket:', error)
     }
