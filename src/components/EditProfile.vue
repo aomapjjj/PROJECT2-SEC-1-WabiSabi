@@ -187,13 +187,12 @@ watch(showContent, (newVal) => {
                   style="resize: none"
                   placeholder=""
                 ></textarea>
-                <div class="flex flex-row"><label for="tel" class="block mb-2 mt-2 font-semibold">Telephone <span class="text-red-500 text-sm">{{ isTelephoneValid ? editProfileErrorMessage = "" : editProfileErrorMessage = "*Telephone is require " }}</span></label></div>
-                
+
+                <label for="tel" class="block mb-2 mt-2 font-semibold">Telephone</label>
                 <input
                   type="tel"
                   id="tel"
                   class="w-full p-2 rounded-md border border-blue-500 bg-white focus:ring-2 focus:ring-blue-500"
-                  :class="{'border-red-500': !isTelephoneValid}"
                   v-model="newUserDetail.telephone"
                   placeholder=""
                 />
