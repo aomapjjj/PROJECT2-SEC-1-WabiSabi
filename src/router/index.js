@@ -70,7 +70,7 @@ const router = createRouter({
       ]
     },
     {
-      path: '/error404',
+      path: '/:catchNotMatchPPath(.*)',
       name: 'PageNotFound',
       component: PageNotFound
     }
