@@ -58,7 +58,7 @@ const confirmSignOut = () => {
                 </svg>
 
                 <h3
-                  class="font-semibold ml-2 text-base font-bold leading-6 text-gray-900"
+                  class="font-semibold ml-2 text-base leading-6 text-gray-900"
                   id="modal-title"
                 >
                   Log Out

@@ -1,5 +1,5 @@
 <script setup>
-import { ref, watch } from 'vue'
+import { ref, watch, computed } from 'vue'
 import { useUsers } from '../stores/userStore'
 import { editItem } from '../../libs/fetchUtils'
 import { useRouter } from 'vue-router'
@@ -24,6 +24,8 @@ const newUserDetail = ref({
   ...userInfo
 })
 
+const editProfileErrorMessage = ref("")
+
 const saveUserEdited = async () => {
   const editedUserDetail = await editItem(
     `${import.meta.env.VITE_APP_URL_USER}`,
@@ -45,13 +47,22 @@ const saveUserEdited = async () => {
 
 const resetEdit = () => {
   newUserDetail.value = {...oldUserDetail.value}
-  isChanged.value = true
+  isChanged.value = false
   hasSaved.value = true
 }
 
-watch(newUserDetail.value, (newVal) => {
+watch(newUserDetail, (newVal) => {
   isChanged.value =
     JSON.stringify(newVal) !== JSON.stringify(oldUserDetail.value)
+}, { deep: true })
+
+const isFirstNameValid = computed(() => !!newUserDetail.value.firstname)
+const isLastNameValid = computed(() => !!newUserDetail.value.lastname)
+const isTelephoneValid = computed(() => !!newUserDetail.value.telephone)
+const isEmailValid = computed(()=> !!newUserDetail.value.email)
+
+const isFormValid = computed(() => {
+  return isFirstNameValid.value && isLastNameValid.value && isTelephoneValid.value && isEmailValid.value
 })
 
 watch(showContent, (newVal) => {
@@ -128,22 +139,24 @@ watch(showContent, (newVal) => {
             <div class="bg-white shadow rounded-lg p-6">
               <div class="relative z-0 mb-6 w-full group">
                 <label for="firstname" class="block mb-2 font-semibold"
-                  >Firstname</label
+                  >Firstname <span class="text-red-500 text-sm">{{ isFirstNameValid ? editProfileErrorMessage = "" : editProfileErrorMessage = "*Firstname is require " }}</span></label
                 >
                 <input
                   type="text"
                   id="firstname"
                   class="w-full p-2 rounded-md border border-blue-500 bg-white focus:ring-2 focus:ring-blue-500"
+                  :class="{'border-red-500': !isFirstNameValid}"
                   v-model="newUserDetail.firstname"
                 />
 
                 <label for="lastname" class="block mb-2 mt-2 font-semibold"
-                  >Lastname</label
+                  >Lastname <span class="text-red-500 text-sm">{{ isLastNameValid ? editProfileErrorMessage = "" : editProfileErrorMessage = "*Lastname is require " }}</span></label
                 >
                 <input
                   type="text"
                   id="lastname"
                   class="w-full p-2 rounded-md border border-blue-500 bg-white focus:ring-2 focus:ring-blue-500"
+                  :class="{'border-red-500': !isLastNameValid}"
                   v-model="newUserDetail.lastname"
                 />
 
@@ -174,25 +187,23 @@ watch(showContent, (newVal) => {
                   style="resize: none"
                   placeholder=""
                 ></textarea>
-
-                <label for="tel" class="block mb-2 mt-2 font-semibold"
-                  >Telephone</label
-                >
+                <div class="flex flex-row"><label for="tel" class="block mb-2 mt-2 font-semibold">Telephone <span class="text-red-500 text-sm">{{ isTelephoneValid ? editProfileErrorMessage = "" : editProfileErrorMessage = "*Telephone is require " }}</span></label></div>
+                
                 <input
                   type="tel"
                   id="tel"
                   class="w-full p-2 rounded-md border border-blue-500 bg-white focus:ring-2 focus:ring-blue-500"
+                  :class="{'border-red-500': !isTelephoneValid}"
                   v-model="newUserDetail.telephone"
                   placeholder=""
                 />
 
-                <label for="email" class="block mb-2 mt-2 font-semibold"
-                  >Email</label
-                >
+                <label for="email" class="block mb-2 mt-2 font-semibold">Email <span class="text-red-500 text-sm">{{ isEmailValid ? editProfileErrorMessage = "" : editProfileErrorMessage = "*Email is require " }}</span></label>
                 <input
                   type="email"
                   id="email"
                   class="w-full p-2 rounded-md border border-blue-500 bg-white focus:ring-2 focus:ring-blue-500"
+                  :class="{'border-red-500': !isEmailValid}"
                   v-model="newUserDetail.email"
                 />
 
@@ -202,9 +213,9 @@ watch(showContent, (newVal) => {
                     class="mt-10 text-white bgGreen hover:bg-green-700 inline-flex items-center rounded-full py-2 px-6 text-l font-medium"
                     :class="{
                       'cursor-not-allowed bg-gray-500 text-gray-300 opacity-50 hover:bg-gray-500':
-                        !isChanged
+                        !isChanged || !isFormValid
                     }"
-                    :disabled="!isChanged"
+                    :disabled="isChanged === false || !isFormValid"
                     @click="openSaveModal = true"
                   >
                     Save
