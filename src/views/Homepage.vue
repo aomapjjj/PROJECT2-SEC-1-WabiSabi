@@ -2,13 +2,13 @@
 import { ref, onMounted, computed, watch } from 'vue'
 import { getItems } from '../../libs/fetchUtils'
 import { useConcerts } from '../stores/concertStore'
+import { useUsers } from '../stores/userStore'
 
 import ContentHomepage from '../components/ContentHomepage.vue'
 import Navbar from '../components/Navbar.vue'
 import Footer from '../components/Footer.vue'
 import SlidePicture from '../components/SlidePicture.vue'
-import { useUsers } from '@/stores/userStore'
-import Toast from '@/components/Toast.vue'
+import Toast from '../components/Toast.vue'
 
 const baseUrlConcert = `${import.meta.env.VITE_APP_URL_CON}`
 const allItems = ref()
@@ -17,12 +17,13 @@ const showSuccessToast = ref(false)
 
 // concert store
 const concertStore = useConcerts()
-const concertInfo = concertStore.getConcert()
 const userStore = useUsers()
+
 // Search
 const searchConcert = ref('')
 const gridContainer = ref(null)
 
+// Fetch data on mount
 onMounted(async () => {
   try {
     const items = await getItems(baseUrlConcert)
@@ -30,14 +31,21 @@ onMounted(async () => {
   } catch (error) {
     console.error('Error fetching data:', error)
   }
-
-  if (userStore.getLoginSignup()) {
-    showSuccessToast.value = true
-    setTimeout(() => {
-      showSuccessToast.value = false
-    }, 15000)
-  }
 })
+
+watch(
+  () => userStore.getLoginSignup(),
+  (isLoggedIn) => {
+    if (isLoggedIn && !userStore.hasShownToast) {
+      showSuccessToast.value = true
+      userStore.hasShownToast = true // ป้องกัน Toast แสดงซ้ำ
+      setTimeout(() => {
+        showSuccessToast.value = false
+      }, 3000)
+    }
+  },
+  { immediate: true }
+)
 
 
 // Reset scroll - Search
@@ -47,6 +55,7 @@ const resetScrollPosition = () => {
   }
 }
 
+// Filter concerts based on search input
 const filteredItems = computed(() => {
   if (!searchConcert.value) return allItems.value
   return allItems.value.filter((item) =>

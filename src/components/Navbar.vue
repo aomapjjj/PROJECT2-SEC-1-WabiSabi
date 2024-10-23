@@ -2,7 +2,7 @@
 import { ref } from 'vue'
 import { useUsers } from '../stores/userStore'
 import { useRouter } from 'vue-router'
-import LogoutModal from './LogoutModal.vue'
+import ConfirmModal from './ConfirmModal.vue'
 import CombineLoginSignup from './CombineLoginSignup.vue'
 const router = useRouter()
 const userStore = useUsers()
@@ -25,6 +25,14 @@ const toLoginOrSignup = () => {
     showModalSignup.value = true
     router.push({ name: 'hompagelogin' })
   }
+}
+
+const confirmSignOut = () => {
+  userStore.deleteUser()
+  localStorage.removeItem('user')
+  localStorage.removeItem('login')
+  localStorage.removeItem('historiesUser')
+  router.push({ name: 'homeview' })
 }
 </script>
 
@@ -162,7 +170,46 @@ const toLoginOrSignup = () => {
         </div>
       </div>
     </nav>
-    <LogoutModal v-if="isLogoutModalOpen" @close="isLogoutModalOpen = false" />
+
+    <ConfirmModal
+      :saveModal="isLogoutModalOpen"
+      @save="confirmSignOut()"
+      @cancel="isLogoutModalOpen = false"
+    >
+      <template #svg>
+        <div
+          class="mx-auto flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-full bg-red-100 sm:mx-0 sm:h-10 sm:w-10"
+        >
+
+          <svg
+          class="h-5 w-5 text-red-600"
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 24 24"
+          >
+            <path
+              fill="currentColor"
+              d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2m-6 9c-1.1 0-2-.9-2-2s.9-2 2-2s2 .9 2 2s-.9 2-2 2m3.1-9H8.9V6c0-1.71 1.39-3.1 3.1-3.1s3.1 1.39 3.1 3.1z"
+            />
+          </svg>
+        </div>
+      </template>
+      <template #headerMessage> Confirm Log Out </template>
+      <template #message>
+        <p class="text-sm text-gray-500">Are you sure you want to log out?</p>
+      </template>
+      <template #saveAndDeleteBtn>
+        <span
+          class="inline-flex w-full justify-center rounded-md bgRed px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-red-500 sm:ml-3 sm:w-auto"
+          >Log out</span
+        >
+      </template>
+      <template #cancelBtn>
+        <span
+          class="mt-3 inline-flex w-full justify-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 sm:mt-0 sm:w-auto"
+          >Cancel</span
+        >
+      </template>
+    </ConfirmModal>
 
     <CombineLoginSignup
       :isVisible="showModalSignup"
@@ -190,5 +237,12 @@ const toLoginOrSignup = () => {
 }
 .bgGreen:hover {
   background-color: #06b256;
+}
+.bgRed {
+  background-color: #ff3434;
+  transition: background-color 0.3s ease-in-out;
+}
+.bgRed:hover {
+  background-color: #ff0000;
 }
 </style>

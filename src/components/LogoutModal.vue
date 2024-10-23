@@ -1,4 +1,4 @@
-<script setup>
+<!-- <script setup>
 import { useRouter } from 'vue-router'
 import { useUsers } from '../stores/userStore'
 
@@ -92,4 +92,4 @@ const confirmSignOut = () => {
   </div>
 </template>
 
-<style scoped></style>
+<style scoped></style> -->

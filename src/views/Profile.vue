@@ -3,7 +3,7 @@ import EditProfile from '../components/EditProfile.vue'
 import Navbar from '../components/Navbar.vue'
 import { ref } from 'vue'
 import { useUsers } from '../stores/userStore'
-import DeleteModal from '../components/EditAndDeleteModal.vue'
+import ConfirmModal from '../components/ConfirmModal.vue'
 import { deleteItemById } from '../../libs/fetchUtils'
 import { useRouter } from 'vue-router'
 
@@ -58,7 +58,7 @@ const deleteUserAccount = async (removeId) => {
 
     <!-- Delete Modal -->
     <Teleport to="body">
-      <DeleteModal
+      <ConfirmModal
         :saveModal="openDeleteModal"
         @save="deleteUserAccount(userInfo.id)"
         @cancel="openDeleteModal = false"
@@ -103,7 +103,7 @@ const deleteUserAccount = async (removeId) => {
             >Cancel</span
           >
         </template>
-      </DeleteModal>
+      </ConfirmModal>
     </Teleport>
   </div>
 </template>

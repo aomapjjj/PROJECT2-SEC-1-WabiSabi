@@ -26,11 +26,9 @@ const closeModal = () => {
     class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50"
   >
     <div class="bg-white w-full max-w-md rounded-lg shadow-lg relative">
-      <!-- ปุ่มกากบาทเพื่อปิด modal -->
       <button
         @click="closeModal"
-        class="absolute m-4 top-2 right-2 bg-red-300 text-gray-100 p-1 rounded-full hover:bg-red-400 flex items-center justify-center transition-all duration-300 ease-in-out"
-        style="width: 30px; height: 30px;"
+        class="absolute top-4 right-4 text-black flex items-center justify-center transition-all duration-300 ease-in-out"
       >
         <svg
           class="w-5 h-5"
@@ -47,8 +45,8 @@ const closeModal = () => {
           />
         </svg>
       </button>
-      
-      <div class="p-12">
+
+      <div class="p-10">
         <div class="flex justify-between mb-4">
           <button
             @click="toggleModal"
