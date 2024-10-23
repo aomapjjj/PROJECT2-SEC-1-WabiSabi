@@ -11,8 +11,6 @@ const props = defineProps({
   isVisible: Boolean
 })
 
-  
-
 const username = ref('')
 const password = ref('')
 const loginMessage = ref('')
@@ -31,8 +29,8 @@ const handleLogin = async () => {
     )
     if (user) {
       userStore.setUser(user)
-      router.push({ name: "homepage" }).then(() => {
-       router.go()
+      router.push({ name: 'homepage' }).then(() => {
+        router.go()
       })
     } else {
       loginMessage.value = 'Invalid username or password'

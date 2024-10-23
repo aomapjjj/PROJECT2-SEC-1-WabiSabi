@@ -1,5 +1,5 @@
 <script setup>
-import { ref, computed } from 'vue'
+import { ref } from 'vue'
 import { useUsers } from '../stores/userStore'
 
 const userStore = useUsers()
@@ -22,14 +22,14 @@ const sortHistoriesByTitle = () => {
 <template>
   <div class="mx-auto">
     <div
-      class="flex flex-col w-full h-full text-slate-700 bg-white shadow-md rounded-xl bg-clip-border "
+      class="flex flex-col w-full h-full text-slate-700 bg-white shadow-md rounded-xl bg-clip-border"
     >
       <div
-        class="relative mx-4 mt-4 mb-4  text-slate-700  rounded-none bg-clip-border"
+        class="relative mx-4 mt-4 mb-4 text-slate-700 rounded-none bg-clip-border"
       >
         <div class="flex items-center justify-between">
           <div>
-            <h3 class="text-xl font-semibold text-slate-800">History List</h3>
+            <h3 class="text-xl font-semibold text-slate-800">Your Tickets</h3>
           </div>
         </div>
       </div>
@@ -118,7 +118,7 @@ const sortHistoriesByTitle = () => {
                   class="inline-block relative object-center w-12 h-12 rounded-lg border border-blue-gray-50 bg-blue-gray-50/50 object-contain p-1"
                 />
                 <p
-                  class="block antialiased  text-sm leading-normal text-blue-gray-900 font-bold"
+                  class="block antialiased text-sm leading-normal text-blue-gray-900 font-bold"
                 >
                   {{ history?.title }}
                 </p>

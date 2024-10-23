@@ -1,49 +1,38 @@
 <script setup>
-
 import { ref, watch } from 'vue'
 import { useRouter, useRoute } from 'vue-router'
 import { useUsers } from '../stores/userStore'
-import CombineLoginSignup from './CombineLoginSignup.vue';
+import CombineLoginSignup from './CombineLoginSignup.vue'
 
 const props = defineProps({
-  remainTicket: Number,
-});
+  remainTicket: Number
+})
 
-const route = useRoute();
-const router = useRouter();
+const route = useRoute()
+const router = useRouter()
 
-const ticketItemId = ref("");
-const showModalSignup = ref(false);
+const ticketItemId = ref('')
+const showModalSignup = ref(false)
 
 watch(
   () => route.params.ticketId,
   (newId) => {
-    ticketItemId.value = newId;
+    ticketItemId.value = newId
   },
   { immediate: true }
-);
-const userStore = useUsers();
-const userInfo = userStore.getUser();
+)
+const userStore = useUsers()
+const userInfo = userStore.getUser()
 
-console.log(props.remainTicket);
+console.log(props.remainTicket)
 
 const toBuyTicketpage = (id) => {
   if (!userInfo || userInfo.id === undefined) {
-    showModalSignup.value = true;
+    showModalSignup.value = true
   } else {
-    router.push({ name: "buyticket", params: { buyticketId: id } });
+    router.push({ name: 'buyticket', params: { buyticketId: id } })
   }
-};
-
-// const ticketsLeft = ref(2)
-
-// const checkTickets = () => {
-//   if (ticketsLeft.value === 0) {
-//     return 'Sold Out'
-//   } else {
-//     return `Tickets Left: ${ticketsLeft.value}`
-//   }
-// }
+}
 </script>
 
 <template>
@@ -177,10 +166,10 @@ const toBuyTicketpage = (id) => {
                   class="bgRed text-white font-bold py-2 px-6 rounded-full hover:bg-gray-400"
                   :class="{
                     'cursor-not-allowed bg-gray-500 text-gray-300 opacity-50 hover:bg-gray-500':
-                      props.remainTicket === 0,
+                      props.remainTicket === 0
                   }"
                 >
-                  {{ props.remainTicket === 0 ? "Sold Out!" : "Buy Ticket" }}
+                  {{ props.remainTicket === 0 ? 'Sold Out!' : 'Buy Ticket' }}
                 </button>
               </div>
             </div>
@@ -189,9 +178,11 @@ const toBuyTicketpage = (id) => {
       </div>
     </div>
   </div>
-  
-<CombineLoginSignup :isVisible="showModalSignup" @close="showModalSignup = false" />
 
+  <CombineLoginSignup
+    :isVisible="showModalSignup"
+    @close="showModalSignup = false"
+  />
 </template>
 
 <style scoped>

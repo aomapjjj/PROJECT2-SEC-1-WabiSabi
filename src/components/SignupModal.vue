@@ -23,7 +23,7 @@ const usersUrl = `${import.meta.env.VITE_APP_URL_USER}`
 const showPassword = ref(false)
 
 const closeModal = () => {
-  emit('close') 
+  emit('close')
 }
 
 const handleSignUp = async () => {
@@ -50,7 +50,6 @@ const handleSignUp = async () => {
     return
   }
 
-
   try {
     const users = await getItems(usersUrl)
     const isUsernameTaken = users.some(
@@ -66,7 +65,6 @@ const handleSignUp = async () => {
     return
   }
 
-  
   const newUser = {
     email: email.value,
     password: password.value,
@@ -75,18 +73,17 @@ const handleSignUp = async () => {
     lastname: lastname.value
   }
 
- 
   try {
     const response = await addItem(usersUrl, newUser)
     if (response && typeof response === 'object') {
       userStore.setUser(response)
       signupMessage.value = 'Sign up successful!'
-      closeModal() 
-      router.push({ name: "homepage" }).then(() => {
-       router.go()
+      closeModal()
+      router.push({ name: 'homepage' }).then(() => {
+        router.go()
       })
     } else {
-      signupMessage.value = response.message || 'Sign up failed.' 
+      signupMessage.value = response.message || 'Sign up failed.'
     }
   } catch (error) {
     signupMessage.value = 'An error occurred during sign up.'
@@ -201,6 +198,4 @@ const handleSignUp = async () => {
   </div>
 </template>
 
-<style scoped>
-
-</style>
+<style scoped></style>
