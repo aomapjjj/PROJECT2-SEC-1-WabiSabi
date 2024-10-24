@@ -47,7 +47,7 @@ const confirmSignOut = () => {
         >
           <!-- Logo -->
           <div class="w-full items-center flex justify-between lg:w-auto">
-            <router-link to="/homepage">
+            <router-link :to="{name: 'homepage'}">
               <img class="h-9 w-auto" src="/img/logo.png" alt="Logo" />
             </router-link>
             <label

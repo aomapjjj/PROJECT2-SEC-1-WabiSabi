@@ -25,7 +25,7 @@ const closeSignupLoginModal = () => {
 
     <nav>
       <ul class="flex pt-1.5 text-md lg:pt-0 lg:text-lg">
-        <router-link to="/homepage">
+        <router-link :to="{name: 'homepage'}">
           <li class="lg:px-4">
             <button class="p-3 text-green-400 font-semibold">Home</button>
           </li>

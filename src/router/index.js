@@ -70,7 +70,7 @@ const router = createRouter({
       ]
     },
     {
-      path: '/:catchNotMatchPPath(.*)',
+      path: '/:catchNotMatchPath(.*)',
       name: 'PageNotFound',
       component: PageNotFound
     }
